@@ -1,0 +1,397 @@
+//
+//  HomeViewController.swift
+//  AdoptMe
+//
+//  Created by Quoc Thuan Truong on 12/8/20.
+//
+
+import UIKit
+import Firebase
+import MaterialComponents
+import BottomPopUpView
+import CollectionViewWaterfallLayout
+import RangeSeekSlider
+
+class HomeViewController: UIViewController {
+    // MARK: Outlets
+    @IBOutlet weak var searchTextField: MDCOutlinedTextField!
+    @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var notificationOutlets: UIButton!
+    
+    var bottomPopUpView: BottomPopUpView!
+    var sortPickerView: UIPickerView!
+    var genderPickerView: UIPickerView!
+    
+    let sortPickerViewDelegate = SortPickerViewDelegate()
+    let genderPickerViewDelegate = GenderPickerViewDelegate()
+    
+    var ageRangeSlider: RangeSeekSlider!
+   
+    
+    @IBOutlet weak var allButton: UIButton!
+    @IBOutlet weak var dogsButton: UIButton!
+    @IBOutlet weak var catsButton: UIButton!
+    @IBOutlet weak var othersButton: UIButton!
+    
+    @IBOutlet weak var allUIView: HalfRoundedUIView!
+    @IBOutlet weak var dogsUIView: HalfRoundedUIView!
+    @IBOutlet weak var catsUIView: HalfRoundedUIView!
+    @IBOutlet weak var othersUIView: HalfRoundedUIView!
+    
+    @IBOutlet weak var allIconButton: UIButton!
+    @IBOutlet weak var dogsIconButton: UIButton!
+    @IBOutlet weak var catsIconButton: UIButton!
+    @IBOutlet weak var othersIconButton: UIButton!
+    
+    @IBOutlet weak var allLabel: UILabel!
+    @IBOutlet weak var dogsLabel: UILabel!
+    @IBOutlet weak var catsLabel: UILabel!
+    @IBOutlet weak var othersLabel: UILabel!
+    
+    @IBOutlet weak var listPetCollectionView: UICollectionView!
+    
+    var tabHeaderUIView : [HalfRoundedUIView] = []
+    var tabButtons: [UIButton] = []
+    var tabIconButtons: [UIButton] = []
+    var tabLabels: [UILabel] = []
+    let tabIconNormalImages: [String] = ["ic-white-all-pet", "ic-white-dog", "ic-white-cat", "ic-white-others"]
+    let tabIconSelectedImages: [String] = ["ic-blue-all-pet", "ic-blue-dog", "ic-blue-cat", "ic-blue-others"]
+    
+    lazy var cellSizes: [CGSize] = {
+        
+        var cellSizes = [CGSize]()
+           
+        for _ in 0...10 {
+            let random = Int(arc4random_uniform((UInt32(100))))
+               
+            cellSizes.append(CGSize(width: 157, height: 157 + random))
+        }
+           
+           return cellSizes
+       }()		
+    
+    //for test
+    @IBOutlet weak var logoutButton: UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        initView()
+    }
+    
+    func initView() {
+        tabHeaderUIView = [allUIView, dogsUIView, catsUIView, othersUIView]
+        tabButtons = [allButton, dogsButton, catsButton, othersButton]
+        tabIconButtons = [allIconButton, dogsIconButton, catsIconButton, othersIconButton]
+        tabLabels = [allLabel, dogsLabel, catsLabel, othersLabel]
+        
+        for i in 0..<tabHeaderUIView.count {
+            tabHeaderUIView[i].halfCornerRadius = 8.0
+            tabHeaderUIView[i].backgroundColor = UIColor(named: "AppPrimaryColor")
+        }
+        
+        searchTextField.setOutlineColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0), for: .normal)
+        searchTextField.setOutlineColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0), for: .editing)
+        searchTextField.leadingViewMode = .always
+        searchTextField.clearButtonMode = .whileEditing
+        searchTextField.leadingView = UIImageView(image: UIImage(named: "ic-blue-search"))
+       
+        //set selected tab
+        setTabSelected(0)
+        
+        
+        //init collection view
+        let layout = CollectionViewWaterfallLayout()
+        
+        layout.columnCount = 2
+        layout.sectionInset = UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
+        layout.minimumColumnSpacing = 18
+        layout.minimumInteritemSpacing = 18
+        
+        listPetCollectionView.collectionViewLayout = layout
+        
+        
+        sortPickerView = UIPickerView()
+        sortPickerView.dataSource = sortPickerViewDelegate
+        sortPickerView.delegate = sortPickerViewDelegate
+        
+        genderPickerView = UIPickerView()
+        genderPickerView.dataSource = genderPickerViewDelegate
+        genderPickerView.delegate = genderPickerViewDelegate
+        
+        ageRangeSlider = RangeSeekSlider()
+        ageRangeSlider.delegate = self
+        ageRangeSlider.lineHeight = 1.5
+        ageRangeSlider.tintColor = .gray
+        ageRangeSlider.colorBetweenHandles = UIColor(named: "AccentColor")
+        ageRangeSlider.handleColor = UIColor(named: "AccentColor")
+        ageRangeSlider.minLabelFont = UIFont(name: "Helvetica Neue Medium", size: 14.0)!
+        ageRangeSlider.minLabelColor = UIColor(named: "AccentColor")
+        ageRangeSlider.maxLabelFont = UIFont(name: "Helvetica Neue Medium", size: 14.0)!
+        ageRangeSlider.maxLabelColor = UIColor(named: "AccentColor")
+        ageRangeSlider.minValue = 1
+        ageRangeSlider.maxValue = 15
+        
+    }
+    
+    func setTabSelected(_ index: Int) {
+        for i in 0..<tabHeaderUIView.count {
+            tabHeaderUIView[i].halfCornerRadius = 8.0
+            tabHeaderUIView[i].backgroundColor = UIColor(named: "AppPrimaryColor")
+            
+            tabIconButtons[i].setImage(UIImage(named: tabIconNormalImages[i]), for: .normal)
+            tabLabels[i].textColor = .white
+        }
+        
+        tabHeaderUIView[index].backgroundColor = .white
+        tabIconButtons[index].setImage(UIImage(named: tabIconSelectedImages[index]), for: .normal)
+        tabLabels[index].textColor = UIColor(named: "AppSecondaryColor")
+
+    }
+    
+    @objc func addToFavorite(_ sender: Any) {
+        let favButton = sender as? UIButton
+        
+        favButton?.setImage(UIImage(named: "ic-sm-red-fav"), for: .normal)
+        
+        print(favButton!.tag)
+    }
+    
+    @IBAction func filterAct(_ sender: Any) {
+        bottomPopUpView = BottomPopUpView(wrapperContentHeight: 538)
+        
+        let title = UILabel()
+        let sortLabel = UILabel()
+        let genderLabel = UILabel()
+        let ageLabel = UILabel()
+        let doneButton = MDCButton()
+        let cancelButton = UIButton()
+        
+        title.text = "Search filter"
+        title.font = UIFont(name: "Helvetica Neue Medium", size: 20.0)
+        title.textColor = UIColor(named: "AppTextColor")
+        
+        sortLabel.text = "Sort by:"
+        sortLabel.font = UIFont(name: "Helvetica Neue Regular", size: 17.0)
+        sortLabel.textColor = UIColor(named: "AppTextColor")
+        
+        genderLabel.text = "Gender:"
+        genderLabel.font = UIFont(name: "Helvetica Neue Regular", size: 17.0)
+        genderLabel.textColor = UIColor(named: "AppTextColor")
+        
+        ageLabel.text = "Age:"
+        ageLabel.font = UIFont(name: "Helvetica Neue Regular", size: 17.0)
+        ageLabel.textColor = UIColor(named: "AppTextColor")
+        
+        doneButton.setTitle("DONE", for: .normal)
+        doneButton.setTitleColor(.white, for: .normal)
+        doneButton.setTitleFont(UIFont(name: "Helvetica Neue", size: 17.0), for: .normal)
+        doneButton.layer.cornerRadius = 5.0
+        doneButton.backgroundColor = UIColor(named: "AppRedColor")
+        doneButton.addTarget(self, action: #selector(filterDoneAct(_:)), for: .touchUpInside)
+        
+        cancelButton.setTitle("CANCEL", for: .normal)
+        cancelButton.setTitleColor(UIColor(named: "AppRedColor"), for: .normal)
+        cancelButton.backgroundColor = .white
+        cancelButton.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 17.0)
+        cancelButton.layer.cornerRadius = 5.0
+        cancelButton.layer.borderWidth = 1
+        cancelButton.layer.borderColor = UIColor(named: "AppRedColor")?.cgColor
+        cancelButton.addTarget(self, action: #selector(dissmissFilterViewAct(_:)), for: .touchUpInside)
+        
+        sortPickerView.backgroundColor = .white
+        genderPickerView.backgroundColor = .white
+        
+        sortPickerView.translatesAutoresizingMaskIntoConstraints = false
+        genderPickerView.translatesAutoresizingMaskIntoConstraints = false
+        ageRangeSlider.translatesAutoresizingMaskIntoConstraints = false
+        title.translatesAutoresizingMaskIntoConstraints = false
+        sortLabel.translatesAutoresizingMaskIntoConstraints = false
+        genderLabel.translatesAutoresizingMaskIntoConstraints = false
+        ageLabel.translatesAutoresizingMaskIntoConstraints = false
+        doneButton.translatesAutoresizingMaskIntoConstraints  = false
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        bottomPopUpView.shouldDismissOnDrag = true
+        bottomPopUpView.view.addSubview(sortPickerView)
+        bottomPopUpView.view.addSubview(genderPickerView)
+        bottomPopUpView.view.addSubview(ageRangeSlider)
+        bottomPopUpView.view.addSubview(title)
+        bottomPopUpView.view.addSubview(sortLabel)
+        bottomPopUpView.view.addSubview(genderLabel)
+        bottomPopUpView.view.addSubview(ageLabel)
+        bottomPopUpView.view.addSubview(doneButton)
+        bottomPopUpView.view.addSubview(cancelButton)
+           
+        let cancelBtnWC = NSLayoutConstraint(item: cancelButton, attribute: .width, relatedBy: .equal,
+                                           toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 160)
+        let cancelBtnHC = NSLayoutConstraint(item: cancelButton, attribute: .height, relatedBy: .equal,
+                                           toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 44)
+        let cancelBtnX = NSLayoutConstraint(item: cancelButton, attribute: .trailing, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .centerX, multiplier: 1, constant: -20)
+        let cancelBtnY = NSLayoutConstraint(item: cancelButton, attribute: .bottom, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .bottom, multiplier: 1, constant: -36)
+        
+        let doneBtnWC = NSLayoutConstraint(item: doneButton, attribute: .width, relatedBy: .equal,
+                                           toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 160)
+        let doneBtnHC = NSLayoutConstraint(item: doneButton, attribute: .height, relatedBy: .equal,
+                                           toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 44)
+        let doneBtnX = NSLayoutConstraint(item: doneButton, attribute: .leading, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .centerX, multiplier: 1, constant: 20)
+        let doneBtnY = NSLayoutConstraint(item: doneButton, attribute: .bottom, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .bottom, multiplier: 1, constant: -36)
+        
+        //sort picker
+        let sortPickerHC = NSLayoutConstraint(item: sortPickerView!, attribute: .height, relatedBy: .equal,
+                                                  toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100)
+
+        let sortPickerXL = NSLayoutConstraint(item: sortPickerView!, attribute: .leading, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .leading, multiplier: 1, constant: 18)
+        
+        let sortPickerXT = NSLayoutConstraint(item: sortPickerView!, attribute: .trailing, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .trailing, multiplier: 1, constant: -18)
+        
+        let sortPickerY = NSLayoutConstraint(item: sortPickerView!, attribute: .bottom, relatedBy: .equal, toItem: genderLabel, attribute: .top, multiplier: 1, constant: -8)
+        
+        let sortLabelX = NSLayoutConstraint(item: sortLabel, attribute: .leading, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .leading, multiplier: 1, constant: 20)
+        
+        let sortLabelY = NSLayoutConstraint(item: sortLabel, attribute: .bottom, relatedBy: .equal, toItem: sortPickerView!, attribute: .top, multiplier: 1, constant: 14)
+        
+        //gender picker
+        let genderPickerHC = NSLayoutConstraint(item: genderPickerView!, attribute: .height, relatedBy: .equal,
+                                                  toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100)
+
+        let genderPickerXL = NSLayoutConstraint(item: genderPickerView!, attribute: .leading, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .leading, multiplier: 1, constant: 18)
+        
+        let genderPickerXT = NSLayoutConstraint(item: genderPickerView!, attribute: .trailing, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .trailing, multiplier: 1, constant: -18)
+        
+        let genderPickerY = NSLayoutConstraint(item: genderPickerView!, attribute: .bottom, relatedBy: .equal, toItem: ageLabel, attribute: .top, multiplier: 1, constant: -6)
+        
+        let genderLabelX = NSLayoutConstraint(item: genderLabel, attribute: .leading, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .leading, multiplier: 1, constant: 20)
+        
+        let genderLabelY = NSLayoutConstraint(item: genderLabel, attribute: .bottom, relatedBy: .equal, toItem: genderPickerView!, attribute: .top, multiplier: 1, constant: 14)
+        
+        //age range slider
+        let ageSliderHC = NSLayoutConstraint(item: ageRangeSlider!, attribute: .height, relatedBy: .equal,
+                                                  toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 80)
+
+        let ageSliderXL = NSLayoutConstraint(item: ageRangeSlider!, attribute: .leading, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .leading, multiplier: 1, constant: 18)
+        
+        let ageSliderXT = NSLayoutConstraint(item: ageRangeSlider!, attribute: .trailing, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .trailing, multiplier: 1, constant: -18)
+        
+        let ageSliderY = NSLayoutConstraint(item: ageRangeSlider!, attribute: .bottom, relatedBy: .equal, toItem: cancelButton, attribute: .top, multiplier: 1, constant: -22)
+        
+        let ageLabelX = NSLayoutConstraint(item: ageLabel, attribute: .leading, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .leading, multiplier: 1, constant: 22)
+        
+        let ageLabelY = NSLayoutConstraint(item: ageLabel, attribute: .bottom, relatedBy: .equal, toItem: ageRangeSlider!, attribute: .top, multiplier: 1, constant: 12)
+        
+        
+        //modal title
+        let titleX = NSLayoutConstraint(item: title, attribute: .centerX, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .centerX, multiplier: 1, constant: 0)
+        let titleY = NSLayoutConstraint(item: title, attribute: .bottom, relatedBy: .equal, toItem: sortLabel, attribute: .top, multiplier: 1, constant: -22)
+
+        NSLayoutConstraint.activate([cancelBtnWC, cancelBtnHC, cancelBtnX, cancelBtnY, doneBtnWC, doneBtnHC, doneBtnX, doneBtnY, titleX, titleY, sortPickerHC, sortPickerXL, sortPickerXT, sortPickerY, sortLabelX, sortLabelY, genderPickerHC, genderPickerY, genderPickerXL, genderPickerXT, genderLabelX, genderLabelY, ageSliderHC, ageSliderXL, ageSliderXT, ageSliderY, ageLabelX, ageLabelY])
+        
+        self.present(bottomPopUpView, animated: true, completion: nil)
+    }
+    
+    @objc func dissmissFilterViewAct(_ sender: Any) {
+        bottomPopUpView.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func filterDoneAct(_ sender: Any) {
+       
+        bottomPopUpView.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func viewNotificationAct(_ sender: Any) {
+        
+    }
+    
+    @IBAction func searchAct(_ sender: Any) {
+        let dest = self.storyboard?.instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
+        
+        dest.modalPresentationStyle = .fullScreen
+        self.present(dest, animated: true, completion: nil)
+    }
+    
+    @IBAction func viewAllPetAct(_ sender: Any) {
+        setTabSelected(0)
+    }
+    
+    @IBAction func viewDogsAct(_ sender: Any) {
+        setTabSelected(1)
+    }
+    
+    @IBAction func viewCatsAct(_ sender: Any) {
+        setTabSelected(2)
+    }
+    
+    @IBAction func viewOthersAct(_ sender: Any) {
+        setTabSelected(3)
+    }
+    
+    @IBAction func logout_act(_ sender: Any) {
+        let token = Core.shared.getToken()
+        Core.shared.setToken("")
+        
+        let userCollection = Firestore.firestore().collection("users")
+
+        userCollection.whereField("token", isEqualTo: token).limit(to: 1)
+            .getDocuments{(querySnapshot, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    if querySnapshot!.documents.count == 1 {
+                        let data = querySnapshot?.documents[0].data()
+                        
+                        userCollection.document(data?["UID"] as! String).updateData(["token": ""])
+                    }
+                }
+            }
+    }
+    
+}
+
+extension HomeViewController: RangeSeekSliderDelegate {
+    func rangeSeekSlider(_ slider: RangeSeekSlider, didChange minValue: CGFloat, maxValue: CGFloat) {
+        
+    }
+    
+    func didStartTouches(in slider: RangeSeekSlider) {
+        
+    }
+    
+    func didEndTouches(in slider: RangeSeekSlider) {
+        
+    }
+}
+
+extension HomeViewController: UICollectionViewDataSource, CollectionViewWaterfallLayoutDelegate  {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return cellSizes.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PetCollectionViewCell", for: indexPath) as! PetCollectionViewCell
+                
+        cell.addFavButton.layer.cornerRadius = cell.addFavButton.frame.height / 2
+        cell.addFavButton.tag = indexPath.row
+        cell.petNameLabel.text = "MY DOG"
+        cell.postedDateLabel.text = "Posted: 5 hours ago"
+        cell.petAvatarImage.image = UIImage(named: "test_avt")
+        
+        cell.petAvatarImage.layer.cornerRadius = 16
+        cell.petAvatarImage.clipsToBounds = true
+        
+        
+        cell.addFavButton.addTarget(self, action: #selector(addToFavorite(_:)), for: .touchUpInside)
+        
+        
+       
+                
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return cellSizes[indexPath.item]
+    }
+    
+}
