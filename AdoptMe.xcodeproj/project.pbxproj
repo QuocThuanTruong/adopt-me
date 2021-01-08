@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		601DCF24FC6B342399257693 /* Pods_AdoptMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0E625606F5A7CDAC5A3A70 /* Pods_AdoptMe.framework */; };
+		CB550E8825A314E4001B514A /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB550E8725A314E4001B514A /* HistoryModel.swift */; };
 		CB5590FD257ECABC007E78D8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5590FC257ECABC007E78D8 /* HomeViewController.swift */; };
-		CB559103257ECAEE007E78D8 /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB559102257ECAEE007E78D8 /* AddPostViewController.swift */; };
+		CB559103257ECAEE007E78D8 /* AddPetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB559102257ECAEE007E78D8 /* AddPetViewController.swift */; };
 		CB559106257ECB01007E78D8 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB559105257ECB01007E78D8 /* ChatViewController.swift */; };
 		CB559109257ECB20007E78D8 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB559108257ECB20007E78D8 /* UserViewController.swift */; };
+		CB56584425A474CC00D4B449 /* PetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB56584325A474CC00D4B449 /* PetDetailViewController.swift */; };
 		CB57EDA9259ED5E500083C30 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB57EDA8259ED5E500083C30 /* ForgotPasswordViewController.swift */; };
 		CB57EDAC259F114B00083C30 /* VerifyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB57EDAB259F114B00083C30 /* VerifyAccountViewController.swift */; };
 		CB57EDAF259F118300083C30 /* EnterNewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB57EDAE259F118300083C30 /* EnterNewPasswordViewController.swift */; };
@@ -24,6 +26,7 @@
 		CB6104FC25A0AD830017B058 /* SortPickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6104FB25A0AD830017B058 /* SortPickerViewDelegate.swift */; };
 		CB6104FF25A0AD980017B058 /* GenderPickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6104FE25A0AD980017B058 /* GenderPickerViewDelegate.swift */; };
 		CB61053925A0F8BA0017B058 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB61053825A0F8BA0017B058 /* SearchViewController.swift */; };
+		CB965B9625A8F0200034D11A /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB965B9525A8F0200034D11A /* ChatTableViewCell.swift */; };
 		CBAC0C9A257AB7C4004FA0E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC0C99257AB7C4004FA0E0 /* AppDelegate.swift */; };
 		CBAC0C9C257AB7C4004FA0E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC0C9B257AB7C4004FA0E0 /* SceneDelegate.swift */; };
 		CBAC0C9E257AB7C4004FA0E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC0C9D257AB7C4004FA0E0 /* ViewController.swift */; };
@@ -49,10 +52,12 @@
 		27F23B68F3CAA27E54834D3B /* Pods-AdoptMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdoptMe.release.xcconfig"; path = "Target Support Files/Pods-AdoptMe/Pods-AdoptMe.release.xcconfig"; sourceTree = "<group>"; };
 		2C0E625606F5A7CDAC5A3A70 /* Pods_AdoptMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdoptMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DCABBF515A5611658796EB7 /* Pods-AdoptMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdoptMe.debug.xcconfig"; path = "Target Support Files/Pods-AdoptMe/Pods-AdoptMe.debug.xcconfig"; sourceTree = "<group>"; };
+		CB550E8725A314E4001B514A /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
 		CB5590FC257ECABC007E78D8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		CB559102257ECAEE007E78D8 /* AddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
+		CB559102257ECAEE007E78D8 /* AddPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetViewController.swift; sourceTree = "<group>"; };
 		CB559105257ECB01007E78D8 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		CB559108257ECB20007E78D8 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		CB56584325A474CC00D4B449 /* PetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetailViewController.swift; sourceTree = "<group>"; };
 		CB57EDA8259ED5E500083C30 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		CB57EDAB259F114B00083C30 /* VerifyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyAccountViewController.swift; sourceTree = "<group>"; };
 		CB57EDAE259F118300083C30 /* EnterNewPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterNewPasswordViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +70,7 @@
 		CB6104FB25A0AD830017B058 /* SortPickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortPickerViewDelegate.swift; sourceTree = "<group>"; };
 		CB6104FE25A0AD980017B058 /* GenderPickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderPickerViewDelegate.swift; sourceTree = "<group>"; };
 		CB61053825A0F8BA0017B058 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		CB965B9525A8F0200034D11A /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		CBAC0C96257AB7C4004FA0E0 /* AdoptMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdoptMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBAC0C99257AB7C4004FA0E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBAC0C9B257AB7C4004FA0E0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,12 +123,21 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CB550E8625A314C8001B514A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CB550E8725A314E4001B514A /* HistoryModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		CB57EDEF259FB35B00083C30 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				CB57EDF0259FB38100083C30 /* PetCollectionViewCell.swift */,
 				CB5B978A25A2788700C44830 /* HistoryTableViewCell.swift */,
 				CB5B978D25A278B000C44830 /* RecentPetCollectionViewCell.swift */,
+				CB965B9525A8F0200034D11A /* ChatTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -201,15 +216,17 @@
 		CBC89977257B550E004D5BBA /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				CB550E8625A314C8001B514A /* Models */,
 				CB6104FA25A057840017B058 /* Delegate */,
 				CB57EDEF259FB35B00083C30 /* Views */,
 				CBAC0C9F257AB7C4004FA0E0 /* Main.storyboard */,
 				CBAC0C9D257AB7C4004FA0E0 /* ViewController.swift */,
 				CB5590FC257ECABC007E78D8 /* HomeViewController.swift */,
-				CB559102257ECAEE007E78D8 /* AddPostViewController.swift */,
+				CB559102257ECAEE007E78D8 /* AddPetViewController.swift */,
 				CB559105257ECB01007E78D8 /* ChatViewController.swift */,
 				CB559108257ECB20007E78D8 /* UserViewController.swift */,
 				CB61053825A0F8BA0017B058 /* SearchViewController.swift */,
+				CB56584325A474CC00D4B449 /* PetDetailViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -392,7 +409,7 @@
 				CBC899A5257B9C8E004D5BBA /* RegisterViewController.swift in Sources */,
 				CBC8997B257B6A3D004D5BBA /* LandingPage1VC.swift in Sources */,
 				CBC89972257B4F19004D5BBA /* IntroductionViewController.swift in Sources */,
-				CB559103257ECAEE007E78D8 /* AddPostViewController.swift in Sources */,
+				CB559103257ECAEE007E78D8 /* AddPetViewController.swift in Sources */,
 				CB57EDAF259F118300083C30 /* EnterNewPasswordViewController.swift in Sources */,
 				CB61053925A0F8BA0017B058 /* SearchViewController.swift in Sources */,
 				CB5EA16D257DCBA2007B773B /* HalfRoundedUIView.swift in Sources */,
@@ -407,11 +424,14 @@
 				CBC8996E257B4D7F004D5BBA /* Core.swift in Sources */,
 				CB5B978B25A2788700C44830 /* HistoryTableViewCell.swift in Sources */,
 				CBAC0C9C257AB7C4004FA0E0 /* SceneDelegate.swift in Sources */,
+				CB965B9625A8F0200034D11A /* ChatTableViewCell.swift in Sources */,
 				CBC899A8257B9CA0004D5BBA /* FillInfoViewController.swift in Sources */,
 				CB57EDA9259ED5E500083C30 /* ForgotPasswordViewController.swift in Sources */,
 				CB6104FC25A0AD830017B058 /* SortPickerViewDelegate.swift in Sources */,
 				CB5B978E25A278B000C44830 /* RecentPetCollectionViewCell.swift in Sources */,
 				E652E0B5259508A000D50497 /* Model.swift in Sources */,
+				CB56584425A474CC00D4B449 /* PetDetailViewController.swift in Sources */,
+				CB550E8825A314E4001B514A /* HistoryModel.swift in Sources */,
 				CBC899A2257B9C7D004D5BBA /* LoginViewController.swift in Sources */,
 				CB57EDB7259FAF7800083C30 /* CardView.swift in Sources */,
 				CBC89982257B6A58004D5BBA /* WelcomeVC.swift in Sources */,

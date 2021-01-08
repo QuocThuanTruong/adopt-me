@@ -9,6 +9,8 @@ import UIKit
 
 class ChatViewController: UIViewController {
 
+    @IBOutlet weak var chatTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -16,14 +18,31 @@ class ChatViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func deleteAct(_ sender: Any) {
     }
-    */
+}
 
+extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatTableViewCell
+        
+        cell.nameLabel.text = "Quoc Thuan Truong"
+        cell.messageLabel.text = "abcdef"
+        cell.timeLabel.text = "16:57"
+        
+        cell.avatarImage.layer.cornerRadius = cell.avatarImage.frame.width / 2
+        cell.avatarImage.clipsToBounds = true
+        cell.avatarImage.image = UIImage(named: "test_avt")
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80.0
+    }
+    
 }

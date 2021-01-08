@@ -10,7 +10,10 @@ target 'AdoptMe' do
   pod 'LanguageManager-iOS'
   pod 'LZViewPager'
   pod 'M13Checkbox'
-pod 'RangeSeekSlider'
+  pod 'RangeSeekSlider'
+  pod 'ImageSlideshow'
+  pod "ImageSlideshow/Alamofire"
+  pod 'UIFloatLabelTextView'
   
   pod 'BottomPopUpView'
   pod 'FBSDKLoginKit'

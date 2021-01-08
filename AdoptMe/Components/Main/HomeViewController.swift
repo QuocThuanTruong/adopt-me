@@ -394,4 +394,12 @@ extension HomeViewController: UICollectionViewDataSource, CollectionViewWaterfal
         return cellSizes[indexPath.item]
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let dest = self.storyboard?.instantiateViewController(withIdentifier: "PetDetailViewController") as! PetDetailViewController
+        
+        dest.modalPresentationStyle = .fullScreen
+        
+        self.present(dest, animated: true, completion: nil)
+    }
+    
 }

@@ -18,18 +18,6 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var recentPetCollectionView: UICollectionView!
     
     let recentPetDelegate = RecentPetDelegate()
-    lazy var cellSizes: [CGSize] = {
-        
-        var cellSizes = [CGSize]()
-           
-        for _ in 0...10 {
-            let random = Int(arc4random_uniform((UInt32(100))))
-               
-            cellSizes.append(CGSize(width: 157, height: 157 + random))
-        }
-           
-           return cellSizes
-       }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +35,10 @@ class SearchViewController: UIViewController {
         
         let layout = CollectionViewWaterfallLayout()
         
-        layout.columnCount = 2
-        layout.sectionInset = UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
-        layout.minimumColumnSpacing = 18
-        layout.minimumInteritemSpacing = 18
+        layout.columnCount = 3
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 20, right: 20)
+        layout.minimumColumnSpacing = 20
+        layout.minimumInteritemSpacing = 20
         
         recentPetCollectionView.collectionViewLayout = layout
         

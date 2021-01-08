@@ -15,7 +15,7 @@ class RecentPetDelegate : NSObject, UICollectionViewDataSource, CollectionViewWa
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -29,6 +29,6 @@ class RecentPetDelegate : NSObject, UICollectionViewDataSource, CollectionViewWa
     
     
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: 100, height: 100)
+        return CGSize(width: 80, height: 80)
     }
 }
