@@ -2993,10 +2993,10 @@ new password</string>
     </scenes>
     <designables>
         <designable name="EFd-pw-5VK">
-            <size key="intrinsicContentSize" width="43" height="29"/>
+            <size key="intrinsicContentSize" width="52" height="32"/>
         </designable>
         <designable name="HWU-Un-hBH">
-            <size key="intrinsicContentSize" width="81" height="29"/>
+            <size key="intrinsicContentSize" width="98" height="32"/>
         </designable>
         <designable name="jo4-Sc-tZA">
             <size key="intrinsicContentSize" width="48" height="32"/>

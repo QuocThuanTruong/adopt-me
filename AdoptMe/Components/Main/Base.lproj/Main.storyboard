@@ -1427,6 +1427,9 @@
                                                 <include reference="J93-TF-Ocn"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="pickGenderAct:" destination="6cR-yX-1tk" eventType="touchDown" id="itz-5J-HSQ"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEt-7K-mwJ">
                                         <rect key="frame" x="40" y="427" width="86" height="86"/>
@@ -2471,14 +2474,14 @@ with others</string>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="uOh-Gj-auS"/>
                                         <exclude reference="FZR-PC-aDZ"/>
+                                        <exclude reference="uOh-Gj-auS"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="uOh-Gj-auS"/>
                                         <include reference="FZR-PC-aDZ"/>
+                                        <include reference="uOh-Gj-auS"/>
                                     </mask>
                                 </variation>
                             </imageView>
@@ -2550,17 +2553,6 @@ with others</string>
             <point key="canvasLocation" x="2996" y="91"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="17c-VL-Hgo">
-            <size key="intrinsicContentSize" width="30" height="29"/>
-        </designable>
-        <designable name="hhR-FQ-qkK">
-            <size key="intrinsicContentSize" width="73" height="29"/>
-        </designable>
-        <designable name="tAP-RB-ba7">
-            <size key="intrinsicContentSize" width="18" height="17"/>
-        </designable>
-    </designables>
     <resources>
         <image name="back-white-arrow" width="20" height="15"/>
         <image name="corgi-info" width="121" height="83"/>
