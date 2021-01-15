@@ -170,6 +170,11 @@ class AddPetViewController: UIViewController {
     }
     
     @IBAction func resetAct(_ sender: Any) {
+        petNameTextField.text = ""
+        petAgeTextField.text = ""
+        petGenderTextField.text = ""
+        petAddressTextField.text = ""
+        petDescriptionTextView.text = ""
     }
     
 }

@@ -45,4 +45,8 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         return 80.0
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
 }
