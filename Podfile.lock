@@ -375,6 +375,9 @@ PODS:
     - AlamofireImage (~> 4.0)
     - ImageSlideshow/Core
   - ImageSlideshow/Core (1.9.1)
+  - InputBarAccessoryView (5.2.3):
+    - InputBarAccessoryView/Core (= 5.2.3)
+  - InputBarAccessoryView/Core (5.2.3)
   - LanguageManager-iOS (1.2.3)
   - leveldb-library (1.22)
   - LZViewPager (1.2.5):
@@ -1017,6 +1020,8 @@ PODS:
     - MDFTextAccessibility
   - MDFInternationalization (2.0.0)
   - MDFTextAccessibility (2.0.0)
+  - MessageKit (3.5.0):
+    - InputBarAccessoryView (~> 5.2.1)
   - MotionAnimator (2.8.1):
     - MotionInterchange (~> 1.6)
   - MotionInterchange (1.6.0)
@@ -1051,6 +1056,7 @@ DEPENDENCIES:
   - LZViewPager
   - M13Checkbox
   - MaterialComponents
+  - MessageKit
   - RangeSeekSlider
   - SOTabBar
   - UIFloatLabelTextView
@@ -1086,6 +1092,7 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - ImageSlideshow
+    - InputBarAccessoryView
     - LanguageManager-iOS
     - leveldb-library
     - LZViewPager
@@ -1093,6 +1100,7 @@ SPEC REPOS:
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
+    - MessageKit
     - MotionAnimator
     - MotionInterchange
     - nanopb
@@ -1132,6 +1140,7 @@ SPEC CHECKSUMS:
   GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   ImageSlideshow: 67184be896a28472bd3b906c33ce4e0734aa3d22
+  InputBarAccessoryView: f814a0317d47687fafc6bac9e4df6015eaf5b764
   LanguageManager-iOS: 020a6849c97949683926773fd5b82baceaa142db
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   LZViewPager: 89ddd98246d54b52bde14c8d91702f946d6f8893
@@ -1139,6 +1148,7 @@ SPEC CHECKSUMS:
   MaterialComponents: 41734d9cdfa1011e575e197c4faa197703d21f71
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
+  MessageKit: fb539583599cd914e8e2d41fe7bdceb4bf686565
   MotionAnimator: ee16aa30567c5bae0fb2750c132915829cfaaf8a
   MotionInterchange: ead0e3ae1f3a5fb539e289debbc7ae036160a10d
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
@@ -1148,6 +1158,6 @@ SPEC CHECKSUMS:
   SOTabBar: 27aea95bd6b39d1be3535c867a2cd3b5adc172e6
   UIFloatLabelTextView: 96b7c5a18739fd1af8fd9480f7943d75a7547e4d
 
-PODFILE CHECKSUM: f2164d5d5e865efe04e4ea74b41eff8c2f8ff8d9
+PODFILE CHECKSUM: 5b463c3c255b85a5770d43e2e2a4e536e4bad19c
 
 COCOAPODS: 1.10.0
