@@ -10,7 +10,8 @@ import MessageKit
 
 class ChatDetailViewController: UIViewController {
 
-    @IBOutlet weak var messagesCollectionView: MessagesCollectionView!
+   
+    @IBOutlet weak var chatContainer: HalfRoundedUIView!
     
     let sender = Sender(senderId: "any_unique_id", displayName: "Steven")
     let messages: [MessageType] = []
@@ -18,12 +19,20 @@ class ChatDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        messagesCollectionView.messagesDataSource = self
-                messagesCollectionView.messagesLayoutDelegate = self
-                messagesCollectionView.messagesDisplayDelegate = self
+        let vc = MessagesViewController()
+        chatContainer.addSubview(vc.view)
+        
+        vc.messagesCollectionView.messagesDataSource = self
+        vc.messagesCollectionView.messagesLayoutDelegate = self
+        vc.messagesCollectionView.messagesDisplayDelegate = self
+        vc.becomeFirstResponder()
+       
     }
     
-
+    @IBAction func backAct(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 public struct Sender: SenderType {
@@ -46,4 +55,6 @@ extension ChatDetailViewController: MessagesDataSource, MessagesDisplayDelegate,
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
         return messages[indexPath.section]
     }
+    
+    
 }
