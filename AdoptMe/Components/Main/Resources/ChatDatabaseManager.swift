@@ -633,9 +633,8 @@ extension ChatDatabaseManager {
                             ]
                             var databaseEntryConversations = [[String: Any]]()
 
-                            guard let currentName = UserDefaults.standard.value(forKey: "name") as? String else {
-                                return
-                            }
+                            let currentName = Core.shared.getCurrentUserFullName()
+
 
                             if var otherUserConversations = snapshot.value as? [[String: Any]] {
                                 var targetConversation: [String: Any]?

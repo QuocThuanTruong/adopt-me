@@ -29,7 +29,7 @@ struct MyUser : Identifiable, Codable {
 func getUserByEmail(Email : String) -> MyUser {
     var result = [MyUser]()
     
-    db.collection("users").whereField("email", isEqualTo: Email).limit(to: 1)
+    db.collection("users").whereField("UID", isEqualTo: "YZpkm1QPDHU2I5ys0phxEOJd5eq1").limit(to: 1)
         .getDocuments{ (querySnapshot, error) in
             if let error = error {
                 print(error)

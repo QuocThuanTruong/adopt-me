@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Nuke
 
 class ChatViewController: UIViewController {
 
@@ -23,8 +24,11 @@ class ChatViewController: UIViewController {
     
 
     @IBAction func deleteAct(_ sender: Any) {
-       //for test
-        createNewConversation()
+        if chatTableView.isEditing {
+            chatTableView.isEditing = false
+        } else {
+            chatTableView.isEditing = true
+        }
     }
     
     
@@ -124,7 +128,21 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.avatarImage.layer.cornerRadius = cell.avatarImage.frame.width / 2
         cell.avatarImage.clipsToBounds = true
-        cell.avatarImage.image = UIImage(named: "test_avt")
+        
+        db.collection("users").whereField("email", isEqualTo: Core.shared.getCurrentUserEmail()).limit(to: 1)
+            .getDocuments{ (querySnapshot, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    if querySnapshot!.documents.count == 1 {
+                        let data = querySnapshot?.documents[0].data()
+                        
+                        let urlStr = URL(string: (data?["avatar"] as! String))
+                        let urlReq = URLRequest(url: urlStr!)
+                        Nuke.loadImage(with: urlReq, into: cell.avatarImage)
+                    }
+                }
+            }
         
         return cell
     }

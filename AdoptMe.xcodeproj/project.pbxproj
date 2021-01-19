@@ -31,6 +31,8 @@
 		CB7BA25025B675A600C091BC /* ChatStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BA24F25B675A600C091BC /* ChatStorageManager.swift */; };
 		CB7BA29225B67B4500C091BC /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BA29125B67B4500C091BC /* ChatModel.swift */; };
 		CB7BA29525B67B7800C091BC /* ConversationsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BA29425B67B7800C091BC /* ConversationsModel.swift */; };
+		CB7BA2D925B746E200C091BC /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BA2D825B746E200C091BC /* LocationPickerViewController.swift */; };
+		CB7BA31D25B764CD00C091BC /* PhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BA31C25B764CC00C091BC /* PhotoViewerViewController.swift */; };
 		CB965B9625A8F0200034D11A /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB965B9525A8F0200034D11A /* ChatTableViewCell.swift */; };
 		CBAC0C9A257AB7C4004FA0E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC0C99257AB7C4004FA0E0 /* AppDelegate.swift */; };
 		CBAC0C9C257AB7C4004FA0E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC0C9B257AB7C4004FA0E0 /* SceneDelegate.swift */; };
@@ -82,6 +84,8 @@
 		CB7BA24F25B675A600C091BC /* ChatStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatStorageManager.swift; sourceTree = "<group>"; };
 		CB7BA29125B67B4500C091BC /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		CB7BA29425B67B7800C091BC /* ConversationsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsModel.swift; sourceTree = "<group>"; };
+		CB7BA2D825B746E200C091BC /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
+		CB7BA31C25B764CC00C091BC /* PhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerViewController.swift; sourceTree = "<group>"; };
 		CB965B9525A8F0200034D11A /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		CBAC0C96257AB7C4004FA0E0 /* AdoptMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdoptMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBAC0C99257AB7C4004FA0E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -256,6 +260,8 @@
 				CB56584325A474CC00D4B449 /* PetDetailViewController.swift */,
 				CBDD8E4025B2085A009898F5 /* ChatDetailViewController.swift */,
 				CB57C17E25B62B0D00457294 /* ChatFrameViewController.swift */,
+				CB7BA2D825B746E200C091BC /* LocationPickerViewController.swift */,
+				CB7BA31C25B764CC00C091BC /* PhotoViewerViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -452,9 +458,11 @@
 				CB57C17F25B62B0D00457294 /* ChatFrameViewController.swift in Sources */,
 				CB57EDAC259F114B00083C30 /* VerifyAccountViewController.swift in Sources */,
 				CBC8999E257B9AAA004D5BBA /* IntroductionDelegate.swift in Sources */,
+				CB7BA31D25B764CD00C091BC /* PhotoViewerViewController.swift in Sources */,
 				CB559106257ECB01007E78D8 /* ChatViewController.swift in Sources */,
 				CB5B979125A2841E00C44830 /* RecentPetDelegate.swift in Sources */,
 				CB6104FF25A0AD980017B058 /* GenderPickerViewDelegate.swift in Sources */,
+				CB7BA2D925B746E200C091BC /* LocationPickerViewController.swift in Sources */,
 				CBC8996E257B4D7F004D5BBA /* Core.swift in Sources */,
 				CB5B978B25A2788700C44830 /* HistoryTableViewCell.swift in Sources */,
 				CBAC0C9C257AB7C4004FA0E0 /* SceneDelegate.swift in Sources */,

@@ -15,6 +15,7 @@ target 'AdoptMe' do
   pod "ImageSlideshow/Alamofire"
   pod 'UIFloatLabelTextView'
   pod 'MessageKit'
+  pod 'ALCameraViewController'
   
   pod 'BottomPopUpView'
   pod 'FBSDKLoginKit'

@@ -215,6 +215,7 @@ PODS:
   - Alamofire (5.4.0)
   - AlamofireImage (4.1.0):
     - Alamofire (~> 5.1)
+  - ALCameraViewController (3.1)
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
     - AppAuth/ExternalUserAgent (= 1.4.0)
@@ -1044,6 +1045,7 @@ PODS:
   - UIFloatLabelTextView (1.0.10)
 
 DEPENDENCIES:
+  - ALCameraViewController
   - BCrypt
   - Bolts
   - BottomPopUpView
@@ -1075,6 +1077,7 @@ SPEC REPOS:
     - abseil
     - Alamofire
     - AlamofireImage
+    - ALCameraViewController
     - AppAuth
     - BCrypt
     - Bolts
@@ -1125,6 +1128,7 @@ SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   Alamofire: 3b6a534a3df22db367e4dedeeca73d1ddfcf0e2f
   AlamofireImage: c4a2ba349885fb3064feb74d2e547bd42ce9be10
+  ALCameraViewController: 144dea45fd749a623aafd8cb7b10cea88499fcc3
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   BCrypt: 712b656110e5020d319c547e4d8f3053ded82b2a
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
@@ -1171,6 +1175,6 @@ SPEC CHECKSUMS:
   SOTabBar: 27aea95bd6b39d1be3535c867a2cd3b5adc172e6
   UIFloatLabelTextView: 96b7c5a18739fd1af8fd9480f7943d75a7547e4d
 
-PODFILE CHECKSUM: c89ad03ee6cb14e15eb7b0259f47d9a1aa1d2ecb
+PODFILE CHECKSUM: cb7a902cf5bdd8fb2aaf3da02f9906c2fe4069d8
 
 COCOAPODS: 1.10.0
