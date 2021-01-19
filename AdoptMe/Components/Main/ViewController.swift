@@ -11,7 +11,7 @@ import Firebase
 
 class ViewController : SOTabBarController {
     // MARK: Outlets
-    
+    var db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ class ViewController : SOTabBarController {
             let addVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddPetViewController") as! AddPetViewController
             let chatVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
             let userVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
-
+  
             homeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "ic-blue-home"), selectedImage: UIImage(named: "ic-white-home"))
             favVC.tabBarItem = UITabBarItem(title: "Favorite", image: UIImage(named: "ic-md-blue-fav"), selectedImage: UIImage(named: "ic-md-white-fav"))
             addVC.tabBarItem = UITabBarItem(title: "Add pet", image: UIImage(named: "ic-blue-add"), selectedImage: UIImage(named: "ic-white-add"))
