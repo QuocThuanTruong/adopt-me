@@ -45,4 +45,6 @@ target 'AdoptMe' do
   #BCrypt
   pod 'BCrypt'
 
+  #Nuke
+  pod 'Nuke'
 end

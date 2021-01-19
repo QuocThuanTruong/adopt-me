@@ -11,6 +11,7 @@ import MaterialComponents
 import BottomPopUpView
 import CollectionViewWaterfallLayout
 import RangeSeekSlider
+import Nuke
 
 class HomeViewController: UIViewController {
     // MARK: Outlets
@@ -26,7 +27,15 @@ class HomeViewController: UIViewController {
     let genderPickerViewDelegate = GenderPickerViewDelegate()
     
     var ageRangeSlider: RangeSeekSlider!
-   
+    
+    var pets = [Pet]()
+    var dogs = [Pet]()
+    var cats = [Pet]()
+    var others = [Pet]()
+    var sourcePets = [Pet]()
+    
+    var db = Firestore.firestore()
+    
     
     @IBOutlet weak var allButton: UIButton!
     @IBOutlet weak var dogsButton: UIButton!
@@ -50,6 +59,7 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var listPetCollectionView: UICollectionView!
     
+    
     var tabHeaderUIView : [HalfRoundedUIView] = []
     var tabButtons: [UIButton] = []
     var tabIconButtons: [UIButton] = []
@@ -58,7 +68,6 @@ class HomeViewController: UIViewController {
     let tabIconSelectedImages: [String] = ["ic-blue-all-pet", "ic-blue-dog", "ic-blue-cat", "ic-blue-others"]
     
     lazy var cellSizes: [CGSize] = {
-        
         var cellSizes = [CGSize]()
            
         for _ in 0...10 {
@@ -68,16 +77,68 @@ class HomeViewController: UIViewController {
         }
            
            return cellSizes
-       }()		
+    }()
     
     //for test
     @IBOutlet weak var logoutButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
+        fetchData()
         initView()
     }
+    
+    func fetchData() {
+        db.collection("pets").addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+            
+
+            self.pets = documents.compactMap { (QueryDocumentSnapshot) -> Pet? in
+              return try? QueryDocumentSnapshot.data(as: Pet.self)
+            }
+            
+            self.sourcePets = self.pets
+            self.listPetCollectionView.reloadData()
+        }
+        
+        db.collection("pets").whereField("type", isEqualTo: 1).addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+
+            self.dogs = documents.compactMap { (QueryDocumentSnapshot) -> Pet? in
+              return try? QueryDocumentSnapshot.data(as: Pet.self)
+            }
+        }
+        
+        db.collection("pets").whereField("type", isEqualTo: 2).addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+
+            self.cats = documents.compactMap { (QueryDocumentSnapshot) -> Pet? in
+              return try? QueryDocumentSnapshot.data(as: Pet.self)
+            }
+        }
+        
+        db.collection("pets").whereField("type", isEqualTo: 3).addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+
+            self.others = documents.compactMap { (QueryDocumentSnapshot) -> Pet? in
+              return try? QueryDocumentSnapshot.data(as: Pet.self)
+            }
+        }
+    }
+    
     
     func initView() {
         tabHeaderUIView = [allUIView, dogsUIView, catsUIView, othersUIView]
@@ -99,7 +160,6 @@ class HomeViewController: UIViewController {
         //set selected tab
         setTabSelected(0)
         
-        
         //init collection view
         let layout = CollectionViewWaterfallLayout()
         
@@ -109,7 +169,7 @@ class HomeViewController: UIViewController {
         layout.minimumInteritemSpacing = 18
         
         listPetCollectionView.collectionViewLayout = layout
-        
+        listPetCollectionView.tag = 0
         
         sortPickerView = UIPickerView()
         sortPickerView.dataSource = sortPickerViewDelegate
@@ -311,18 +371,34 @@ class HomeViewController: UIViewController {
     
     @IBAction func viewAllPetAct(_ sender: Any) {
         setTabSelected(0)
+        
+        sourcePets = pets
+        
+        listPetCollectionView.reloadData()
     }
     
     @IBAction func viewDogsAct(_ sender: Any) {
         setTabSelected(1)
+
+        sourcePets = dogs
+        
+        listPetCollectionView.reloadData()
     }
     
     @IBAction func viewCatsAct(_ sender: Any) {
         setTabSelected(2)
+        
+        sourcePets = cats
+        
+        listPetCollectionView.reloadData()
     }
     
     @IBAction func viewOthersAct(_ sender: Any) {
         setTabSelected(3)
+        
+        sourcePets = others
+        
+        listPetCollectionView.reloadData()
     }
     
     @IBAction func logout_act(_ sender: Any) {
@@ -366,27 +442,67 @@ extension HomeViewController: UICollectionViewDataSource, CollectionViewWaterfal
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cellSizes.count
+        return sourcePets.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PetCollectionViewCell", for: indexPath) as! PetCollectionViewCell
-                
+            
+        
+        let index = indexPath.row
+        let pet = sourcePets[index]
+        
         cell.addFavButton.layer.cornerRadius = cell.addFavButton.frame.height / 2
         cell.addFavButton.tag = indexPath.row
-        cell.petNameLabel.text = "MY DOG"
-        cell.postedDateLabel.text = "Posted: 5 hours ago"
-        cell.petAvatarImage.image = UIImage(named: "test_avt")
+        cell.petNameLabel.text = pet.name
+        
+        let today = Date()
+        
+        let diffComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: pet.posted_date, to: today)
+        let year = diffComponents.year ?? 0
+        let month = diffComponents.month ?? 0
+        let day = diffComponents.day ?? 0
+        let hours = diffComponents.hour ?? 0
+        let minutes = diffComponents.minute ?? 0
+        
+        if (year > 0 || month > 0) {
+            let dateFormatterPrint = DateFormatter()
+            dateFormatterPrint.dateFormat = "yyyy-MM-dd"
+            
+            cell.postedDateLabel.text = "Posted: \(dateFormatterPrint.string(from: pet.posted_date))"
+        } else if (day > 0) {
+            if (day == 1) {
+                cell.postedDateLabel.text = "Posted: 1 day ago"
+            } else {
+                cell.postedDateLabel.text = "Posted: \(day) days ago"
+            }
+            
+        } else if (hours > 0) {
+            if (hours == 1) {
+                cell.postedDateLabel.text = "Posted: 1 hour ago"
+            } else {
+                cell.postedDateLabel.text = "Posted: \(hours) hours ago"
+            }
+        } else {
+            if (minutes == 1) {
+                cell.postedDateLabel.text = "Posted: 1 minute ago"
+            } else {
+                cell.postedDateLabel.text = "Posted: \(minutes) minutes ago"
+            }
+        }
+    
+        
+        let urlStr = URL(string: pet.avatar)
+        let urlReq = URLRequest(url: urlStr!)
+        Nuke.loadImage(with: urlReq, into: cell.petAvatarImage)
+        
+        //cell.petAvatarImage.image = UIImage(named: "test_avt")
         
         cell.petAvatarImage.layer.cornerRadius = 16
         cell.petAvatarImage.clipsToBounds = true
         
-        
         cell.addFavButton.addTarget(self, action: #selector(addToFavorite(_:)), for: .touchUpInside)
         
-        
-       
-                
         return cell
     }
     

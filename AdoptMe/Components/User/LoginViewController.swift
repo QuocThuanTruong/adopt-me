@@ -81,7 +81,6 @@ class LoginViewController: UIViewController {
             
             dest.modalPresentationStyle  = .fullScreen
             
-            
             Core.shared.setIsNotFirstLauchApp()
             
             fillInfoVC?.present(dest, animated: true, completion: nil)

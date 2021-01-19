@@ -52,6 +52,7 @@
 		E60F663C2594AADE009C762B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E60F663B2594AADE009C762B /* Assets.xcassets */; };
 		E63183B0257E56D500FD48F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E63183AF257E56D500FD48F7 /* GoogleService-Info.plist */; };
 		E652E0B5259508A000D50497 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E652E0B4259508A000D50497 /* Model.swift */; };
+		E6D6316F25B63B4300678F9C /* PetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D6316E25B63B4300678F9C /* PetModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +105,7 @@
 		E60F663B2594AADE009C762B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E63183AF257E56D500FD48F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E652E0B4259508A000D50497 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		E6D6316E25B63B4300678F9C /* PetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				CB550E8725A314E4001B514A /* HistoryModel.swift */,
+				E6D6316E25B63B4300678F9C /* PetModel.swift */,
 				CB7BA29125B67B4500C091BC /* ChatModel.swift */,
 				CB7BA29425B67B7800C091BC /* ConversationsModel.swift */,
 			);
@@ -430,6 +433,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBAC0C9E257AB7C4004FA0E0 /* ViewController.swift in Sources */,
+				E6D6316F25B63B4300678F9C /* PetModel.swift in Sources */,
 				CB559109257ECB20007E78D8 /* UserViewController.swift in Sources */,
 				CB57EDF1259FB38100083C30 /* PetCollectionViewCell.swift in Sources */,
 				CBC899A5257B9C8E004D5BBA /* RegisterViewController.swift in Sources */,
