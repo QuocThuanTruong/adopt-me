@@ -32,6 +32,7 @@ target 'AdoptMe' do
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
   pod 'Firebase/Storage'
+  pod 'Firebase/Database'
   
   #Facebook
   pod 'Bolts'

@@ -2290,6 +2290,12 @@ Information</string>
                                     <action selector="backAct:" destination="VNM-Iw-lIh" eventType="touchUpInside" id="f3M-P4-5TK"/>
                                 </connections>
                             </button>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hfN-Wb-TVE">
+                                <rect key="frame" x="20" y="122" width="374" height="732"/>
+                                <connections>
+                                    <segue destination="r5U-Ud-ALy" kind="embed" id="a0N-Dc-7XO"/>
+                                </connections>
+                            </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quoc Thuan Truong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cHJ-Hf-aYL">
                                 <rect key="frame" x="125" y="61" width="164" height="22"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
@@ -2308,12 +2314,18 @@ Information</string>
                             </constraint>
                             <constraint firstItem="xpw-3m-Me9" firstAttribute="top" secondItem="gzE-Xx-E2l" secondAttribute="bottom" constant="12" id="Hzo-tB-BkB"/>
                             <constraint firstItem="cHJ-Hf-aYL" firstAttribute="centerX" secondItem="4OD-Fo-sqn" secondAttribute="centerX" id="JZI-kL-UIA"/>
+                            <constraint firstItem="hfN-Wb-TVE" firstAttribute="leading" secondItem="gj9-Cv-vs2" secondAttribute="leading" constant="20" id="UVL-Em-zzz"/>
+                            <constraint firstItem="hfN-Wb-TVE" firstAttribute="top" secondItem="gzE-Xx-E2l" secondAttribute="bottom" constant="30" id="V32-Cw-yca"/>
+                            <constraint firstItem="gj9-Cv-vs2" firstAttribute="bottom" secondItem="hfN-Wb-TVE" secondAttribute="bottom" constant="8" id="bb8-KG-XZD"/>
                             <constraint firstItem="xpw-3m-Me9" firstAttribute="trailing" secondItem="gj9-Cv-vs2" secondAttribute="trailing" id="cJo-Ou-xC3"/>
                             <constraint firstItem="xpw-3m-Me9" firstAttribute="leading" secondItem="gj9-Cv-vs2" secondAttribute="leading" id="ddF-S5-UG7"/>
+                            <constraint firstItem="gj9-Cv-vs2" firstAttribute="trailing" secondItem="hfN-Wb-TVE" secondAttribute="trailing" constant="20" id="iTp-9v-8gb"/>
                             <constraint firstItem="cHJ-Hf-aYL" firstAttribute="centerY" secondItem="gzE-Xx-E2l" secondAttribute="centerY" id="vql-35-qXY"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="bb8-KG-XZD"/>
+                                <exclude reference="iTp-9v-8gb"/>
                                 <exclude reference="6hB-9A-M1B"/>
                                 <exclude reference="HE7-3r-dXM"/>
                                 <exclude reference="23H-8h-Kkk"/>
@@ -2323,10 +2335,14 @@ Information</string>
                                 <exclude reference="ddF-S5-UG7"/>
                                 <exclude reference="JZI-kL-UIA"/>
                                 <exclude reference="vql-35-qXY"/>
+                                <exclude reference="UVL-Em-zzz"/>
+                                <exclude reference="V32-Cw-yca"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
+                                <include reference="bb8-KG-XZD"/>
+                                <include reference="iTp-9v-8gb"/>
                                 <include reference="6hB-9A-M1B"/>
                                 <include reference="HE7-3r-dXM"/>
                                 <exclude reference="23H-8h-Kkk"/>
@@ -2336,6 +2352,8 @@ Information</string>
                                 <include reference="ddF-S5-UG7"/>
                                 <include reference="JZI-kL-UIA"/>
                                 <include reference="vql-35-qXY"/>
+                                <include reference="UVL-Em-zzz"/>
+                                <include reference="V32-Cw-yca"/>
                             </mask>
                         </variation>
                     </view>
@@ -2651,6 +2669,21 @@ with others</string>
             </objects>
             <point key="canvasLocation" x="2996" y="91"/>
         </scene>
+        <!--Chat Frame View Controller-->
+        <scene sceneID="fw0-np-DU3">
+            <objects>
+                <viewController storyboardIdentifier="ChatFrameViewController" id="r5U-Ud-ALy" customClass="ChatFrameViewController" customModule="AdoptMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bn9-Ye-gw7">
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="732"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="F5J-MG-Ttc"/>
+                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rfq-XP-Zh3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3026" y="752"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="17c-VL-Hgo">
@@ -2711,6 +2744,9 @@ with others</string>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
