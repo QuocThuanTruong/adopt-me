@@ -10,51 +10,20 @@ import MessageKit
 
 class ChatDetailViewController: UIViewController {
 
-   
     @IBOutlet weak var chatContainer: HalfRoundedUIView!
     
-    let sender = Sender(senderId: "any_unique_id", displayName: "Steven")
-    let messages: [MessageType] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let vc = MessagesViewController()
-        chatContainer.addSubview(vc.view)
+      
         
-        vc.messagesCollectionView.messagesDataSource = self
-        vc.messagesCollectionView.messagesLayoutDelegate = self
-        vc.messagesCollectionView.messagesDisplayDelegate = self
-        vc.becomeFirstResponder()
+    
        
     }
     
     @IBAction func backAct(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-}
-
-public struct Sender: SenderType {
-    public let senderId: String
-
-    public let displayName: String
-}
-
-
-extension ChatDetailViewController: MessagesDataSource, MessagesDisplayDelegate, MessagesLayoutDelegate {
-
-    func currentSender() -> SenderType {
-        return Sender(senderId: "any_unique_id", displayName: "Steven")
-    }
-
-    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
-        return messages.count
-    }
-
-    func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
-        return messages[indexPath.section]
-    }
-    
     
 }
