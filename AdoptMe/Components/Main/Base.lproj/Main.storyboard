@@ -1972,6 +1972,10 @@ Information</string>
                                         <viewLayoutGuide key="contentLayoutGuide" id="9k0-FA-Vme"/>
                                         <viewLayoutGuide key="frameLayoutGuide" id="ZLq-RC-ySC"/>
                                     </scrollView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DBD-ZZ-p4m">
+                                        <rect key="frame" x="43" y="426" width="57" height="57"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -2224,6 +2228,7 @@ Information</string>
                         <outlet property="petImageSlideShow" destination="hFI-A7-0W0" id="C3R-hH-hPr"/>
                         <outlet property="petNameLabel" destination="05A-yg-oH8" id="Cmq-gZ-St3"/>
                         <outlet property="phoneButton" destination="wuO-fB-ddM" id="H4O-Qt-mJa"/>
+                        <outlet property="testUserAvatar" destination="DBD-ZZ-p4m" id="cFL-7z-cgu"/>
                         <outlet property="userAvatar" destination="90Z-hP-gMQ" id="B5m-Kv-Gow"/>
                         <outlet property="userEmailLabel" destination="2xe-dz-nBl" id="bto-pX-I0D"/>
                         <outlet property="userNameLabel" destination="mNe-c8-nRR" id="wE4-UM-GE0"/>
@@ -2333,10 +2338,10 @@ Information</string>
                                 <exclude reference="Hzo-tB-BkB"/>
                                 <exclude reference="cJo-Ou-xC3"/>
                                 <exclude reference="ddF-S5-UG7"/>
-                                <exclude reference="JZI-kL-UIA"/>
-                                <exclude reference="vql-35-qXY"/>
                                 <exclude reference="UVL-Em-zzz"/>
                                 <exclude reference="V32-Cw-yca"/>
+                                <exclude reference="JZI-kL-UIA"/>
+                                <exclude reference="vql-35-qXY"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -2350,10 +2355,10 @@ Information</string>
                                 <include reference="Hzo-tB-BkB"/>
                                 <include reference="cJo-Ou-xC3"/>
                                 <include reference="ddF-S5-UG7"/>
-                                <include reference="JZI-kL-UIA"/>
-                                <include reference="vql-35-qXY"/>
                                 <include reference="UVL-Em-zzz"/>
                                 <include reference="V32-Cw-yca"/>
+                                <include reference="JZI-kL-UIA"/>
+                                <include reference="vql-35-qXY"/>
                             </mask>
                         </variation>
                     </view>

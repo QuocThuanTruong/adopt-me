@@ -513,7 +513,11 @@ extension HomeViewController: UICollectionViewDataSource, CollectionViewWaterfal
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let dest = self.storyboard?.instantiateViewController(withIdentifier: "PetDetailViewController") as! PetDetailViewController
         
+        let index = indexPath.row
+        let pet = sourcePets[index]
+        
         dest.modalPresentationStyle = .fullScreen
+        dest.pet = pet
         
         self.present(dest, animated: true, completion: nil)
     }
