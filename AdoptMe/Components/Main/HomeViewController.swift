@@ -67,7 +67,7 @@ class HomeViewController: UIViewController {
     let tabIconNormalImages: [String] = ["ic-white-all-pet", "ic-white-dog", "ic-white-cat", "ic-white-others"]
     let tabIconSelectedImages: [String] = ["ic-blue-all-pet", "ic-blue-dog", "ic-blue-cat", "ic-blue-others"]
     
-    lazy var cellSizes: [CGSize] = {
+    var cellSizes: [CGSize] = {
         var cellSizes = [CGSize]()
            
         for _ in 0...10 {
@@ -159,6 +159,7 @@ class HomeViewController: UIViewController {
        
         //set selected tab
         setTabSelected(0)
+        listPetCollectionView.tag = 0;
         
         //init collection view
         let layout = CollectionViewWaterfallLayout()
@@ -354,7 +355,89 @@ class HomeViewController: UIViewController {
     }
     
     @objc func filterDoneAct(_ sender: Any) {
-       
+        let sortSelected = sortPickerView.selectedRow(inComponent: 0)
+        let genderSelected = genderPickerView.selectedRow(inComponent: 0)
+        let minAgeSelected : Int = Int(floor(ageRangeSlider.selectedMinValue))
+        let maxAgeSelected : Int = Int(floor(ageRangeSlider.selectedMaxValue))
+        
+        var sortBy  = (by: "posted_date", descending: true)
+        switch sortSelected {
+        case 0:
+            sortBy.by = "posted_date"
+            sortBy.descending = true
+            break;
+        case 1:
+            sortBy.by = "posted_date"
+            sortBy.descending = false
+            break;
+        case 2:
+            sortBy.by = "name"
+            sortBy.descending = true
+            break;
+        case 3:
+            sortBy.by = "name"
+            sortBy.descending = false
+            break;
+        default:
+            break;
+        }
+        
+        var genderFilter = true;
+        switch genderSelected {
+        case 0:
+            genderFilter = true;
+            break;
+        case 1:
+            genderFilter = false;
+            break;
+        default:
+            break;
+        }
+        
+        switch listPetCollectionView.tag {
+        case 0:
+            db.collection("pets")
+                .whereField("gender", isEqualTo: genderFilter)
+                .order(by: sortBy.by, descending: sortBy.descending)
+                .addSnapshotListener { (querySnapshot, error) in
+                    guard let documents = querySnapshot?.documents else {
+                        print("No documents")
+                        return
+                    }
+                    
+                    self.sourcePets = documents.compactMap { (QueryDocumentSnapshot) -> Pet? in
+                      return try? QueryDocumentSnapshot.data(as: Pet.self)
+                    }
+
+                    self.sourcePets = self.sourcePets.filter { pet in
+                        return pet.age >= minAgeSelected && pet.age <= maxAgeSelected
+                    }
+                    
+                    self.listPetCollectionView.reloadData()
+                }
+        default:
+            db.collection("pets")
+                .whereField("type", isEqualTo: listPetCollectionView.tag)
+                .whereField("gender", isEqualTo: genderFilter)
+                .order(by: sortBy.by, descending: sortBy.descending)
+                .addSnapshotListener { (querySnapshot, error) in
+                    guard let documents = querySnapshot?.documents else {
+                        print("No documents")
+                        return
+                    }
+                    
+                    self.sourcePets = documents.compactMap { (QueryDocumentSnapshot) -> Pet? in
+                      return try? QueryDocumentSnapshot.data(as: Pet.self)
+                    }
+                    
+                    self.sourcePets = self.sourcePets.filter { pet in
+                        return pet.age >= minAgeSelected && pet.age <= maxAgeSelected
+                    }
+                    
+                    self.listPetCollectionView.reloadData()
+                }
+        }
+        
         bottomPopUpView.dismiss(animated: true, completion: nil)
     }
     
@@ -374,6 +457,8 @@ class HomeViewController: UIViewController {
         
         sourcePets = pets
         
+        listPetCollectionView.tag = 0;
+        
         listPetCollectionView.reloadData()
     }
     
@@ -381,6 +466,8 @@ class HomeViewController: UIViewController {
         setTabSelected(1)
 
         sourcePets = dogs
+        
+        listPetCollectionView.tag = 1;
         
         listPetCollectionView.reloadData()
     }
@@ -390,6 +477,8 @@ class HomeViewController: UIViewController {
         
         sourcePets = cats
         
+        listPetCollectionView.tag = 2;
+        
         listPetCollectionView.reloadData()
     }
     
@@ -397,6 +486,8 @@ class HomeViewController: UIViewController {
         setTabSelected(3)
         
         sourcePets = others
+        
+        listPetCollectionView.tag = 3;
         
         listPetCollectionView.reloadData()
     }
@@ -507,7 +598,7 @@ extension HomeViewController: UICollectionViewDataSource, CollectionViewWaterfal
     }
     
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return cellSizes[indexPath.item]
+        return cellSizes[indexPath.row]
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -521,5 +612,4 @@ extension HomeViewController: UICollectionViewDataSource, CollectionViewWaterfal
         
         self.present(dest, animated: true, completion: nil)
     }
-    
 }
