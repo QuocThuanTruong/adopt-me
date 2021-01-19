@@ -367,7 +367,9 @@ class HomeViewController: UIViewController {
     }
     
     @objc func filterDoneAct(_ sender: Any) {
-        let keyName = Core.shared.getKeyName()
+        print("cc")
+        
+        let keyName = searchTextField.text ?? ""
         
         let sortSelected = sortPickerView.selectedRow(inComponent: 0)
         let genderSelected = genderPickerView.selectedRow(inComponent: 0)
