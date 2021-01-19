@@ -36,6 +36,7 @@ class HomeViewController: UIViewController {
     
     var db = Firestore.firestore()
     
+    var keyName : String = ""
     
     @IBOutlet weak var allButton: UIButton!
     @IBOutlet weak var dogsButton: UIButton!
@@ -58,7 +59,6 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var othersLabel: UILabel!
     
     @IBOutlet weak var listPetCollectionView: UICollectionView!
-    
     
     var tabHeaderUIView : [HalfRoundedUIView] = []
     var tabButtons: [UIButton] = []
@@ -86,10 +86,18 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
     
         fetchData()
+        
         initView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        searchTextField.text = Core.shared.getKeyName()
+        
+        reloadPage()
+    }
+    
     func fetchData() {
+        //All
         db.collection("pets").addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No documents")
@@ -105,6 +113,7 @@ class HomeViewController: UIViewController {
             self.listPetCollectionView.reloadData()
         }
         
+        //Dog
         db.collection("pets").whereField("type", isEqualTo: 1).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No documents")
@@ -116,6 +125,7 @@ class HomeViewController: UIViewController {
             }
         }
         
+        //Cat
         db.collection("pets").whereField("type", isEqualTo: 2).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No documents")
@@ -127,6 +137,7 @@ class HomeViewController: UIViewController {
             }
         }
         
+        //Others
         db.collection("pets").whereField("type", isEqualTo: 3).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No documents")
@@ -231,6 +242,7 @@ class HomeViewController: UIViewController {
         title.text = "Search filter"
         title.font = UIFont(name: "Helvetica Neue Medium", size: 20.0)
         title.textColor = UIColor(named: "AppTextColor")
+        
         
         sortLabel.text = "Sort by:"
         sortLabel.font = UIFont(name: "Helvetica Neue Regular", size: 17.0)
@@ -355,6 +367,8 @@ class HomeViewController: UIViewController {
     }
     
     @objc func filterDoneAct(_ sender: Any) {
+        let keyName = Core.shared.getKeyName()
+        
         let sortSelected = sortPickerView.selectedRow(inComponent: 0)
         let genderSelected = genderPickerView.selectedRow(inComponent: 0)
         let minAgeSelected : Int = Int(floor(ageRangeSlider.selectedMinValue))
@@ -413,6 +427,18 @@ class HomeViewController: UIViewController {
                         return pet.age >= minAgeSelected && pet.age <= maxAgeSelected
                     }
                     
+                    if (keyName != "") {
+                        self.sourcePets = self.sourcePets.filter { pet in
+                            return pet.name
+                                .uppercased()
+                                .folding(options: .diacriticInsensitive, locale: Locale.current)
+                                .contains(keyName
+                                            .uppercased()
+                                            .folding(options: .diacriticInsensitive, locale: Locale.current)
+                                )
+                        }
+                    }
+                    
                     self.listPetCollectionView.reloadData()
                 }
         default:
@@ -432,6 +458,19 @@ class HomeViewController: UIViewController {
                     
                     self.sourcePets = self.sourcePets.filter { pet in
                         return pet.age >= minAgeSelected && pet.age <= maxAgeSelected
+                        
+                    }
+                    
+                    if (keyName != "") {
+                        self.sourcePets = self.sourcePets.filter { pet in
+                            return pet.name
+                                .uppercased()
+                                .folding(options: .diacriticInsensitive, locale: Locale.current)
+                                .contains(keyName
+                                            .uppercased()
+                                            .folding(options: .diacriticInsensitive, locale: Locale.current)
+                                )
+                        }
                     }
                     
                     self.listPetCollectionView.reloadData()
@@ -455,39 +494,66 @@ class HomeViewController: UIViewController {
     @IBAction func viewAllPetAct(_ sender: Any) {
         setTabSelected(0)
         
-        sourcePets = pets
-        
         listPetCollectionView.tag = 0;
         
-        listPetCollectionView.reloadData()
+        reloadPage()
     }
     
     @IBAction func viewDogsAct(_ sender: Any) {
         setTabSelected(1)
-
-        sourcePets = dogs
         
         listPetCollectionView.tag = 1;
         
-        listPetCollectionView.reloadData()
+        reloadPage()
     }
     
     @IBAction func viewCatsAct(_ sender: Any) {
         setTabSelected(2)
         
-        sourcePets = cats
-        
         listPetCollectionView.tag = 2;
         
-        listPetCollectionView.reloadData()
+        reloadPage()
     }
     
     @IBAction func viewOthersAct(_ sender: Any) {
         setTabSelected(3)
         
-        sourcePets = others
-        
         listPetCollectionView.tag = 3;
+        
+        reloadPage()
+    }
+    
+    func reloadPage() {
+        let keyName = searchTextField.text ?? ""
+        
+        switch listPetCollectionView.tag {
+        case 0:
+            sourcePets = pets
+            break
+        case 1:
+            sourcePets = dogs
+            break
+        case 2:
+            sourcePets = cats
+            break
+        case 3:
+            sourcePets = others
+            break
+        default:
+            break;
+        }
+        
+        if (keyName != "") {
+            sourcePets = sourcePets.filter { pet in
+                return pet.name
+                    .uppercased()
+                    .folding(options: .diacriticInsensitive, locale: Locale.current)
+                    .contains(keyName
+                                .uppercased()
+                                .folding(options: .diacriticInsensitive, locale: Locale.current)
+                    )
+            }
+        }
         
         listPetCollectionView.reloadData()
     }

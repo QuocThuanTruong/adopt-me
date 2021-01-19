@@ -10,6 +10,7 @@ import Foundation
 class Core {
     static let shared = Core()
     var isLogin = false
+    var keyName = ""
     
     func isFirstLauchApp() -> Bool {
         return !UserDefaults.standard.bool(forKey: "isFirstLauchApp")
@@ -42,5 +43,13 @@ class Core {
     
     func getToken() -> String {
         return UserDefaults.standard.string(forKey: "token") ?? ""
+    }
+    
+    func setKeyName(_ keyName: String) {
+        UserDefaults.standard.setValue(keyName, forKey: "keyName")
+    }
+    
+    func getKeyName() -> String {
+        return UserDefaults.standard.string(forKey: "keyName") ?? ""
     }
 }

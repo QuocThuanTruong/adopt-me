@@ -27,6 +27,7 @@ class SearchViewController: UIViewController {
     }
     
     func initView() {
+        searchTextField.text = Core.shared.getKeyName()
         searchTextField.setOutlineColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0), for: .normal)
         searchTextField.setOutlineColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0), for: .editing)
         searchTextField.clearButtonMode = .whileEditing
@@ -48,10 +49,15 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func searchAct(_ sender: Any) {
+        Core.shared.setKeyName(searchTextField.text ?? "")
+        self.dismiss(animated: true, completion: nil)
+        
         print("searching...")
     }
     
     @IBAction func backAct(_ sender: Any) {
+        Core.shared.setKeyName("")
+        
         self.dismiss(animated: true, completion: nil)
     }
 
