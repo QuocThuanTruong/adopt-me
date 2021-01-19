@@ -10,6 +10,7 @@ import MaterialComponents
 import ImageSlideshow
 import AlamofireImage
 import Alamofire
+import Nuke
 
 class PetDetailViewController: UIViewController {
 
@@ -26,6 +27,10 @@ class PetDetailViewController: UIViewController {
     @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var adoptMeButton: MDCButton!
     @IBOutlet weak var imageSSIndicator: UIPageControl!
+    
+    @IBOutlet weak var testUserAvatar: UIImageView!
+    var pet_id : String = ""
+    var pet = Pet()
     
     override func viewDidLoad() {
         
@@ -45,11 +50,40 @@ class PetDetailViewController: UIViewController {
         phoneButton.layer.borderColor = UIColor(named: "AppRedColor")?.cgColor
         
         configImageSlideShow()
+        
+        petNameLabel.text = pet.name
+        petAgeLabel.text = "\(pet.age) month"
+        petGenderLabel.text = pet.gender ? "Male" : "Female"
+        petAddressLabel.text = pet.address
+        petDescriptionLabel.text = pet.description
+        
+        db.collection("users").document(pet.user_id).getDocument { (document, error) in
+            let data = document?.data()
+            
+            /*result.UID = data?["UID"] as! String
+            result.address = data?["address"] as! String
+            result.dateOfBirth = data?["dateOfBirth"] as! String
+            result.email = data?["email"] as! String
+            result.fullname = data?["fullname"] as! String
+            result.gender = data?["gender"] as! Bool
+            result.password = data?["password"] as! String
+            result.phone = data?["phone"] as! String
+            result.token = data?["token"] as! String
+            result.username = data?["username"] as! String
+            result.avatar = data?["avatar"] as! String*/
+            
+            self.userNameLabel.text = (data?["fullname"] as! String)
+            self.userEmailLabel.text = (data?["email"] as! String)
+            
+            let urlStr = URL(string: (data?["avatar"] as! String))
+            let urlReq = URLRequest(url: urlStr!)
+            Nuke.loadImage(with: urlReq, into: self.testUserAvatar)
+        }
     }
     
     func configImageSlideShow() {
         //test data
-        let afNetworkingSource = [AlamofireSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")!, AlamofireSource(urlString: "https://images.unsplash.com/photo-1447746249824-4be4e1b76d66?w=1080")!, AlamofireSource(urlString: "https://images.unsplash.com/photo-1463595373836-6e0b0a8ee322?w=1080")!]
+        let afNetworkingSource = [AlamofireSource(urlString: pet.images[0])!, AlamofireSource(urlString: pet.images[1])!, AlamofireSource(urlString: pet.images[2])!]
         
         petImageSlideShow.slideshowInterval = 5.0
         petImageSlideShow.pageIndicatorPosition = .init(horizontal: .center, vertical: .under)
