@@ -43,4 +43,25 @@ class Core {
     func getToken() -> String {
         return UserDefaults.standard.string(forKey: "token") ?? ""
     }
+    
+    func getCurrentUserEmail() -> String {
+        return UserDefaults.standard.string(forKey: "currentEmail") ?? ""
+    }
+    
+    func setCurrentUserEmail(_ email: String) {
+        UserDefaults.standard.setValue(email, forKey: "currentEmail")
+    }
+    
+    func getCurrentUserFullName() -> String {
+        return UserDefaults.standard.string(forKey: "currentName") ?? ""
+    }
+    
+    func setCurrentUserFullName(_ name: String) {
+        UserDefaults.standard.setValue(name, forKey: "currentName")
+    }
+}
+
+struct CurrentUser {
+    var email: String;
+    var fullName: String;
 }

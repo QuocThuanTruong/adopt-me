@@ -2993,7 +2993,7 @@ new password</string>
     </scenes>
     <designables>
         <designable name="EFd-pw-5VK">
-            <size key="intrinsicContentSize" width="43" height="29"/>
+            <size key="intrinsicContentSize" width="52" height="32"/>
         </designable>
         <designable name="HWU-Un-hBH">
             <size key="intrinsicContentSize" width="98" height="32"/>
@@ -3005,10 +3005,10 @@ new password</string>
             <size key="intrinsicContentSize" width="83" height="32"/>
         </designable>
         <designable name="nHK-Ku-7NF">
-            <size key="intrinsicContentSize" width="49" height="29"/>
+            <size key="intrinsicContentSize" width="58" height="32"/>
         </designable>
         <designable name="pMk-wQ-6Iq">
-            <size key="intrinsicContentSize" width="46" height="29"/>
+            <size key="intrinsicContentSize" width="55" height="32"/>
         </designable>
     </designables>
     <resources>

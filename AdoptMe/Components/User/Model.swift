@@ -26,10 +26,10 @@ struct MyUser : Identifiable, Codable {
     var username : String
 }
 
-func getUserByID(ID : String) -> MyUser {
+func getUserByEmail(Email : String) -> MyUser {
     var result = [MyUser]()
     
-    db.collection("users").whereField("UID", isEqualTo: ID).limit(to: 1)
+    db.collection("users").whereField("email", isEqualTo: Email).limit(to: 1)
         .getDocuments{ (querySnapshot, error) in
             if let error = error {
                 print(error)
@@ -43,6 +43,7 @@ func getUserByID(ID : String) -> MyUser {
                 }
             }
     }
+
     
     return result[0]
 }

@@ -2285,17 +2285,9 @@ Information</string>
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="backAct:" destination="42h-gV-QxY" eventType="touchUpInside" id="amd-pF-Tep"/>
-                                    <action selector="backAct:" destination="18j-Kr-zUq" eventType="touchUpInside" id="eYX-OD-Dwh"/>
-                                    <action selector="backAct:" destination="VNM-Iw-lIh" eventType="touchUpInside" id="f3M-P4-5TK"/>
+                                    <action selector="backAct:" destination="18j-Kr-zUq" eventType="touchUpInside" id="udx-oZ-SAw"/>
                                 </connections>
                             </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hfN-Wb-TVE">
-                                <rect key="frame" x="20" y="122" width="374" height="732"/>
-                                <connections>
-                                    <segue destination="r5U-Ud-ALy" kind="embed" id="a0N-Dc-7XO"/>
-                                </connections>
-                            </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quoc Thuan Truong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cHJ-Hf-aYL">
                                 <rect key="frame" x="125" y="61" width="164" height="22"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
@@ -2314,18 +2306,12 @@ Information</string>
                             </constraint>
                             <constraint firstItem="xpw-3m-Me9" firstAttribute="top" secondItem="gzE-Xx-E2l" secondAttribute="bottom" constant="12" id="Hzo-tB-BkB"/>
                             <constraint firstItem="cHJ-Hf-aYL" firstAttribute="centerX" secondItem="4OD-Fo-sqn" secondAttribute="centerX" id="JZI-kL-UIA"/>
-                            <constraint firstItem="hfN-Wb-TVE" firstAttribute="leading" secondItem="gj9-Cv-vs2" secondAttribute="leading" constant="20" id="UVL-Em-zzz"/>
-                            <constraint firstItem="hfN-Wb-TVE" firstAttribute="top" secondItem="gzE-Xx-E2l" secondAttribute="bottom" constant="30" id="V32-Cw-yca"/>
-                            <constraint firstItem="gj9-Cv-vs2" firstAttribute="bottom" secondItem="hfN-Wb-TVE" secondAttribute="bottom" constant="8" id="bb8-KG-XZD"/>
                             <constraint firstItem="xpw-3m-Me9" firstAttribute="trailing" secondItem="gj9-Cv-vs2" secondAttribute="trailing" id="cJo-Ou-xC3"/>
                             <constraint firstItem="xpw-3m-Me9" firstAttribute="leading" secondItem="gj9-Cv-vs2" secondAttribute="leading" id="ddF-S5-UG7"/>
-                            <constraint firstItem="gj9-Cv-vs2" firstAttribute="trailing" secondItem="hfN-Wb-TVE" secondAttribute="trailing" constant="20" id="iTp-9v-8gb"/>
                             <constraint firstItem="cHJ-Hf-aYL" firstAttribute="centerY" secondItem="gzE-Xx-E2l" secondAttribute="centerY" id="vql-35-qXY"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="bb8-KG-XZD"/>
-                                <exclude reference="iTp-9v-8gb"/>
                                 <exclude reference="6hB-9A-M1B"/>
                                 <exclude reference="HE7-3r-dXM"/>
                                 <exclude reference="23H-8h-Kkk"/>
@@ -2335,14 +2321,10 @@ Information</string>
                                 <exclude reference="ddF-S5-UG7"/>
                                 <exclude reference="JZI-kL-UIA"/>
                                 <exclude reference="vql-35-qXY"/>
-                                <exclude reference="UVL-Em-zzz"/>
-                                <exclude reference="V32-Cw-yca"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="bb8-KG-XZD"/>
-                                <include reference="iTp-9v-8gb"/>
                                 <include reference="6hB-9A-M1B"/>
                                 <include reference="HE7-3r-dXM"/>
                                 <exclude reference="23H-8h-Kkk"/>
@@ -2352,13 +2334,11 @@ Information</string>
                                 <include reference="ddF-S5-UG7"/>
                                 <include reference="JZI-kL-UIA"/>
                                 <include reference="vql-35-qXY"/>
-                                <include reference="UVL-Em-zzz"/>
-                                <include reference="V32-Cw-yca"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="chatContainer" destination="xpw-3m-Me9" id="1bd-xA-47Q"/>
+                        <outlet property="chatTitle" destination="cHJ-Hf-aYL" id="ltG-Ha-La1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uYe-sq-duR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2534,15 +2514,23 @@ Information</string>
                                             <action selector="resetAct:" destination="6cR-yX-1tk" eventType="touchUpInside" id="aUW-cT-HoJ"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat now is empty." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="naH-2d-vNb">
+                                        <rect key="frame" x="134" y="350" width="146" height="20"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="720" id="BHx-QK-bMG"/>
                                     <constraint firstItem="num-9Z-Ptb" firstAttribute="top" secondItem="Tqa-lA-gXC" secondAttribute="top" constant="26" id="NxK-6Y-RJ5"/>
                                     <constraint firstAttribute="trailing" secondItem="IKx-eq-3Df" secondAttribute="trailing" id="ORD-u0-IPq"/>
+                                    <constraint firstItem="naH-2d-vNb" firstAttribute="centerY" secondItem="Tqa-lA-gXC" secondAttribute="centerY" id="abQ-Vx-Kp9"/>
                                     <constraint firstAttribute="bottom" secondItem="IKx-eq-3Df" secondAttribute="bottom" id="bec-gx-BOH"/>
                                     <constraint firstItem="num-9Z-Ptb" firstAttribute="leading" secondItem="Tqa-lA-gXC" secondAttribute="leading" constant="30" id="bre-pI-9g5"/>
                                     <constraint firstItem="IKx-eq-3Df" firstAttribute="top" secondItem="num-9Z-Ptb" secondAttribute="bottom" constant="12" id="eWU-6K-Ktd"/>
+                                    <constraint firstItem="naH-2d-vNb" firstAttribute="centerX" secondItem="Tqa-lA-gXC" secondAttribute="centerX" id="pVc-pK-Pwz"/>
                                     <constraint firstItem="IKx-eq-3Df" firstAttribute="leading" secondItem="Tqa-lA-gXC" secondAttribute="leading" id="ra6-Cq-pKp"/>
                                 </constraints>
                                 <variation key="default">
@@ -2554,6 +2542,8 @@ Information</string>
                                         <exclude reference="bec-gx-BOH"/>
                                         <exclude reference="eWU-6K-Ktd"/>
                                         <exclude reference="ra6-Cq-pKp"/>
+                                        <exclude reference="abQ-Vx-Kp9"/>
+                                        <exclude reference="pVc-pK-Pwz"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -2565,6 +2555,8 @@ Information</string>
                                         <include reference="bec-gx-BOH"/>
                                         <include reference="eWU-6K-Ktd"/>
                                         <include reference="ra6-Cq-pKp"/>
+                                        <include reference="abQ-Vx-Kp9"/>
+                                        <include reference="pVc-pK-Pwz"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -2637,6 +2629,7 @@ with others</string>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="chatEmptyLabel" destination="naH-2d-vNb" id="J4j-8i-Nt4"/>
                         <outlet property="chatTableView" destination="IKx-eq-3Df" id="Q1k-9a-opR"/>
                     </connections>
                 </viewController>
@@ -2660,6 +2653,14 @@ with others</string>
                                     <action selector="turnOnFirstLauch:" destination="0b9-yR-dxg" eventType="touchUpInside" id="szj-2j-uq0"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Db2-ax-S2B">
+                                <rect key="frame" x="183" y="377" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logOutAct:" destination="0b9-yR-dxg" eventType="touchUpInside" id="5en-qj-Pv5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xoA-IO-GIc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -2674,7 +2675,7 @@ with others</string>
             <objects>
                 <viewController storyboardIdentifier="ChatFrameViewController" id="r5U-Ud-ALy" customClass="ChatFrameViewController" customModule="AdoptMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bn9-Ye-gw7">
-                        <rect key="frame" x="0.0" y="0.0" width="374" height="732"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="F5J-MG-Ttc"/>
                         <color key="backgroundColor" systemColor="systemOrangeColor"/>
@@ -2744,6 +2745,9 @@ with others</string>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

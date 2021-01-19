@@ -16,21 +16,25 @@ class ViewController : SOTabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        if Core.shared.isUserLogin() {
-            let homeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-            let favVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-            let addVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddPetViewController") as! AddPetViewController
-            let chatVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-            let userVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
-  
-            homeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "ic-blue-home"), selectedImage: UIImage(named: "ic-white-home"))
-            favVC.tabBarItem = UITabBarItem(title: "Favorite", image: UIImage(named: "ic-md-blue-fav"), selectedImage: UIImage(named: "ic-md-white-fav"))
-            addVC.tabBarItem = UITabBarItem(title: "Add pet", image: UIImage(named: "ic-blue-add"), selectedImage: UIImage(named: "ic-white-add"))
-            chatVC.tabBarItem = UITabBarItem(title: "Chat", image: UIImage(named: "ic-blue-chat"), selectedImage: UIImage(named: "ic-white-chat"))
-            userVC.tabBarItem = UITabBarItem(title: "User", image: UIImage(named: "ic-blue-user"), selectedImage: UIImage(named: "ic-white-user"))
+        
+            initView()
+        
+    }
+    
+    func initView() {
+        let homeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        let favVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        let addVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddPetViewController") as! AddPetViewController
+        let chatVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+        let userVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
 
-            self.viewControllers = [homeVC, favVC, addVC, chatVC, userVC]
-        }
+        homeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "ic-blue-home"), selectedImage: UIImage(named: "ic-white-home"))
+        favVC.tabBarItem = UITabBarItem(title: "Favorite", image: UIImage(named: "ic-md-blue-fav"), selectedImage: UIImage(named: "ic-md-white-fav"))
+        addVC.tabBarItem = UITabBarItem(title: "Add pet", image: UIImage(named: "ic-blue-add"), selectedImage: UIImage(named: "ic-white-add"))
+        chatVC.tabBarItem = UITabBarItem(title: "Chat", image: UIImage(named: "ic-blue-chat"), selectedImage: UIImage(named: "ic-white-chat"))
+        userVC.tabBarItem = UITabBarItem(title: "User", image: UIImage(named: "ic-blue-user"), selectedImage: UIImage(named: "ic-white-user"))
+
+        self.viewControllers = [homeVC, favVC, addVC, chatVC, userVC]
     }
     
     override func loadView() {
@@ -54,15 +58,41 @@ class ViewController : SOTabBarController {
                 print("first")
             
         } else {
-            if !Core.shared.isUserLogin() {
-                let storyboard = UIStoryboard(name: "Auth", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-                vc.modalPresentationStyle = .fullScreen
-                    
-                self.present(vc, animated: true, completion: nil)
+           
+            
+            let token = Core.shared.getToken()
+            
+            if token != "" {
+                let userCollection = Firestore.firestore().collection("users")
                 
+                userCollection.whereField("token", isEqualTo: token).limit(to: 1)
+                    .getDocuments{ [self] (querySnapshot, error) in
+                        if let error = error {
+                            print(error)
+                        } else {
+                            if querySnapshot!.documents.count == 1 {
+                                Core.shared.setIsUserLogin(true)
+                            } else {
+                                gotoLogin()
+                            }
+                        }
+                    }
+            } else {
+                if !Core.shared.isUserLogin() {
+                    gotoLogin()
+                }
             }
-        }
+            
+        
+    }
+}
+    
+    func gotoLogin() {
+        let storyboard = UIStoryboard(name: "Auth", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        vc.modalPresentationStyle = .fullScreen
+            
+        self.present(vc, animated: true, completion: nil)
     }
     
 }

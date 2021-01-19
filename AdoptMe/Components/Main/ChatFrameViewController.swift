@@ -23,7 +23,7 @@ class ChatFrameViewController: MessagesViewController {
            return formattre
        }()
 
-       public var otherUserEmail: String
+       public var otherUserEmail: String = ""
        public var conversationId: String?
        public var isNewConversation = false
 
@@ -40,15 +40,15 @@ class ChatFrameViewController: MessagesViewController {
                          displayName: "Me")
        }
 
-       init(with email: String, id: String?) {
-           self.conversationId = id
-           self.otherUserEmail = email
-           super.init(nibName: nil, bundle: nil)
-       }
-
-       required init?(coder: NSCoder) {
-           fatalError("init(coder:) has not been implemented")
-       }
+//       init(with email: String, id: String?) {
+//           self.conversationId = id
+//           self.otherUserEmail = email
+//           super.init(nibName: nil, bundle: nil)
+//       }
+//
+//       required init?(coder: NSCoder) {
+//           fatalError("init(coder:) has not been implemented")
+//       }
        
     
     override func viewDidLoad() {
@@ -61,7 +61,21 @@ class ChatFrameViewController: MessagesViewController {
         messageInputBar.delegate = self
         setupInputButton()
         
-        messagesCollectionView.backgroundColor = .lightGray
+        initView()
+        
+        messagesCollectionView.backgroundColor = .red
+    }
+    
+    func initView() {
+        let topC = NSLayoutConstraint(item: messagesCollectionView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 80)
+        
+        let leftC = NSLayoutConstraint(item: messagesCollectionView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0)
+        
+        let bottomC = NSLayoutConstraint(item: messagesCollectionView, attribute: .bottom, relatedBy: .equal, toItem: self.view , attribute: .bottom, multiplier: 1, constant: 0)
+        
+        let rightC = NSLayoutConstraint(item: messagesCollectionView, attribute: .trailing, relatedBy: .equal, toItem: self.view , attribute: .trailing, multiplier: 1, constant: 0)
+        
+        NSLayoutConstraint.activate([topC, leftC, bottomC, rightC])
     }
     
     private func listenForMessages(id: String, shouldScrollToBottom: Bool) {

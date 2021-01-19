@@ -256,6 +256,7 @@ class FillInfoViewController: UIViewController {
         guard let imageData = image?.jpegData(compressionQuality: 1) else {
             return
         }
+        
 
         if (UID == "") {
             UID = UUID().uuidString
@@ -277,6 +278,19 @@ class FillInfoViewController: UIViewController {
         ], merge: true)
         
         Core.shared.setIsUserLogin(true)
+        let email = emailTextField.text ?? ""
+        let fullName = userfullNameTextField.text ?? ""
+        Core.shared.setCurrentUserEmail(email)
+        Core.shared.setCurrentUserFullName(fullName)
+        
+        ChatDatabaseManager.shared.insertUser(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
+        success in
+            if (success){
+                print("done insert realtime")
+            } else {
+                print("fail insert realtime")
+            }
+        })
         
         let fillInfoVC = self.presentingViewController
         

@@ -26,23 +26,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let token = Core.shared.getToken()
-        
-        if token != "" {
-            let userCollection = Firestore.firestore().collection("users")
-            
-            userCollection.whereField("token", isEqualTo: token).limit(to: 1)
-                .getDocuments{ [self] (querySnapshot, error) in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        if querySnapshot!.documents.count == 1 {
-                           loginManual()
-                        }
-                    }
-                }
-        }
-        
         initView()
         
         GIDSignIn.sharedInstance()?.presentingViewController = self

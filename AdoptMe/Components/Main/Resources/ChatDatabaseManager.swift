@@ -66,8 +66,7 @@ extension ChatDatabaseManager {
     /// Inserts new user to database
     public func insertUser(with user: ChatAppUser, completion: @escaping (Bool) -> Void) {
         database.child(user.safeEmail).setValue([
-            "first_name": user.firstName,
-            "last_name": user.lastName
+            "fullName": user.fullName,
         ], withCompletionBlock: { [weak self] error, _ in
 
             guard let strongSelf = self else {
@@ -84,7 +83,7 @@ extension ChatDatabaseManager {
                 if var usersCollection = snapshot.value as? [[String: String]] {
                     // append to user dictionary
                     let newElement = [
-                        "name": user.firstName + " " + user.lastName,
+                        "name": user.fullName,
                         "email": user.safeEmail
                     ]
                     usersCollection.append(newElement)
@@ -102,7 +101,7 @@ extension ChatDatabaseManager {
                     // create that array
                     let newCollection: [[String: String]] = [
                         [
-                            "name": user.firstName + " " + user.lastName,
+                            "name": user.fullName,
                             "email": user.safeEmail
                         ]
                     ]
@@ -190,13 +189,10 @@ extension ChatDatabaseManager {
 
     /// Creates a new conversation with target user emamil and first message sent
     public func createNewConversation(with otherUserEmail: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
-//        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String,
-//            let currentNamme = UserDefaults.standard.value(forKey: "name") as? String else {
-//                return
-//        }
+
         
-        let currentEmail = "quocthuantruong1707@gmail.com"
-        let currentNamme = "Tester"
+        let currentEmail = Core.shared.getCurrentUserEmail()
+        let currentNamme = Core.shared.getCurrentUserFullName()
         let safeEmail = ChatDatabaseManager.safeEmail(emailAddress: currentEmail)
 
         let ref = database.child("\(safeEmail)")
@@ -350,12 +346,8 @@ extension ChatDatabaseManager {
             break
         }
 
-//        guard let myEmmail = UserDefaults.standard.value(forKey: "email") as? String else {
-//            completion(false)
-//            return
-//        }
         
-        let myEmmail = "quocthuantruong1707@gmail.com"
+        let myEmmail = Core.shared.getCurrentUserEmail()
 
         let currentUserEmail = ChatDatabaseManager.safeEmail(emailAddress: myEmmail)
 
@@ -503,12 +495,8 @@ extension ChatDatabaseManager {
         // update sender latest message
         // update recipient latest message
 
-//        guard let myEmail = UserDefaults.standard.value(forKey: "email") as? String else {
-//            completion(false)
-//            return
-//        }
+        let myEmail = Core.shared.getCurrentUserEmail()
         
-        let myEmail = "quocthuantruong1707@gmail.com"
 
         let currentEmail = ChatDatabaseManager.safeEmail(emailAddress: myEmail)
 
@@ -557,12 +545,9 @@ extension ChatDatabaseManager {
                 break
             }
 
-//            guard let myEmmail = UserDefaults.standard.value(forKey: "email") as? String else {
-//                completion(false)
-//                return
-//            }
+
             
-            let myEmmail = "quocthuantruong1707@gmail.com"
+            let myEmmail = Core.shared.getCurrentUserEmail()
             let currentUserEmail = ChatDatabaseManager.safeEmail(emailAddress: myEmmail)
 
             let newMessageEntry: [String: Any] = [
@@ -749,11 +734,8 @@ extension ChatDatabaseManager {
 
     public func conversationExists(iwth targetRecipientEmail: String, completion: @escaping (Result<String, Error>) -> Void) {
         let safeRecipientEmail = ChatDatabaseManager.safeEmail(emailAddress: targetRecipientEmail)
-//        guard let senderEmail = UserDefaults.standard.value(forKey: "email") as? String else {
-//            return
-//        }
         
-        let senderEmail = "quocthuantruong1707@gmail.com"
+        let senderEmail = Core.shared.getCurrentUserEmail()
         let safeSenderEmail = ChatDatabaseManager.safeEmail(emailAddress: senderEmail)
 
         database.child("\(safeRecipientEmail)/conversations").observeSingleEvent(of: .value, with: { snapshot in
@@ -786,8 +768,7 @@ extension ChatDatabaseManager {
 }
 
 struct ChatAppUser {
-    let firstName: String
-    let lastName: String
+    let fullName: String
     let emailAddress: String
 
     var safeEmail: String {
