@@ -16,6 +16,9 @@ class MyProfileViewController: UIViewController {
     }
     
 
+    @IBAction func backAct(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

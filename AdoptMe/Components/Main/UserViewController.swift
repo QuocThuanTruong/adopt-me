@@ -7,6 +7,8 @@
 
 import UIKit
 import Firebase
+import MaterialComponents
+import Nuke
 
 class UserViewController: UIViewController {
 
@@ -14,27 +16,57 @@ class UserViewController: UIViewController {
     @IBOutlet weak var userFullNameLabel: UILabel!
     @IBOutlet weak var userEmailLabel: UILabel!
     @IBOutlet weak var userAvatarButton: UIButton!
+    @IBOutlet weak var logoutButton: MDCButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+       initView()
+    }
+    
+    func initView() {
+        userAvatarImageView.layer.borderWidth = 0
+        userAvatarImageView.layer.masksToBounds = false
+        userAvatarImageView.layer.cornerRadius = userAvatarImageView.frame.height/2
+        userAvatarImageView.clipsToBounds = true
+        
+        userAvatarImageView.image = UIImage(named: "test_avt")
+        
+        logoutButton.layer.cornerRadius = 5.0
+        
     }
     
     @IBAction func viewMyProfileAct(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyProfileViewController") as! MyProfileViewController
+        
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func appInfoAct(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppInfoViewController") as! AppInfoViewController
+        
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
     
     
     @IBAction func ratingAct(_ sender: Any) {
+        
     }
     
     @IBAction func settingAct(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
+        
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func editProfileAct(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "UpdateMyProfileViewController") as! UpdateMyProfileViewController
+        
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func turnOnFirstLauch(_ sender: Any) {
@@ -56,18 +88,12 @@ class UserViewController: UIViewController {
                         let data = querySnapshot?.documents[0].data()
                         
                         userCollection.document(data?["UID"] as! String).updateData(["token": ""])
+                        
+                        
                     }
                 }
             }
+        
+       
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
