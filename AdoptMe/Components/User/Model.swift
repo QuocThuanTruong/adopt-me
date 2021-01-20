@@ -14,16 +14,17 @@ let db = Firestore.firestore()
 
 struct MyUser : Identifiable, Codable {
     @DocumentID var id : String?
-    var UID : String
-    var address : String
-    var dateOfBirth : Date
-    var email : String
-    var fullname : String
-    var gender : Bool
-    var password : String
-    var phone : String
-    var token : String
-    var username : String
+    var UID : String = ""
+    var address : String = ""
+    var dateOfBirth : String = ""
+    var email : String = ""
+    var fullname : String = ""
+    var gender : String = ""
+    var password : String = ""
+    var phone : String = ""
+    var token : String = ""
+    var username : String = ""
+    var avatar : String = ""
 }
 
 func getUserByEmail(Email : String) -> MyUser {
