@@ -17,11 +17,13 @@ class ViewController : SOTabBarController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-            initView()
+        initView()
         
     }
     
     func initView() {
+        Core.shared.setKeyName("")
+        
         let homeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
         let favVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
         let addVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddPetViewController") as! AddPetViewController
@@ -82,10 +84,8 @@ class ViewController : SOTabBarController {
                     gotoLogin()
                 }
             }
-            
-        
+        }
     }
-}
     
     func gotoLogin() {
         let storyboard = UIStoryboard(name: "Auth", bundle: nil)
