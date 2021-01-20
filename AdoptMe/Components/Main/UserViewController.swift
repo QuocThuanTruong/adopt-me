@@ -10,10 +10,31 @@ import Firebase
 
 class UserViewController: UIViewController {
 
+    @IBOutlet weak var userAvatarImageView: UIImageView!
+    @IBOutlet weak var userFullNameLabel: UILabel!
+    @IBOutlet weak var userEmailLabel: UILabel!
+    @IBOutlet weak var userAvatarButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func viewMyProfileAct(_ sender: Any) {
+    }
+    
+    @IBAction func appInfoAct(_ sender: Any) {
+    }
+    
+    
+    @IBAction func ratingAct(_ sender: Any) {
+    }
+    
+    @IBAction func settingAct(_ sender: Any) {
+    }
+    
+    @IBAction func editProfileAct(_ sender: Any) {
     }
     
     @IBAction func turnOnFirstLauch(_ sender: Any) {
