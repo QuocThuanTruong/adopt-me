@@ -648,9 +648,7 @@ extension HomeViewController: UICollectionViewDataSource, CollectionViewWaterfal
         }
     
         
-        let urlStr = URL(string: pet.avatar)
-        let urlReq = URLRequest(url: urlStr!)
-        Nuke.loadImage(with: urlReq, into: cell.petAvatarImage)
+        
         
         //cell.petAvatarImage.image = UIImage(named: "test_avt")
         
@@ -658,6 +656,14 @@ extension HomeViewController: UICollectionViewDataSource, CollectionViewWaterfal
         cell.petAvatarImage.clipsToBounds = true
         
         cell.addFavButton.addTarget(self, action: #selector(addToFavorite(_:)), for: .touchUpInside)
+        
+        guard let urlStr = URL(string: pet.avatar) else {
+            return cell
+        }
+        
+        let urlReq = URLRequest(url: urlStr)
+        Nuke.loadImage(with: urlReq, into: cell.petAvatarImage)
+        
         
         return cell
     }

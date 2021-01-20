@@ -11,8 +11,7 @@ import UIFloatLabelTextView
 import BottomPopUpView
 import Photos
 import ALCameraViewController
-import PhotosUI
-import Cloudinary
+import FirebaseStorage
 
 class AddPetViewController: UIViewController {
 
@@ -127,7 +126,8 @@ class AddPetViewController: UIViewController {
                   if let image = image {
                    
                     self!.avatarPickerButton.setImage(image, for: .normal)
-                      
+                    self!.avatarPickerButton.tag = 1
+                    
                       imagePickerViewController.dismiss(animated: false, completion: nil)
                       
                   }
@@ -176,6 +176,7 @@ class AddPetViewController: UIViewController {
                   if let image = image {
                      
                     self!.petImage1Button.setImage(image, for: .normal)
+                    self!.petImage1Button.tag = 1
                       
                       imagePickerViewController.dismiss(animated: false, completion: nil)
                       
@@ -226,6 +227,7 @@ class AddPetViewController: UIViewController {
                   if let image = image {
                      
                     self!.petImage2Button.setImage(image, for: .normal)
+                    self!.petImage2Button.tag = 1
                       
                       imagePickerViewController.dismiss(animated: false, completion: nil)
                       
@@ -276,6 +278,7 @@ class AddPetViewController: UIViewController {
                   if let image = image {
                      
                     self!.petImage3Button.setImage(image, for: .normal)
+                    self!.petImage3Button.tag = 1
                       
                       imagePickerViewController.dismiss(animated: false, completion: nil)
                       
@@ -292,9 +295,6 @@ class AddPetViewController: UIViewController {
     }
     
     @IBAction func act_AddPet(_ sender: Any) {
-        let cloudinaryConfig = CLDConfiguration(cloudinaryUrl: "cloudinary://777796435798159:PLKCXquNSc_rD8jqp7VnE2AROF0@hcmus-web")
-        let cloudinary = CLDCloudinary(configuration: cloudinaryConfig!)
-        
         var newPet = Pet()
         
         newPet.name = petNameTextField.text ?? ""
@@ -333,29 +333,37 @@ class AddPetViewController: UIViewController {
         }
         newPet.gender = genderText == "Male"
         
-        let avatarImage = avatarPickerButton.backgroundImage(for: .normal)
-        if (avatarImage == nil) {
+        let typeText = "Dog" //Bien text cua gender
+        if (typeText == "") {
+            //alert chua chon gioi tinh
+            print("10")
+            return
+        }
+        newPet.type = typeText == "Dog" ? 1 : (typeText == "Cat" ? 2 : 3)
+        
+        let avatarImage = avatarPickerButton.image(for: .normal)
+        if (avatarPickerButton.tag == 0) {
             //alert khong duoc bo trong
             print("6")
             return
         }
         
-        let image1 = petImage1Button.backgroundImage(for: .normal)
-        if (image1 == nil) {
+        let image1 = petImage1Button.image(for: .normal)
+        if (petImage1Button.tag == 0) {
             //alert khong duoc bo trong
             print("7")
             return
         }
         
-        let image2 = petImage2Button.backgroundImage(for: .normal)
-        if (image2 == nil) {
+        let image2 = petImage2Button.image(for: .normal)
+        if (petImage2Button.tag == 0) {
             //alert khong duoc bo trong
             print("8")
             return
         }
         
-        let image3 = petImage3Button.backgroundImage(for: .normal)
-        if (image3 == nil) {
+        let image3 = petImage3Button.image(for: .normal)
+        if (petImage2Button.tag == 0) {
             //alert khong duoc bo trong
             print("9")
             return
@@ -364,8 +372,100 @@ class AddPetViewController: UIViewController {
         newPet.user_id = Core.shared.getCurrentUserID()
         newPet.pet_id = UUID().uuidString
 
+        //upload Avatar
+        StorageManager.shared.uploadImage(with: avatarImage!.pngData()!, fileName: "avatar.png", folder: "Pet", subFolder: newPet.pet_id, completion: { [weak self] result in
+                guard let strongSelf = self else {
+                    return
+                }
 
+                switch result {
+                case .success(let urlString):
+                    // Ready to send message
+                    print("Uploaded avatar Photo: \(urlString)")
+                    newPet.avatar = urlString
+                case .failure(let error):
+                    print("message photo upload error: \(error)")
+                    
+                    return
+                }
+            //Image1
+            StorageManager.shared.uploadImage(with: image1!.pngData()!, fileName: "1.png", folder: "Pet", subFolder: newPet.pet_id, completion: { [weak self] result in
+                    guard let strongSelf = self else {
+                        return
+                    }
+
+                    switch result {
+                    case .success(let urlString):
+                        // Ready to send message
+                        print("Uploaded image 1 Photo: \(urlString)")
+                        newPet.avatar = urlString
+                    case .failure(let error):
+                        print("message photo upload error: \(error)")
+                        
+                        return
+                    }
+                
+                //Image2
+                StorageManager.shared.uploadImage(with: image2!.pngData()!, fileName: "2.png", folder: "Pet", subFolder: newPet.pet_id, completion: { [weak self] result in
+                        guard let strongSelf = self else {
+                            return
+                        }
+
+                        switch result {
+                        case .success(let urlString):
+                            // Ready to send message
+                            print("Uploaded image 2 Photo: \(urlString)")
+                            newPet.images.append(urlString)
+                        case .failure(let error):
+                            print("message photo upload error: \(error)")
+                            
+                            return
+                        }
+                    //Image3
+                    StorageManager.shared.uploadImage(with: image3!.pngData()!, fileName: "3.png", folder: "Pet", subFolder: newPet.pet_id, completion: { [weak self] result in
+                            guard let strongSelf = self else {
+                                return
+                            }
+
+                            switch result {
+                            case .success(let urlString):
+                                // Ready to send message
+                                print("Uploaded image 3 Photo: \(urlString)")
+                                newPet.avatar = urlString
+                            case .failure(let error):
+                                print("message photo upload error: \(error)")
+                                
+                                return
+                            }
+                        print(newPet)
+                        
+                        db.collection("pets").document(newPet.pet_id).setData([
+                            "address": newPet.address,
+                            "age": newPet.age,
+                            "avatar" : newPet.avatar,
+                            "description" : newPet.description,
+                            "images" : newPet.images,
+                            "gender" : newPet.gender,
+                            "is_active" : 1,
+                            "name": newPet.name,
+                            "pet_id" : newPet.pet_id,
+                            "posted_date" : Date(),
+                            "type" : newPet.type,
+                            "user_id" : newPet.user_id
+                        ], merge: true)
+                        
+                        //Alert thanh cong
+                        
+                        }
+                    )
+                    }
+                )
+                }
+            )
+            }
+        )
         
+        resetAct((Any).self)
     }
     
     @IBAction func pickGenderAct(_ sender: Any) {
@@ -454,6 +554,16 @@ class AddPetViewController: UIViewController {
         petGenderTextField.text = ""
         petAddressTextField.text = ""
         petDescriptionTextView.text = ""
+        
+        avatarPickerButton.setImage(UIImage(named: "ic-md-blue-imgpicker"), for: .normal)
+        petImage1Button.setImage(UIImage(named: "ic-md-blue-imgpicker"), for: .normal)
+        petImage2Button.setImage(UIImage(named: "ic-md-blue-imgpicker"), for: .normal)
+        petImage3Button.setImage(UIImage(named: "ic-md-blue-imgpicker"), for: .normal)
+        
+        avatarPickerButton.tag = 0;
+        petImage1Button.tag = 0;
+        petImage2Button.tag = 0;
+        petImage3Button.tag = 0;
     }
     
 }
