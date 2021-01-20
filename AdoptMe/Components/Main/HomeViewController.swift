@@ -640,7 +640,10 @@ extension HomeViewController: UICollectionViewDataSource, CollectionViewWaterfal
                 cell.postedDateLabel.text = "Posted: \(hours) hours ago"
             }
         } else {
-            if (minutes == 1) {
+            if (minutes == 0) {
+                cell.postedDateLabel.text = "now"
+            }
+            else if (minutes == 1) {
                 cell.postedDateLabel.text = "Posted: 1 minute ago"
             } else {
                 cell.postedDateLabel.text = "Posted: \(minutes) minutes ago"
