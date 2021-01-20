@@ -398,7 +398,7 @@ class AddPetViewController: UIViewController {
                     case .success(let urlString):
                         // Ready to send message
                         print("Uploaded image 1 Photo: \(urlString)")
-                        newPet.avatar = urlString
+                        newPet.images.append(urlString)
                     case .failure(let error):
                         print("message photo upload error: \(error)")
                         
@@ -431,7 +431,7 @@ class AddPetViewController: UIViewController {
                             case .success(let urlString):
                                 // Ready to send message
                                 print("Uploaded image 3 Photo: \(urlString)")
-                                newPet.avatar = urlString
+                                newPet.images.append(urlString)
                             case .failure(let error):
                                 print("message photo upload error: \(error)")
                                 
