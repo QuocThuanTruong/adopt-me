@@ -1239,7 +1239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rmp-TS-n3y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1606" y="-576"/>
+            <point key="canvasLocation" x="1606" y="1474"/>
         </scene>
         <!--Add Pet View Controller-->
         <scene sceneID="zGA-vx-4ka">
