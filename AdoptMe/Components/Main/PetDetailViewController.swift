@@ -113,9 +113,30 @@ class PetDetailViewController: UIViewController {
     }
     
     @IBAction func adoptMeAct(_ sender: Any) {
+        db.collection("users").document(pet.user_id).getDocument { (document, error) in
+            let data = document?.data()
+            
+            //Day nha bro
+            let name = (data?["fullname"] as! String)
+            let email = (data?["email"] as! String)
+            
+            print(name)
+            print(email)
+        }
     }
     
     @IBAction func phoneAct(_ sender: Any) {
+        db.collection("users").document(pet.user_id).getDocument { (document, error) in
+            let data = document?.data()
+            
+            let phoneNumber = data?["phone"] as! String
+            
+            if let url = URL(string: "tel://\(phoneNumber)") {
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+        }
     }
     
     @IBAction func addFavAct(_ sender: Any) {
