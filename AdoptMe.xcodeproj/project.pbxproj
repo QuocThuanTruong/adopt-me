@@ -30,6 +30,8 @@
 		CB68096625B8320100BA2F88 /* OtherUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68096525B8320100BA2F88 /* OtherUserProfileViewController.swift */; };
 		CB68096925B8338B00BA2F88 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68096825B8338B00BA2F88 /* MyProfileViewController.swift */; };
 		CB68096C25B8339B00BA2F88 /* UpdateMyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68096B25B8339B00BA2F88 /* UpdateMyProfileViewController.swift */; };
+		CB68096F25B8359700BA2F88 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68096E25B8359700BA2F88 /* SettingViewController.swift */; };
+		CB68097225B835C000BA2F88 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68097125B835C000BA2F88 /* AppInfoViewController.swift */; };
 		CB7BA24C25B6756A00C091BC /* ChatDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BA24B25B6756A00C091BC /* ChatDatabaseManager.swift */; };
 		CB7BA25025B675A600C091BC /* ChatStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BA24F25B675A600C091BC /* ChatStorageManager.swift */; };
 		CB7BA29225B67B4500C091BC /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BA29125B67B4500C091BC /* ChatModel.swift */; };
@@ -86,6 +88,8 @@
 		CB68096525B8320100BA2F88 /* OtherUserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileViewController.swift; sourceTree = "<group>"; };
 		CB68096825B8338B00BA2F88 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		CB68096B25B8339B00BA2F88 /* UpdateMyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMyProfileViewController.swift; sourceTree = "<group>"; };
+		CB68096E25B8359700BA2F88 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		CB68097125B835C000BA2F88 /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
 		CB7BA24B25B6756A00C091BC /* ChatDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDatabaseManager.swift; sourceTree = "<group>"; };
 		CB7BA24F25B675A600C091BC /* ChatStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatStorageManager.swift; sourceTree = "<group>"; };
 		CB7BA29125B67B4500C091BC /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
@@ -271,6 +275,8 @@
 				CB68096525B8320100BA2F88 /* OtherUserProfileViewController.swift */,
 				CB68096825B8338B00BA2F88 /* MyProfileViewController.swift */,
 				CB68096B25B8339B00BA2F88 /* UpdateMyProfileViewController.swift */,
+				CB68096E25B8359700BA2F88 /* SettingViewController.swift */,
+				CB68097125B835C000BA2F88 /* AppInfoViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -452,6 +458,7 @@
 				CB559109257ECB20007E78D8 /* UserViewController.swift in Sources */,
 				CB57EDF1259FB38100083C30 /* PetCollectionViewCell.swift in Sources */,
 				CBC899A5257B9C8E004D5BBA /* RegisterViewController.swift in Sources */,
+				CB68096F25B8359700BA2F88 /* SettingViewController.swift in Sources */,
 				CBC8997B257B6A3D004D5BBA /* LandingPage1VC.swift in Sources */,
 				CB7BA24C25B6756A00C091BC /* ChatDatabaseManager.swift in Sources */,
 				CBC89972257B4F19004D5BBA /* IntroductionViewController.swift in Sources */,
@@ -476,6 +483,7 @@
 				CB6104FF25A0AD980017B058 /* GenderPickerViewDelegate.swift in Sources */,
 				CB7BA2D925B746E200C091BC /* LocationPickerViewController.swift in Sources */,
 				CBC8996E257B4D7F004D5BBA /* Core.swift in Sources */,
+				CB68097225B835C000BA2F88 /* AppInfoViewController.swift in Sources */,
 				CB5B978B25A2788700C44830 /* HistoryTableViewCell.swift in Sources */,
 				CBAC0C9C257AB7C4004FA0E0 /* SceneDelegate.swift in Sources */,
 				CB965B9625A8F0200034D11A /* ChatTableViewCell.swift in Sources */,
