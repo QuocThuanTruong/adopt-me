@@ -11,6 +11,8 @@ import BottomPopUpView
 import Firebase
 import FirebaseStorage
 import BCrypt
+import Photos
+import ALCameraViewController
 
 class FillInfoViewController: UIViewController {
 
@@ -48,6 +50,8 @@ class FillInfoViewController: UIViewController {
         genderPickerView.delegate = self
         
         initView()
+        
+        print(token)
     }
     
     func initView() {
@@ -225,15 +229,53 @@ class FillInfoViewController: UIViewController {
     }
     
     @IBAction func avtPickerAct(_ sender: Any) {
-        /*let imagePicker = UIImagePickerController()
+        let actionSheet = UIAlertController(title: "Attach Photo",
+                                            message: "Where would you like to attach a photo from",
+                                            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
 
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
+          let cameraViewController = CameraViewController { [weak self] image, asset in
+              // Do something with your image here.
+              self?.dismiss(animated: true, completion: nil)
+          }
 
-        self.present(imagePicker, animated: true, completion: nil)*/
-        
-        avtPickerButton.setImage(UIImage(named: "avatar.jpg"), for: .normal)
+          self?.present(cameraViewController, animated: true, completion: nil)
+
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { [weak self] _ in
+
+          let imagePickerViewController = PhotoLibraryViewController()
+          imagePickerViewController.onSelectionComplete = { asset in
+
+                  // The asset could be nil if the user doesn't select anything
+                  guard let asset = asset else {
+                      return
+                  }
+
+              // Provides a PHAsset object
+                  // Retrieve a UIImage from a PHAsset using
+                  let options = PHImageRequestOptions()
+              options.deliveryMode = .highQualityFormat
+              options.isNetworkAccessAllowed = true
+
+                  PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: options) { image, _ in
+                  if let image = image {
+                   
+                    self!.avtPickerButton.setImage(image, for: .normal)
+                    self!.avtPickerButton.tag = 1;
+                    
+                      imagePickerViewController.dismiss(animated: false, completion: nil)
+                      
+                  }
+              }
+          }
+
+          self?.present(imagePickerViewController, animated: true, completion: nil)
+
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        present(actionSheet, animated: true)
     }
     
     @IBAction func finishFillInfo(_ sender: Any) {
@@ -249,61 +291,129 @@ class FillInfoViewController: UIViewController {
         
         
         let userCollection = Firestore.firestore().collection("users")
-        let storage = Storage.storage().reference()
+        var newUser = MyUser()
         
-        let image = UIImage(named: "avatar.jpg")
-        
-        guard let imageData = image?.jpegData(compressionQuality: 1) else {
-            return
-        }
-        
-
         if (UID == "") {
             UID = UUID().uuidString
         }
+        newUser.UID = UID
+        newUser.address = addressTextField.text ?? ""
+        newUser.dateOfBirth = dobTextField.text ?? ""
+        newUser.email = emailTextField.text ?? ""
+        newUser.fullname = userfullNameTextField.text ?? ""
+        newUser.gender = genderTextField.text ?? ""
+        newUser.password = password
+        newUser.phone = phone
+        newUser.username = username
+        newUser.token = token
+        newUser.avatar = ""
         
-        storage.child("\(UID)/avatar.jpg").putData(imageData)
-        
-        userCollection.document(UID).setData([
-            "UID": UID,
-            "address": addressTextField.text ?? "",
-            "dateOfBirth" : dobTextField.text ?? "",
-            "email" : emailTextField.text ?? "",
-            "fullname" : userfullNameTextField.text ?? "",
-            "gender" : genderTextField.text ?? "",
-            "password" : password,
-            "phone": phone,
-            "username" : username,
-            "token" : token
-        ], merge: true)
-        
-        Core.shared.setIsUserLogin(true)
-        let email = emailTextField.text ?? ""
-        let fullName = userfullNameTextField.text ?? ""
-        Core.shared.setCurrentUserEmail(email)
-        Core.shared.setCurrentUserFullName(fullName)
-        
-        ChatDatabaseManager.shared.insertUser(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
-        success in
-            if (success){
-                print("done insert realtime")
-            } else {
-                print("fail insert realtime")
-            }
-        })
-        
-        let fillInfoVC = self.presentingViewController
-        
-        self.dismiss(animated: true, completion: {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let dest = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        if (avtPickerButton.tag == 1) {
+            print("cc")
+            let image = avtPickerButton.image(for: .normal)
+    
+            StorageManager.shared.uploadImage(with: image!.pngData()!, fileName: "avatar.png", folder: "User", subFolder: UID, completion: { [weak self] result in
+                guard let strongSelf = self else {
+                    return
+                }
+
+                switch result {
+                case .success(let urlString):
+                    // Ready to send message
+                    print("Uploaded Message Photo: \(urlString)")
+                    newUser.avatar = urlString
+                    
+                case .failure(let error):
+                    print("message photo upload error: \(error)")
+                }
+                
+                userCollection.document(newUser.UID).setData([
+                        "UID": newUser.UID,
+                        "address": newUser.address,
+                        "avatar": newUser.avatar,
+                        "dateOfBirth" : newUser.dateOfBirth,
+                        "email" : newUser.email,
+                        "fullname" : newUser.fullname,
+                        "gender" : newUser.gender,
+                        "password" : newUser.password,
+                        "phone": newUser.phone,
+                        "username" : newUser.username,
+                        "token" : newUser.token,
+                        "is_active" : 1
+                    ], merge: true)
+                    
+                    Core.shared.setIsUserLogin(true)
+                    let email = newUser.email
+                    let fullName = newUser.fullname
+                    Core.shared.setCurrentUserEmail(email)
+                    Core.shared.setCurrentUserFullName(fullName)
+                    
+                    ChatDatabaseManager.shared.insertUser(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
+                    success in
+                        if (success){
+                            print("done insert realtime")
+                        } else {
+                            print("fail insert realtime")
+                        }
+                    })
+                    
+                let fillInfoVC = self?.presentingViewController
+                    
+                self!.dismiss(animated: true, completion: {
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let dest = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                        
+                        dest.modalPresentationStyle  = .fullScreen
+                        
+                        Core.shared.setIsNotFirstLauchApp()
+                        
+                        fillInfoVC?.present(dest, animated: true, completion: nil)
+                    })
+                })
+        } else {
+            userCollection.document(newUser.UID).setData([
+                "UID": newUser.UID,
+                "address": newUser.address,
+                "avatar": newUser.avatar,
+                "dateOfBirth" : newUser.dateOfBirth,
+                "email" : newUser.email,
+                "fullname" : newUser.fullname,
+                "gender" : newUser.gender,
+                "password" : newUser.password,
+                "phone": newUser.phone,
+                "username" : newUser.username,
+                "token" : newUser.token,
+                "is_active" : 1
+            ], merge: true)
             
-            dest.modalPresentationStyle  = .fullScreen
+            Core.shared.setIsUserLogin(true)
+            let email = newUser.email
+            let fullName = newUser.fullname
+            Core.shared.setCurrentUserEmail(email)
+            Core.shared.setCurrentUserFullName(fullName)
             
-            Core.shared.setIsNotFirstLauchApp()
+            ChatDatabaseManager.shared.insertUser(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
+            success in
+                if (success){
+                    print("done insert realtime")
+                } else {
+                    print("fail insert realtime")
+                }
+            })
             
-            fillInfoVC?.present(dest, animated: true, completion: nil)
-        })
+            let fillInfoVC = self.presentingViewController
+            
+            self.dismiss(animated: true, completion: {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let dest = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                
+                dest.modalPresentationStyle  = .fullScreen
+                
+                Core.shared.setIsNotFirstLauchApp()
+                
+                fillInfoVC?.present(dest, animated: true, completion: nil)
+            })
+        }
     }
     
     @objc func dismissDatePicker(_ sender: Any) {
