@@ -789,3 +789,10 @@ struct ChatAppUser {
     }
 }
 
+func restoreEmail(safeEmail : String) -> String {
+    var result = ""
+    result = safeEmail.replacingOccurrences(of: "-", with: ".")
+    result = result.replacingOccurrences(of: ".gmail", with: "@gmail")
+    
+    return result
+}
