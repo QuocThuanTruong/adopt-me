@@ -27,6 +27,7 @@ class PetDetailViewController: UIViewController {
     @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var adoptMeButton: MDCButton!
     @IBOutlet weak var imageSSIndicator: UIPageControl!
+    @IBOutlet weak var userAvatarImageView: UIImageView!
     
     @IBOutlet weak var testUserAvatar: UIImageView!
     var pet_id : String = ""
@@ -78,10 +79,11 @@ class PetDetailViewController: UIViewController {
             let urlStr = URL(string: (data?["avatar"] as! String))
             let urlReq = URLRequest(url: urlStr!)
             
-            let imageView = UIImageView()
-            Nuke.loadImage(with: urlReq, into: imageView)
+            
+            Nuke.loadImage(with: urlReq, into: self.userAvatarImageView)
+
+            self.userAvatarImageView.layer.cornerRadius = 30.0
         
-            self.userAvatar.setBackgroundImage(imageView.image, for: .normal)
         }
     }
     
@@ -109,6 +111,10 @@ class PetDetailViewController: UIViewController {
     }
     
     @IBAction func viewProfileAct(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "OtherUserProfileViewController") as! OtherUserProfileViewController
+        
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
         
     }
     
@@ -122,6 +128,14 @@ class PetDetailViewController: UIViewController {
             
             print(name)
             print(email)
+            
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+            vc.createNewConversation(userFullName: name, userEmail: email)
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+            
+                   
+                 
         }
     }
     

@@ -107,6 +107,7 @@ class ChatDetailViewController: MessagesViewController {
                        return
                    }
                    self?.messages = messages
+               
 
                    DispatchQueue.main.async {
                        self?.messagesCollectionView.reloadDataAndKeepOffset()
@@ -128,11 +129,7 @@ class ChatDetailViewController: MessagesViewController {
                     listenForMessages(id: conversationId, shouldScrollToBottom: true)
                 }
     }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
+        
     
     private func setupInputButton() {
         let button = InputBarButtonItem()
@@ -526,8 +523,9 @@ extension ChatDetailViewController: MessagesDataSource, MessagesLayoutDelegate, 
         }
         else {
             
-            let tokens = self.otherUserEmail.components(separatedBy: "-")
-            let originEmail = tokens[0] + "@" + tokens[1] + "." + tokens[2]
+            //let tokens = self.otherUserEmail.components(separatedBy: "-")
+            //let originEmail = tokens[0] + "@" + tokens[1] + "." + tokens[2]
+            let originEmail = ChatDatabaseManager.shared.restoreEmail(safeEmail: self.otherUserEmail)
             
             db.collection("users").whereField("email", isEqualTo: originEmail).limit(to: 1)
                 .getDocuments{ (querySnapshot, error) in
@@ -574,7 +572,7 @@ extension ChatDetailViewController: InputBarAccessoryViewDelegate {
         // Send Message
         if isNewConversation {
             // create convo in database
-            ChatDatabaseManager.shared.createNewConversation(with: otherUserEmail, name: self.title ?? "User", firstMessage: mmessage, completion: { [weak self]success in
+            ChatDatabaseManager.shared.createNewConversation(with: otherUserEmail, name: self.titleChat , firstMessage: mmessage, completion: { [weak self]success in
                 if success {
                     print("message sent")
                     self?.isNewConversation = false

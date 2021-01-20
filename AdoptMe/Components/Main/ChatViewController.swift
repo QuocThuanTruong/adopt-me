@@ -29,6 +29,7 @@ class ChatViewController: UIViewController {
         } else {
             chatTableView.isEditing = true
         }
+        
     }
     
     
@@ -67,9 +68,9 @@ class ChatViewController: UIViewController {
             })
         }
     
-    private func createNewConversation() {
-            let name = "QTT"
-            let email = ChatDatabaseManager.safeEmail(emailAddress: "quocthuantruong1707@gmail.com")
+    func createNewConversation(userFullName: String, userEmail: String) {
+            let name = userFullName
+            let email = ChatDatabaseManager.safeEmail(emailAddress: userEmail)
 
             // check in datbase if conversation with these two users exists
             // if it does, reuse conversation id
@@ -93,7 +94,7 @@ class ChatViewController: UIViewController {
                     
                     strongSelf.present(vc, animated: true, completion: nil)
                 case .failure(_):
-                    print("failed to create new")
+                    print("create new")
 
                     let vc = self?.storyboard?.instantiateViewController(withIdentifier: "ChatDetailViewController") as! ChatDetailViewController
                     vc.isNewConversation = true
@@ -129,7 +130,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         cell.avatarImage.layer.cornerRadius = cell.avatarImage.frame.width / 2
         cell.avatarImage.clipsToBounds = true
         
-        db.collection("users").whereField("email", isEqualTo: Core.shared.getCurrentUserEmail()).limit(to: 1)
+        db.collection("users").whereField("email", isEqualTo: ChatDatabaseManager.shared.restoreEmail(safeEmail: model.otherUserEmail)).limit(to: 1)
             .getDocuments{ (querySnapshot, error) in
                 if let error = error {
                     print(error)
