@@ -77,7 +77,11 @@ class PetDetailViewController: UIViewController {
             
             let urlStr = URL(string: (data?["avatar"] as! String))
             let urlReq = URLRequest(url: urlStr!)
-            Nuke.loadImage(with: urlReq, into: self.testUserAvatar)
+            
+            let imageView = UIImageView()
+            Nuke.loadImage(with: urlReq, into: imageView)
+        
+            self.userAvatar.setBackgroundImage(imageView.image, for: .normal)
         }
     }
     

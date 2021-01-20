@@ -56,6 +56,7 @@ class LoginViewController: UIViewController {
     func loginManual() {
         Core.shared.setIsUserLogin(true)
         
+        
         let fillInfoVC = self.presentingViewController
         
         self.dismiss(animated: true, completion: {
@@ -87,6 +88,7 @@ class LoginViewController: UIViewController {
                         
                         Core.shared.setToken(token)
                         userCollection.document(data?["UID"] as! String).updateData(["token": token])
+                        Core.shared.setCurrentUserID(data?["UID"] as! String)
 
                         self.loginManual()
                     } else {
@@ -104,6 +106,7 @@ class LoginViewController: UIViewController {
                             dest.token = UUID().uuidString
                             
                             Core.shared.setToken(dest.token)
+                            Core.shared.setCurrentUserID(dest.UID)
                             
                             registerVC?.present(dest, animated: true, completion: nil)
                         })
@@ -166,8 +169,9 @@ class LoginViewController: UIViewController {
                             if (rememberMeCheckbox.checkState == M13Checkbox.CheckState.checked) {
                                 let token = UUID().uuidString
                                 Core.shared.setToken(token)
-                                
                                 userCollection.document(data?["UID"] as! String).updateData(["token": token])
+                                
+                                Core.shared.setCurrentUserID(data?["UID"] as! String)
                             }
                             
                             self.loginManual()

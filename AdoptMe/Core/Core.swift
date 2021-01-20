@@ -61,6 +61,14 @@ class Core {
         UserDefaults.standard.setValue(name, forKey: "currentName")
     }
     
+    func setCurrentUserID(_ UID: String) {
+        UserDefaults.standard.setValue(UID, forKey: "currentUID")
+    }
+    
+    func getCurrentUserID() -> String {
+        return UserDefaults.standard.string(forKey: "currentUID") ?? ""
+    }
+    
     func setKeyName(_ keyName: String) {
             UserDefaults.standard.setValue(keyName, forKey: "keyName")
         }
@@ -71,6 +79,7 @@ class Core {
 }
 
 struct CurrentUser {
+    var UID : String;
     var email: String;
     var fullName: String;
 }

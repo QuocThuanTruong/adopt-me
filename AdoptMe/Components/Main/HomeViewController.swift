@@ -170,7 +170,6 @@ class HomeViewController: UIViewController {
        
         //set selected tab
         setTabSelected(0)
-        listPetCollectionView.tag = 0;
         
         //init collection view
         let layout = CollectionViewWaterfallLayout()
@@ -367,8 +366,6 @@ class HomeViewController: UIViewController {
     }
     
     @objc func filterDoneAct(_ sender: Any) {
-        print("cc")
-        
         let keyName = searchTextField.text ?? ""
         
         let sortSelected = sortPickerView.selectedRow(inComponent: 0)

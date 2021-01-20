@@ -235,6 +235,9 @@ PODS:
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
   - BottomPopUpView (0.0.7)
+  - Cloudinary (2.10.0):
+    - Cloudinary/ios (= 2.10.0)
+  - Cloudinary/ios (2.10.0)
   - CollectionViewWaterfallLayout (0.5.0)
   - FBSDKCoreKit (8.2.0):
     - FBSDKCoreKit/Basics (= 8.2.0)
@@ -1049,6 +1052,7 @@ DEPENDENCIES:
   - BCrypt
   - Bolts
   - BottomPopUpView
+  - Cloudinary
   - CollectionViewWaterfallLayout
   - FBSDKCoreKit
   - FBSDKLoginKit
@@ -1083,6 +1087,7 @@ SPEC REPOS:
     - Bolts
     - BoringSSL-GRPC
     - BottomPopUpView
+    - Cloudinary
     - CollectionViewWaterfallLayout
     - FBSDKCoreKit
     - FBSDKLoginKit
@@ -1134,6 +1139,7 @@ SPEC CHECKSUMS:
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   BottomPopUpView: b611fbd563c6599e66a550321c77795db1002a98
+  Cloudinary: 3e098df10c085f1751dc93412023ce59e8d90772
   CollectionViewWaterfallLayout: 4399ba01be265fff4da1ed1d607130fe009780e4
   FBSDKCoreKit: 4afd6ff53d8133a433dbcda44451c9498f8c6ce4
   FBSDKLoginKit: 7181765f2524d7ebf82d9629066c8e6caafc99d0
@@ -1175,6 +1181,6 @@ SPEC CHECKSUMS:
   SOTabBar: 27aea95bd6b39d1be3535c867a2cd3b5adc172e6
   UIFloatLabelTextView: 96b7c5a18739fd1af8fd9480f7943d75a7547e4d
 
-PODFILE CHECKSUM: cb7a902cf5bdd8fb2aaf3da02f9906c2fe4069d8
+PODFILE CHECKSUM: 0a59de1729bbcbf9f6d1004f819f89d47cae2d9c
 
 COCOAPODS: 1.10.0
