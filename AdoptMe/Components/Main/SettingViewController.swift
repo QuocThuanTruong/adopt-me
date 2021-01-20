@@ -9,21 +9,35 @@ import UIKit
 
 class SettingViewController: UIViewController {
 
+    @IBOutlet weak var lauchIntroductionSwitch: UISwitch!
+    @IBOutlet weak var notificationSwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        initView()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func initView() {
+        
     }
-    */
+    
+    @IBAction func changePasswordAct(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
+        
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    @IBAction func changeLauchIntroduction(_ sender: Any) {
+    }
+    
+    @IBAction func changeNotification(_ sender: Any) {
+    }
+    
+    @IBAction func backAct(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 
 }

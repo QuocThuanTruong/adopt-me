@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		601DCF24FC6B342399257693 /* Pods_AdoptMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0E625606F5A7CDAC5A3A70 /* Pods_AdoptMe.framework */; };
+		CB5032D225B8D7D5000B4947 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5032D125B8D7D5000B4947 /* ChangePasswordViewController.swift */; };
 		CB550E8825A314E4001B514A /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB550E8725A314E4001B514A /* HistoryModel.swift */; };
 		CB5590FD257ECABC007E78D8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5590FC257ECABC007E78D8 /* HomeViewController.swift */; };
 		CB559103257ECAEE007E78D8 /* AddPetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB559102257ECAEE007E78D8 /* AddPetViewController.swift */; };
@@ -66,6 +67,7 @@
 		27F23B68F3CAA27E54834D3B /* Pods-AdoptMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdoptMe.release.xcconfig"; path = "Target Support Files/Pods-AdoptMe/Pods-AdoptMe.release.xcconfig"; sourceTree = "<group>"; };
 		2C0E625606F5A7CDAC5A3A70 /* Pods_AdoptMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdoptMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DCABBF515A5611658796EB7 /* Pods-AdoptMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdoptMe.debug.xcconfig"; path = "Target Support Files/Pods-AdoptMe/Pods-AdoptMe.debug.xcconfig"; sourceTree = "<group>"; };
+		CB5032D125B8D7D5000B4947 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		CB550E8725A314E4001B514A /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
 		CB5590FC257ECABC007E78D8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CB559102257ECAEE007E78D8 /* AddPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				CB68096B25B8339B00BA2F88 /* UpdateMyProfileViewController.swift */,
 				CB68096E25B8359700BA2F88 /* SettingViewController.swift */,
 				CB68097125B835C000BA2F88 /* AppInfoViewController.swift */,
+				CB5032D125B8D7D5000B4947 /* ChangePasswordViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 				E652E0B5259508A000D50497 /* Model.swift in Sources */,
 				CB56584425A474CC00D4B449 /* PetDetailViewController.swift in Sources */,
 				CB550E8825A314E4001B514A /* HistoryModel.swift in Sources */,
+				CB5032D225B8D7D5000B4947 /* ChangePasswordViewController.swift in Sources */,
 				CBC899A2257B9C7D004D5BBA /* LoginViewController.swift in Sources */,
 				CB57EDB7259FAF7800083C30 /* CardView.swift in Sources */,
 				CBC89982257B6A58004D5BBA /* WelcomeVC.swift in Sources */,
