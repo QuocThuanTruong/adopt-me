@@ -12,6 +12,7 @@ import BottomPopUpView
 import Photos
 import ALCameraViewController
 import PhotosUI
+import Cloudinary
 
 class AddPetViewController: UIViewController {
 
