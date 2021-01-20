@@ -20,20 +20,21 @@ class ChatDetailViewController: MessagesViewController {
 
     
     private var senderPhotoURL: URL?
-       private var otherUserPhotoURL: URL?
+    private var otherUserPhotoURL: URL?
 
-       public static let dateFormatter: DateFormatter = {
-           let formattre = DateFormatter()
-           formattre.dateStyle = .medium
-           formattre.timeStyle = .long
-           formattre.locale = .current
-           return formattre
-       }()
+    public static let dateFormatter: DateFormatter = {
+        let formattre = DateFormatter()
+        formattre.dateStyle = .medium
+        formattre.timeStyle = .long
+        formattre.locale = .current
+        return formattre
+    }()
 
-       public var otherUserEmail: String = ""
-       public var conversationId: String?
-       public var isNewConversation = false
+    public var otherUserEmail: String = ""
+    public var conversationId: String?
+    public var isNewConversation = false
     public var titleChat : String = ""
+    
     @IBOutlet weak var chatTitle: UILabel!
     
        private var messages = [Message]()
@@ -85,8 +86,6 @@ class ChatDetailViewController: MessagesViewController {
     }
     
     func initView() {
-       
-        
         let topC = NSLayoutConstraint(item: messagesCollectionView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 150)
         
         let leftC = NSLayoutConstraint(item: messagesCollectionView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0)
@@ -94,10 +93,6 @@ class ChatDetailViewController: MessagesViewController {
         let bottomC = NSLayoutConstraint(item: messagesCollectionView, attribute: .bottom, relatedBy: .equal, toItem: self.view , attribute: .bottom, multiplier: 1, constant: 0)
         
         let rightC = NSLayoutConstraint(item: messagesCollectionView, attribute: .trailing, relatedBy: .equal, toItem: self.view , attribute: .trailing, multiplier: 1, constant: 0)
-        
-        
-        
-        
         
         NSLayoutConstraint.activate([topC, leftC, bottomC, rightC])
     }

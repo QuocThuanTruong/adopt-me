@@ -48,4 +48,7 @@ target 'AdoptMe' do
 
   #Nuke
   pod 'Nuke'
+  
+  #Cloudinary
+  pod 'Cloudinary'
 end
