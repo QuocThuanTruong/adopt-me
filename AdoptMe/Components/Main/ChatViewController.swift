@@ -130,7 +130,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         cell.avatarImage.layer.cornerRadius = cell.avatarImage.frame.width / 2
         cell.avatarImage.clipsToBounds = true
         
-        db.collection("users").whereField("email", isEqualTo: Core.shared.getCurrentUserEmail()).limit(to: 1)
+        db.collection("users").whereField("email", isEqualTo: ChatDatabaseManager.shared.restoreEmail(safeEmail: model.otherUserEmail)).limit(to: 1)
             .getDocuments{ (querySnapshot, error) in
                 if let error = error {
                     print(error)

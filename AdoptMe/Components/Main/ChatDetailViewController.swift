@@ -523,8 +523,9 @@ extension ChatDetailViewController: MessagesDataSource, MessagesLayoutDelegate, 
         }
         else {
             
-            let tokens = self.otherUserEmail.components(separatedBy: "-")
-            let originEmail = tokens[0] + "@" + tokens[1] + "." + tokens[2]
+            //let tokens = self.otherUserEmail.components(separatedBy: "-")
+            //let originEmail = tokens[0] + "@" + tokens[1] + "." + tokens[2]
+            let originEmail = ChatDatabaseManager.shared.restoreEmail(safeEmail: self.otherUserEmail)
             
             db.collection("users").whereField("email", isEqualTo: originEmail).limit(to: 1)
                 .getDocuments{ (querySnapshot, error) in
