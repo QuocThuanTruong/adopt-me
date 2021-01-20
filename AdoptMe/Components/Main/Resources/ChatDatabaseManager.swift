@@ -194,8 +194,11 @@ extension ChatDatabaseManager {
         let currentEmail = Core.shared.getCurrentUserEmail()
         let currentNamme = Core.shared.getCurrentUserFullName()
         let safeEmail = ChatDatabaseManager.safeEmail(emailAddress: currentEmail)
+        
+        print(currentEmail)
 
         let ref = database.child("\(safeEmail)")
+        print(ref)
 	
         ref.observeSingleEvent(of: .value, with: { [weak self] snapshot in
             guard var userNode = snapshot.value as? [String: Any] else {
@@ -300,6 +303,7 @@ extension ChatDatabaseManager {
                         return
                     }
 
+                    print("done create")
                     self?.finishCreatingConversation(name: name,
                                                      conversationID: conversationId,
                                                      firstMessage: firstMessage,
@@ -307,6 +311,8 @@ extension ChatDatabaseManager {
                 })
             }
         })
+        
+        
     }
 
     private func finishCreatingConversation(name: String, conversationID: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
@@ -413,6 +419,7 @@ extension ChatDatabaseManager {
 
     /// Gets all mmessages for a given conversatino
     public func getAllMessagesForConversation(with id: String, completion: @escaping (Result<[Message], Error>) -> Void) {
+        print("getting all message..")
         database.child("\(id)/messages").observe(.value, with: { (snapshot) in
             guard let value = snapshot.value as? [[String: Any]] else{
                 completion(.failure(DatabaseError.failedToFetch))

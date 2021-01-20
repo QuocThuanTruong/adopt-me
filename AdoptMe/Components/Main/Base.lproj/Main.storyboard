@@ -3130,12 +3130,12 @@ with others</string>
                             <mask key="constraints">
                                 <exclude reference="XaF-SJ-a6J"/>
                                 <exclude reference="xTs-q8-3ef"/>
-                                <exclude reference="TK3-iN-Got"/>
-                                <exclude reference="y0I-aL-DP5"/>
                                 <exclude reference="5BU-Gc-40E"/>
                                 <exclude reference="DBK-kj-fiH"/>
                                 <exclude reference="K8n-cj-CvN"/>
                                 <exclude reference="NAa-bt-WMJ"/>
+                                <exclude reference="TK3-iN-Got"/>
+                                <exclude reference="y0I-aL-DP5"/>
                                 <exclude reference="3Te-P0-3xU"/>
                                 <exclude reference="Wb8-JI-oKU"/>
                                 <exclude reference="9jG-ys-yGs"/>
@@ -3150,12 +3150,12 @@ with others</string>
                             <mask key="constraints">
                                 <include reference="XaF-SJ-a6J"/>
                                 <include reference="xTs-q8-3ef"/>
-                                <include reference="TK3-iN-Got"/>
-                                <include reference="y0I-aL-DP5"/>
                                 <include reference="5BU-Gc-40E"/>
                                 <include reference="DBK-kj-fiH"/>
                                 <include reference="K8n-cj-CvN"/>
                                 <include reference="NAa-bt-WMJ"/>
+                                <include reference="TK3-iN-Got"/>
+                                <include reference="y0I-aL-DP5"/>
                                 <include reference="3Te-P0-3xU"/>
                                 <include reference="Wb8-JI-oKU"/>
                                 <include reference="9jG-ys-yGs"/>
@@ -3224,14 +3224,14 @@ with others</string>
                                 <state key="normal" image="ic-blue-edit"/>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="gsF-xf-amX"/>
                                         <exclude reference="T2N-XP-VXM"/>
+                                        <exclude reference="gsF-xf-amX"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="gsF-xf-amX"/>
                                         <include reference="T2N-XP-VXM"/>
+                                        <include reference="gsF-xf-amX"/>
                                     </mask>
                                 </variation>
                                 <connections>

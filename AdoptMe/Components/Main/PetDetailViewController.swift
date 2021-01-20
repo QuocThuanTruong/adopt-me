@@ -122,6 +122,14 @@ class PetDetailViewController: UIViewController {
             
             print(name)
             print(email)
+            
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+            vc.createNewConversation(userFullName: name, userEmail: email)
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+            
+                   
+                 
         }
     }
     
