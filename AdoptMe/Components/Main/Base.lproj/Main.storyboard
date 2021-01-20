@@ -1344,6 +1344,9 @@
                                                 <include reference="uiW-V8-Ev0"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="act_AddPet:" destination="6cR-yX-1tk" eventType="touchUpInside" id="KwX-Uh-YnV"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Uf6-5f-aTZ" customClass="MDCOutlinedTextField">
                                         <rect key="frame" x="36" y="235" width="342" height="44"/>
@@ -1450,14 +1453,23 @@
                                                 <include reference="f5d-LB-T1n"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="act_pickImage1:" destination="6cR-yX-1tk" eventType="touchUpInside" id="mBq-z8-Pfq"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKQ-Ft-9LW">
                                         <rect key="frame" x="164" y="427" width="86" height="86"/>
                                         <state key="normal" image="ic-md-blue-imgpicker"/>
+                                        <connections>
+                                            <action selector="act_pickImage2:" destination="6cR-yX-1tk" eventType="touchUpInside" id="TVS-1V-pbF"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXM-eq-B8K">
                                         <rect key="frame" x="288" y="427" width="86" height="86"/>
                                         <state key="normal" image="ic-md-blue-imgpicker"/>
+                                        <connections>
+                                            <action selector="act_pickImage3:" destination="6cR-yX-1tk" eventType="touchUpInside" id="Jz7-ea-uhP"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6tm-xW-pb7">
                                         <rect key="frame" x="260" y="87" width="118" height="118"/>
@@ -1479,6 +1491,9 @@
                                                 <include reference="LA4-i2-eE8"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="act_pickPetAvatar:" destination="6cR-yX-1tk" eventType="touchUpInside" id="6lH-ci-vb7"/>
+                                        </connections>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bu8-Ek-3fr">
                                         <rect key="frame" x="44" y="317" width="326" height="72"/>
@@ -2673,13 +2688,13 @@ with others</string>
     </scenes>
     <designables>
         <designable name="17c-VL-Hgo">
-            <size key="intrinsicContentSize" width="35" height="32"/>
+            <size key="intrinsicContentSize" width="30" height="29"/>
         </designable>
         <designable name="hhR-FQ-qkK">
-            <size key="intrinsicContentSize" width="87" height="32"/>
+            <size key="intrinsicContentSize" width="73" height="29"/>
         </designable>
         <designable name="tAP-RB-ba7">
-            <size key="intrinsicContentSize" width="18" height="22"/>
+            <size key="intrinsicContentSize" width="18" height="17"/>
         </designable>
     </designables>
     <resources>

@@ -9,6 +9,10 @@ import UIKit
 import MaterialComponents
 import UIFloatLabelTextView
 import BottomPopUpView
+import Photos
+import ALCameraViewController
+import PhotosUI
+import Cloudinary
 
 class AddPetViewController: UIViewController {
 
@@ -27,6 +31,7 @@ class AddPetViewController: UIViewController {
     @IBOutlet weak var petImage2Button: UIButton!
     @IBOutlet weak var petImage3Button: UIButton!
     @IBOutlet weak var addPetButton: MDCButton!
+    
     
     
     var genderPickerView: UIPickerView!
@@ -88,6 +93,280 @@ class AddPetViewController: UIViewController {
         
     }
     
+    @IBAction func act_pickPetAvatar(_ sender: Any) {
+        let actionSheet = UIAlertController(title: "Attach Photo",
+                                            message: "Where would you like to attach a photo from",
+                                            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+
+          let cameraViewController = CameraViewController { [weak self] image, asset in
+              // Do something with your image here.
+              self?.dismiss(animated: true, completion: nil)
+          }
+
+          self?.present(cameraViewController, animated: true, completion: nil)
+
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { [weak self] _ in
+
+          let imagePickerViewController = PhotoLibraryViewController()
+          imagePickerViewController.onSelectionComplete = { asset in
+
+                  // The asset could be nil if the user doesn't select anything
+                  guard let asset = asset else {
+                      return
+                  }
+
+              // Provides a PHAsset object
+                  // Retrieve a UIImage from a PHAsset using
+                  let options = PHImageRequestOptions()
+              options.deliveryMode = .highQualityFormat
+              options.isNetworkAccessAllowed = true
+
+                  PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: options) { image, _ in
+                  if let image = image {
+                   
+                    self!.avatarPickerButton.setImage(image, for: .normal)
+                      
+                      imagePickerViewController.dismiss(animated: false, completion: nil)
+                      
+                  }
+              }
+          }
+
+          self?.present(imagePickerViewController, animated: true, completion: nil)
+
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        present(actionSheet, animated: true)
+    }
+    
+    @IBAction func act_pickImage1(_ sender: Any) {
+        let actionSheet = UIAlertController(title: "Attach Photo",
+                                            message: "Where would you like to attach a photo from",
+                                            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+
+          let cameraViewController = CameraViewController { [weak self] image, asset in
+              // Do something with your image here.
+              self?.dismiss(animated: true, completion: nil)
+          }
+
+          self?.present(cameraViewController, animated: true, completion: nil)
+
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { [weak self] _ in
+
+          let imagePickerViewController = PhotoLibraryViewController()
+          imagePickerViewController.onSelectionComplete = { asset in
+
+                  // The asset could be nil if the user doesn't select anything
+                  guard let asset = asset else {
+                      return
+                  }
+
+              // Provides a PHAsset object
+                  // Retrieve a UIImage from a PHAsset using
+                  let options = PHImageRequestOptions()
+              options.deliveryMode = .highQualityFormat
+              options.isNetworkAccessAllowed = true
+
+                  PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: options) { image, _ in
+                  if let image = image {
+                     
+                    self!.petImage1Button.setImage(image, for: .normal)
+                      
+                      imagePickerViewController.dismiss(animated: false, completion: nil)
+                      
+                  }
+              }
+          }
+
+          self?.present(imagePickerViewController, animated: true, completion: nil)
+
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        present(actionSheet, animated: true)
+    }
+    
+    
+    @IBAction func act_pickImage2(_ sender: Any) {
+        let actionSheet = UIAlertController(title: "Attach Photo",
+                                            message: "Where would you like to attach a photo from",
+                                            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+
+          let cameraViewController = CameraViewController { [weak self] image, asset in
+              // Do something with your image here.
+              self?.dismiss(animated: true, completion: nil)
+          }
+
+          self?.present(cameraViewController, animated: true, completion: nil)
+
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { [weak self] _ in
+
+          let imagePickerViewController = PhotoLibraryViewController()
+          imagePickerViewController.onSelectionComplete = { asset in
+
+                  // The asset could be nil if the user doesn't select anything
+                  guard let asset = asset else {
+                      return
+                  }
+
+              // Provides a PHAsset object
+                  // Retrieve a UIImage from a PHAsset using
+                  let options = PHImageRequestOptions()
+              options.deliveryMode = .highQualityFormat
+              options.isNetworkAccessAllowed = true
+
+                  PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: options) { image, _ in
+                  if let image = image {
+                     
+                    self!.petImage2Button.setImage(image, for: .normal)
+                      
+                      imagePickerViewController.dismiss(animated: false, completion: nil)
+                      
+                  }
+              }
+          }
+
+          self?.present(imagePickerViewController, animated: true, completion: nil)
+
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        present(actionSheet, animated: true)
+    }
+    
+    
+    @IBAction func act_pickImage3(_ sender: Any) {
+        let actionSheet = UIAlertController(title: "Attach Photo",
+                                            message: "Where would you like to attach a photo from",
+                                            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+
+          let cameraViewController = CameraViewController { [weak self] image, asset in
+              // Do something with your image here.
+              self?.dismiss(animated: true, completion: nil)
+          }
+
+          self?.present(cameraViewController, animated: true, completion: nil)
+
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { [weak self] _ in
+
+          let imagePickerViewController = PhotoLibraryViewController()
+          imagePickerViewController.onSelectionComplete = { asset in
+
+                  // The asset could be nil if the user doesn't select anything
+                  guard let asset = asset else {
+                      return
+                  }
+
+              // Provides a PHAsset object
+                  // Retrieve a UIImage from a PHAsset using
+                  let options = PHImageRequestOptions()
+              options.deliveryMode = .highQualityFormat
+              options.isNetworkAccessAllowed = true
+
+                  PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: options) { image, _ in
+                  if let image = image {
+                     
+                    self!.petImage3Button.setImage(image, for: .normal)
+                      
+                      imagePickerViewController.dismiss(animated: false, completion: nil)
+                      
+                  }
+              }
+          }
+
+          self?.present(imagePickerViewController, animated: true, completion: nil)
+
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        present(actionSheet, animated: true)
+    }
+    
+    @IBAction func act_AddPet(_ sender: Any) {
+        let cloudinaryConfig = CLDConfiguration(cloudinaryUrl: "cloudinary://777796435798159:PLKCXquNSc_rD8jqp7VnE2AROF0@hcmus-web")
+        let cloudinary = CLDCloudinary(configuration: cloudinaryConfig!)
+        
+        var newPet = Pet()
+        
+        newPet.name = petNameTextField.text ?? ""
+        if (newPet.name == "") {
+            //alert khong bo trong
+            print("1")
+            return
+        }
+
+        newPet.age = Int(petAgeTextField.text ?? "0") ?? 0
+        if (newPet.age == 0) {
+            //alert tuoi khong hop le
+            print("2")
+            return
+        }
+
+        newPet.address = petAddressTextField.text ?? ""
+        if (newPet.address == "") {
+            //alert khong bo trong
+            print("3")
+            return
+        }
+
+        newPet.description = petDescriptionTextView.text ?? ""
+        if (newPet.description == "") {
+            //alert khong bo trong
+            print("4")
+            return
+        }
+        
+        let genderText = petGenderTextField.text ?? ""
+        if (genderText == "") {
+            //alert chua chon gioi tinh
+            print("5")
+            return
+        }
+        newPet.gender = genderText == "Male"
+        
+        let avatarImage = avatarPickerButton.backgroundImage(for: .normal)
+        if (avatarImage == nil) {
+            //alert khong duoc bo trong
+            print("6")
+            return
+        }
+        
+        let image1 = petImage1Button.backgroundImage(for: .normal)
+        if (image1 == nil) {
+            //alert khong duoc bo trong
+            print("7")
+            return
+        }
+        
+        let image2 = petImage2Button.backgroundImage(for: .normal)
+        if (image2 == nil) {
+            //alert khong duoc bo trong
+            print("8")
+            return
+        }
+        
+        let image3 = petImage3Button.backgroundImage(for: .normal)
+        if (image3 == nil) {
+            //alert khong duoc bo trong
+            print("9")
+            return
+        }
+        
+        newPet.user_id = Core.shared.getCurrentUserID()
+        newPet.pet_id = UUID().uuidString
+
+
+        
+    }
     
     @IBAction func pickGenderAct(_ sender: Any) {
         bottomPopUpView = BottomPopUpView(wrapperContentHeight: 308)
@@ -195,5 +474,15 @@ extension AddPetViewController: UITextViewDelegate {
             petDescriptionDummy.setFloatingLabelColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
             petDescriptionBorder.layer.borderColor = UIColor(named: "AppSecondaryColor")?.cgColor
         }
+    }
+}
+
+extension UIImageView {
+    func makeRounded() {
+        self.layer.borderWidth = 1
+        self.layer.masksToBounds = false
+        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.cornerRadius = self.frame.height / 2
+        self.clipsToBounds = true
     }
 }
