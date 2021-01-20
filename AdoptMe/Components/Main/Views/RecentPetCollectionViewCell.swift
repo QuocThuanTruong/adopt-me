@@ -10,4 +10,8 @@ import UIKit
 class RecentPetCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var recentPetButton: UIButton!
+    
+    @IBAction func act_clickRecentPet(_ sender: Any) {
+        //print("cc")
+    }
 }
