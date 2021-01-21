@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Core {
     static let shared = Core()
@@ -108,6 +109,7 @@ class Core {
         searchHistoryKey.remove(at: index)
         
         UserDefaults.standard.setValue(searchHistoryKey, forKey: "searchHistoryKey")
+        
     }
 }
 
@@ -115,4 +117,5 @@ struct CurrentUser {
     var UID : String;
     var email: String;
     var fullName: String;
+    var avatarImageView : UIImageView
 }
