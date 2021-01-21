@@ -78,7 +78,7 @@ class PetDetailViewController: UIViewController {
             if index != nil {
                 self.favButton.setImage(UIImage(named: "ic-sm-red-fav"), for: .normal)
             } else {
-                self.favButton.setImage(UIImage(named: "ic-sm-white-fav"), for: .normal)
+                self.favButton.setImage(UIImage(named: "ic-md-white-fav"), for: .normal)
             }
 
         }
