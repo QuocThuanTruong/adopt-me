@@ -31,6 +31,7 @@
 		CB62E34F25B93C830096B5CA /* PetTypePickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB62E34E25B93C830096B5CA /* PetTypePickerViewDelegate.swift */; };
 		CB62E39525B962140096B5CA /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB62E39425B962140096B5CA /* Config.plist */; };
 		CB62E39925B98B4C0096B5CA /* VerifyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB62E39825B98B4C0096B5CA /* VerifyAPI.swift */; };
+		CB62E42825BA16BB0096B5CA /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB62E42725BA16BB0096B5CA /* LoadingViewController.swift */; };
 		CB68096625B8320100BA2F88 /* OtherUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68096525B8320100BA2F88 /* OtherUserProfileViewController.swift */; };
 		CB68096925B8338B00BA2F88 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68096825B8338B00BA2F88 /* MyProfileViewController.swift */; };
 		CB68096C25B8339B00BA2F88 /* UpdateMyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68096B25B8339B00BA2F88 /* UpdateMyProfileViewController.swift */; };
@@ -93,6 +94,7 @@
 		CB62E34E25B93C830096B5CA /* PetTypePickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTypePickerViewDelegate.swift; sourceTree = "<group>"; };
 		CB62E39425B962140096B5CA /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		CB62E39825B98B4C0096B5CA /* VerifyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyAPI.swift; sourceTree = "<group>"; };
+		CB62E42725BA16BB0096B5CA /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		CB68096525B8320100BA2F88 /* OtherUserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileViewController.swift; sourceTree = "<group>"; };
 		CB68096825B8338B00BA2F88 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		CB68096B25B8339B00BA2F88 /* UpdateMyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMyProfileViewController.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				CB68096E25B8359700BA2F88 /* SettingViewController.swift */,
 				CB68097125B835C000BA2F88 /* AppInfoViewController.swift */,
 				CB5032D125B8D7D5000B4947 /* ChangePasswordViewController.swift */,
+				CB62E42725BA16BB0096B5CA /* LoadingViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				CBC899A5257B9C8E004D5BBA /* RegisterViewController.swift in Sources */,
 				CB68096F25B8359700BA2F88 /* SettingViewController.swift in Sources */,
 				CBC8997B257B6A3D004D5BBA /* LandingPage1VC.swift in Sources */,
+				CB62E42825BA16BB0096B5CA /* LoadingViewController.swift in Sources */,
 				CB7BA24C25B6756A00C091BC /* ChatDatabaseManager.swift in Sources */,
 				CBC89972257B4F19004D5BBA /* IntroductionViewController.swift in Sources */,
 				CB559103257ECAEE007E78D8 /* AddPetViewController.swift in Sources */,

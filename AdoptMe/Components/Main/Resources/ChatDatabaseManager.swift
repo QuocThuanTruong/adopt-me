@@ -118,6 +118,52 @@ extension ChatDatabaseManager {
             })
         })
     }
+    
+    /// Inserts new user to database
+    public func updateUserName(with user: ChatAppUser, completion: @escaping (Bool) -> Void) {
+        database.child(user.safeEmail).updateChildValues([
+            "fullName": user.fullName,
+        ], withCompletionBlock: { [weak self] error, _ in
+
+            guard let strongSelf = self else {
+                return
+            }
+
+            guard error == nil else {
+                print("failed ot write to database")
+                completion(false)
+                return
+            }
+           
+
+            strongSelf.database.child("users").observeSingleEvent(of: .value, with: { snapshot in
+                if var usersCollection = snapshot.value as? [[String: String]] {
+                    // append to user dictionary
+                    print(usersCollection)
+                    print(usersCollection[0]["email"]!)
+                    
+                    for i in 0..<usersCollection.count {
+                        if usersCollection[i]["email"]! == user.safeEmail {
+                            usersCollection[i]["name"]! = user.fullName
+                        }
+                    }
+                    
+                    
+
+                    strongSelf.database.child("users").setValue(usersCollection, withCompletionBlock: { error, _ in
+                        guard error == nil else {
+                            completion(false)
+                            return
+                        }
+
+                        completion(true)
+                    })
+                }
+            })
+        })
+    }
+    
+    
 
     /// Gets all users from database
     public func getAllUsers(completion: @escaping (Result<[[String: String]], Error>) -> Void) {
@@ -787,6 +833,11 @@ struct ChatAppUser {
         //afraz9-gmail-com_profile_picture.png
         return "\(safeEmail)_profile_picture.png"
     }
+}
+
+struct SummaryUser {
+    let email: String
+    var name: String
 }
 
 extension ChatDatabaseManager {

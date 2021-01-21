@@ -68,10 +68,10 @@ class HomeViewController: UIViewController {
     let tabIconNormalImages: [String] = ["ic-white-all-pet", "ic-white-dog", "ic-white-cat", "ic-white-others"]
     let tabIconSelectedImages: [String] = ["ic-blue-all-pet", "ic-blue-dog", "ic-blue-cat", "ic-blue-others"]
     
-    var cellSizes: [CGSize] = {
+    lazy var cellSizes: [CGSize] = {
         var cellSizes = [CGSize]()
            
-        for _ in 0...10 {
+        for _ in 0...sourcePets.count {
             let random = Int(arc4random_uniform((UInt32(100))))
                
             cellSizes.append(CGSize(width: 157, height: 157 + random))
@@ -86,6 +86,9 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        Nuke.ImageCache.shared.costLimit = 0
+        Nuke.DataLoader.sharedUrlCache.removeAllCachedResponses()
+        
         fetchData()
         
         initView()

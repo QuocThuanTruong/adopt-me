@@ -31,13 +31,7 @@ class RecentPetDelegate : NSObject, UICollectionViewDataSource, CollectionViewWa
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.fetchData()
-            
-            DispatchQueue.main.async {
-                collectionView.reloadData()
-            }
-        }
+       
        
         return 1
     }

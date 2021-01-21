@@ -15,6 +15,10 @@ import Photos
 import ALCameraViewController
 import Nuke
 
+protocol UpdateInfoDelegate: class {
+    func updateChangeInfo()
+}
+
 class UpdateMyProfileViewController: UIViewController {
 
     @IBOutlet weak var avtPickerButton: UIButton!
@@ -32,6 +36,7 @@ class UpdateMyProfileViewController: UIViewController {
     var bottomPopUpView: BottomPopUpView!
     var datePicker: UIDatePicker!
     var genderPickerView: UIPickerView!
+    var delegate: UpdateInfoDelegate?
     
     var username = ""
     var userFullName = ""
@@ -40,6 +45,8 @@ class UpdateMyProfileViewController: UIViewController {
     var phone = ""
     var profileImageURL = ""
     var UID = ""
+    
+    var context: UIViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +99,7 @@ class UpdateMyProfileViewController: UIViewController {
                 
                 Nuke.loadImage(with: urlReq, into: image)
                 avtPickerButton.setImage(image.image, for: .normal)
+                avtPickerButton.imageView?.layer.cornerRadius = avtPickerButton.frame.width / 2
                 
                 print("load avatar ne")
                 userfullNameTextField.text = data?["fullname"] as? String
@@ -361,7 +369,7 @@ class UpdateMyProfileViewController: UIViewController {
                     Core.shared.setCurrentUserEmail(email)
                     Core.shared.setCurrentUserFullName(fullName)
                     
-                    ChatDatabaseManager.shared.insertUser(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
+                    ChatDatabaseManager.shared.updateUserName(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
                     success in
                         if (success){
                             print("done insert realtime")
@@ -371,6 +379,7 @@ class UpdateMyProfileViewController: UIViewController {
                     })
                 
                     DispatchQueue.main.async {
+                        self.delegate?.updateChangeInfo()
                         self.dismiss(animated: true, completion: nil)
                     }
                 })
@@ -392,7 +401,7 @@ class UpdateMyProfileViewController: UIViewController {
                 Core.shared.setCurrentUserEmail(email)
                 Core.shared.setCurrentUserFullName(fullName)
                 
-                ChatDatabaseManager.shared.insertUser(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
+                ChatDatabaseManager.shared.updateUserName(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
                 success in
                     if (success){
                         print("done insert realtime")
@@ -402,6 +411,7 @@ class UpdateMyProfileViewController: UIViewController {
                 })
                 
                 DispatchQueue.main.async {
+                    self.delegate?.updateChangeInfo()
                     self.dismiss(animated: true, completion: nil)
                 }
             }
