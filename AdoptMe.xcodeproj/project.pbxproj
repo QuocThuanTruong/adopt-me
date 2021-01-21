@@ -37,6 +37,7 @@
 		CB68096C25B8339B00BA2F88 /* UpdateMyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68096B25B8339B00BA2F88 /* UpdateMyProfileViewController.swift */; };
 		CB68096F25B8359700BA2F88 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68096E25B8359700BA2F88 /* SettingViewController.swift */; };
 		CB68097225B835C000BA2F88 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68097125B835C000BA2F88 /* AppInfoViewController.swift */; };
+		CB7241F825BA3B4700678345 /* UserPetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7241F725BA3B4700678345 /* UserPetCollectionViewCell.swift */; };
 		CB7BA24C25B6756A00C091BC /* ChatDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BA24B25B6756A00C091BC /* ChatDatabaseManager.swift */; };
 		CB7BA25025B675A600C091BC /* ChatStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BA24F25B675A600C091BC /* ChatStorageManager.swift */; };
 		CB7BA29225B67B4500C091BC /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BA29125B67B4500C091BC /* ChatModel.swift */; };
@@ -100,6 +101,7 @@
 		CB68096B25B8339B00BA2F88 /* UpdateMyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMyProfileViewController.swift; sourceTree = "<group>"; };
 		CB68096E25B8359700BA2F88 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		CB68097125B835C000BA2F88 /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
+		CB7241F725BA3B4700678345 /* UserPetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPetCollectionViewCell.swift; sourceTree = "<group>"; };
 		CB7BA24B25B6756A00C091BC /* ChatDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDatabaseManager.swift; sourceTree = "<group>"; };
 		CB7BA24F25B675A600C091BC /* ChatStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatStorageManager.swift; sourceTree = "<group>"; };
 		CB7BA29125B67B4500C091BC /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				CB5B978A25A2788700C44830 /* HistoryTableViewCell.swift */,
 				CB5B978D25A278B000C44830 /* RecentPetCollectionViewCell.swift */,
 				CB965B9525A8F0200034D11A /* ChatTableViewCell.swift */,
+				CB7241F725BA3B4700678345 /* UserPetCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				CB57C17F25B62B0D00457294 /* ChatFrameViewController.swift in Sources */,
 				CB68096C25B8339B00BA2F88 /* UpdateMyProfileViewController.swift in Sources */,
 				CB57EDAC259F114B00083C30 /* VerifyAccountViewController.swift in Sources */,
+				CB7241F825BA3B4700678345 /* UserPetCollectionViewCell.swift in Sources */,
 				CBC8999E257B9AAA004D5BBA /* IntroductionDelegate.swift in Sources */,
 				CB68096625B8320100BA2F88 /* OtherUserProfileViewController.swift in Sources */,
 				CB7BA31D25B764CD00C091BC /* PhotoViewerViewController.swift in Sources */,

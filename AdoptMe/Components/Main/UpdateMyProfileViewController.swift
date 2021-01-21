@@ -14,6 +14,7 @@ import BCrypt
 import Photos
 import ALCameraViewController
 import Nuke
+import FlagPhoneNumber
 
 protocol UpdateInfoDelegate: class {
     func updateChangeInfo()
@@ -29,6 +30,10 @@ class UpdateMyProfileViewController: UIViewController {
     @IBOutlet weak var addressTextField: MDCOutlinedTextField!
     @IBOutlet weak var finishButton: MDCButton!
     @IBOutlet weak var cancelButton: UIButton!
+    
+    @IBOutlet weak var phoneTextField: FPNTextField!
+    @IBOutlet weak var dummyPhoneTextField: MDCOutlinedTextField!
+    let listController: FPNCountryListViewController = FPNCountryListViewController(style: .grouped)
     
     let dateFormatter = DateFormatter()
     let genders: [String] = ["Male", "Female"]
@@ -114,6 +119,46 @@ class UpdateMyProfileViewController: UIViewController {
                 }
         }
         
+        
+        dummyPhoneTextField.setOutlineColor(UIColor(named: "AccentColor")!, for: .editing)
+        dummyPhoneTextField.setOutlineColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
+        dummyPhoneTextField.label.text = "Phone"
+        dummyPhoneTextField.setNormalLabelColor(UIColor(named: "AppGrayColor")!, for: .normal)
+        dummyPhoneTextField.setFloatingLabelColor(UIColor(named: "AccentColor")!, for: .editing)
+        dummyPhoneTextField.setFloatingLabelColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
+
+        phoneTextField.delegate = self
+        
+        phoneTextField.layer.borderWidth = 0
+        phoneTextField.layer.borderColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.0).cgColor
+        phoneTextField.layer.cornerRadius = 5.0
+        
+        phoneTextField.setFlag(key: .VN)
+        phoneTextField.delegate = self
+        
+        phoneTextField.displayMode = .list // .picker by default
+
+        listController.setup(repository: phoneTextField.countryRepository)
+        listController.didSelect = { [weak self] country  in
+            self?.phoneTextField.setFlag(countryCode: country.code)
+        }
+        
+    }
+    
+    @IBAction func dummyPhoneBeginEdit(_ sender: Any) {
+        dummyPhoneTextField.text = " "
+        dummyPhoneTextField.setOutlineColor(UIColor(named: "AccentColor")!, for: .normal)
+        dummyPhoneTextField.setFloatingLabelColor(UIColor(named: "AccentColor")!, for: .normal)
+    }
+    
+    @IBAction func dummyPhoneEditEnd(_ sender: Any) {
+        if phoneTextField.text! == "" {
+            dummyPhoneTextField.text = ""
+            dummyPhoneTextField.setOutlineColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
+
+            dummyPhoneTextField.setNormalLabelColor(UIColor(named: "AppGrayColor")!, for: .normal)
+            dummyPhoneTextField.setFloatingLabelColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
+        }
     }
     
     @IBAction func datePickerAct(_ sender: Any) {
@@ -475,3 +520,33 @@ extension UpdateMyProfileViewController : UIImagePickerControllerDelegate & UINa
 }
 
 
+extension UpdateMyProfileViewController: FPNTextFieldDelegate {
+
+   
+   func fpnDisplayCountryList() {
+    let navigationViewController = UINavigationController(rootViewController: listController)
+
+      listController.title = "Countries"
+
+      self.present(navigationViewController, animated: true, completion: nil)
+   }
+
+  
+   func fpnDidSelectCountry(name: String, dialCode: String, code: String) {
+    print(name, dialCode, code) // Output "France", "+33", "FR"
+    
+}
+
+  
+   func fpnDidValidatePhoneNumber(textField: FPNTextField, isValid: Bool) {
+        
+      if isValid {
+        let phoneNumber = textField.getFormattedPhoneNumber(format: .E164)!       // Output "+84389294632"
+        print(phoneNumber)
+        
+    
+      } else {
+           
+      }
+   }
+}

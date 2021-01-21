@@ -19,7 +19,11 @@ class SettingViewController: UIViewController {
     }
     
     func initView() {
-        
+        if Core.shared.isFirstLauchApp() {
+            lauchIntroductionSwitch.setOn(true, animated: false)
+        } else {
+            lauchIntroductionSwitch.setOn(false, animated: false)
+        }
     }
     
     @IBAction func changePasswordAct(_ sender: Any) {
@@ -50,6 +54,11 @@ class SettingViewController: UIViewController {
     }
     
     @IBAction func changeLauchIntroduction(_ sender: Any) {
+        if lauchIntroductionSwitch.isOn {
+            Core.shared.setIsFirstLauchApp()
+        } else {
+            Core.shared.setIsNotFirstLauchApp()
+        }
     }
     
     @IBAction func changeNotification(_ sender: Any) {
