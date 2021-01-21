@@ -23,10 +23,30 @@ class SettingViewController: UIViewController {
     }
     
     @IBAction func changePasswordAct(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
+        var manual = true;
         
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        db.collection("users").document(Core.shared.getCurrentUserID()).getDocument {(document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                
+                let username = data?["username"] as! String
+                
+                if (username == "") {
+                    manual = false;
+                }
+                
+            }
+        }
+        
+        if manual {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
+            
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+        } else {
+            //Alert vi ban dang dang nhap ben thu 3 hahaha
+        }
+
     }
     
     @IBAction func changeLauchIntroduction(_ sender: Any) {

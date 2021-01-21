@@ -7,6 +7,7 @@
 
 import UIKit
 import MaterialComponents
+import BCrypt
 
 class ChangePasswordViewController: UIViewController {
 
@@ -48,6 +49,86 @@ class ChangePasswordViewController: UIViewController {
     
 
     @IBAction func changeAct(_ sender: Any) {
+        let password = oldPasswordTextField.text ?? ""
+        var newPassword = newPasswordTextField.text ?? ""
+        let retypeNew = retypeNewPasswordTextField.text ?? ""
+        
+        if (password == "") {
+            //alert khong dc de trong
+            print("1")
+            return
+        }
+        
+        if (newPassword == "") {
+            //alert khong dc bo trong
+            print("1")
+            return
+        }
+        
+        if (retypeNew == "") {
+            //alert khong dc bo trong
+            print("1")
+            return
+        }
+        
+        db.collection("users").document(Core.shared.getCurrentUserID()).getDocument { (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                
+                let correctPassword = data?["password"] as! String
+                
+                if (BCrypt.Check(password, hashed: correctPassword)) {
+                    if (!self.isValidPassword(testStr: newPassword)) {
+                        //alert mat khau yeu
+                        print("yeu")
+                        return
+                    } else {
+                        if (newPassword != retypeNew) {
+                            //alert nhap lai mat khau khong chinh xac
+                            return
+                        } else {
+                            do {
+                                let salt = try BCrypt.Salt()
+                                let hashed = try BCrypt.Hash(newPassword, salt: salt)
+                                newPassword = hashed
+                                print("Hashed result is: \(hashed)")
+                                
+                                db.collection("users").document(Core.shared.getCurrentUserID()).updateData(["password" : newPassword])
+                                //alert thay doi thanh cong
+                                print("ok")
+                                //mini reset
+                                self.oldPasswordTextField.text = ""
+                                self.newPasswordTextField.text = ""
+                                self.retypeNewPasswordTextField.text = ""
+                                
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                            catch {
+                                print("An error occured: \(error)")
+                            }
+                        }
+                    }
+
+                } else {
+                    //alert sai mat khau
+                    return
+                }
+                
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
+    func isValidPassword(testStr:String?) -> Bool {
+        guard testStr != nil else { return false }
+     
+        // at least one uppercase,
+        // at least one digit
+        // at least one lowercase
+        // 8 characters total
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}")
+        return passwordTest.evaluate(with: testStr)
     }
     
     @IBAction func cancelAct(_ sender: Any) {
