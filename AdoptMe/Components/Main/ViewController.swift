@@ -54,50 +54,7 @@ class ViewController : SOTabBarController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        if Core.shared.isFirstLauchApp() {
-                let storyboard = UIStoryboard(name: "Introduction", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "IntroductionViewController") as! IntroductionViewController
-                vc.modalPresentationStyle = .fullScreen
-                
-                self.present(vc, animated: true, completion: nil)
-                print("first")
-            
-        } else {
-           
-            
-            let token = Core.shared.getToken()
-            
-            if token != "" {
-                let userCollection = Firestore.firestore().collection("users")
-                
-                userCollection.whereField("token", isEqualTo: token).limit(to: 1)
-                    .getDocuments{ [self] (querySnapshot, error) in
-                        if let error = error {
-                            print(error)
-                        } else {
-                            if querySnapshot!.documents.count == 1 {
-                                Core.shared.setIsUserLogin(true)
-                            } else {
-                                gotoLogin()
-                            }
-                        }
-                    }
-            } else {
-                if !Core.shared.isUserLogin() {
-                    gotoLogin()
-                }
-            }
-        }
     }
-    
-    func gotoLogin() {
-        let storyboard = UIStoryboard(name: "Auth", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        vc.modalPresentationStyle = .fullScreen
-            
-        self.present(vc, animated: true, completion: nil)
-    }
-    
 }
 
 
