@@ -23,6 +23,7 @@ class AddPetViewController: UIViewController {
     @IBOutlet weak var petDescriptionLabelBg: UIButton!
     @IBOutlet weak var petDescriptionDummy: MDCOutlinedTextField!
     @IBOutlet weak var petDescriptionTextView: UITextView!
+    @IBOutlet weak var petTypeTextField: MDCOutlinedTextField!
     
     
     @IBOutlet weak var avatarPickerButton: UIButton!
@@ -34,9 +35,11 @@ class AddPetViewController: UIViewController {
     
     
     var genderPickerView: UIPickerView!
+    var typePickerView: UIPickerView!
     var bottomPopUpView: BottomPopUpView!
     
     let genderPickerViewDelegate = GenderPickerViewDelegate()
+    let typePickerViewDelegate = PetTypePickerViewDelegate()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,9 +52,9 @@ class AddPetViewController: UIViewController {
         
         genderPickerViewDelegate.genders = ["Male", "Female"]
         
-        let textFields: [MDCOutlinedTextField] = [petNameTextField, petAgeTextField, petGenderTextField, petAddressTextField]
-        let leadingIconNames: [String] = ["ic-blue-petname", "ic-blue-age", "ic-blue-gender", "ic-blue-address", ]
-        let labelForTFs: [String] = ["Your pet name", "Age", "Gender", "Address"]
+        let textFields: [MDCOutlinedTextField] = [petNameTextField, petAgeTextField, petGenderTextField, petAddressTextField, petTypeTextField]
+        let leadingIconNames: [String] = ["ic-blue-petname", "ic-blue-age", "ic-blue-gender", "ic-blue-address", "ic-blue-petname"]
+        let labelForTFs: [String] = ["Your pet name", "Age", "Gender", "Address", "Type"]
         let buttons: [UIButton] = [petImage1Button, petImage2Button, petImage3Button]
         
         addPetButton.layer.cornerRadius = 5.0
@@ -67,6 +70,8 @@ class AddPetViewController: UIViewController {
             textFields[i].setFloatingLabelColor(UIColor(named: "AccentColor")!, for: .editing)
             textFields[i].setFloatingLabelColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
         }
+        
+        petAgeTextField.clearButtonMode = .never
         
         petDescriptionDummy.setOutlineColor(UIColor.white.withAlphaComponent(0.0), for: .editing)
         petDescriptionDummy.setOutlineColor(UIColor.white.withAlphaComponent(0.0), for: .normal)
@@ -92,6 +97,10 @@ class AddPetViewController: UIViewController {
         genderPickerView = UIPickerView()
         genderPickerView.delegate = genderPickerViewDelegate
         genderPickerView.dataSource = genderPickerViewDelegate
+        
+        typePickerView = UIPickerView()
+        typePickerView.delegate = typePickerViewDelegate
+        typePickerView.dataSource = typePickerViewDelegate
         
     }
     
@@ -130,6 +139,7 @@ class AddPetViewController: UIViewController {
                    
                     self!.avatarPickerButton.setImage(image, for: .normal)
                     self!.avatarPickerButton.tag = 1
+                    self!.avatarPickerButton.imageView?.layer.cornerRadius = 59.0
                     
                       imagePickerViewController.dismiss(animated: false, completion: nil)
                       
@@ -180,6 +190,7 @@ class AddPetViewController: UIViewController {
                      
                     self!.petImage1Button.setImage(image, for: .normal)
                     self!.petImage1Button.tag = 1
+                    self!.petImage1Button.imageView?.layer.cornerRadius = 13.0
                       
                       imagePickerViewController.dismiss(animated: false, completion: nil)
                       
@@ -231,6 +242,7 @@ class AddPetViewController: UIViewController {
                      
                     self!.petImage2Button.setImage(image, for: .normal)
                     self!.petImage2Button.tag = 1
+                    self!.petImage2Button.imageView?.layer.cornerRadius = 13.0
                       
                       imagePickerViewController.dismiss(animated: false, completion: nil)
                       
@@ -282,6 +294,7 @@ class AddPetViewController: UIViewController {
                      
                     self!.petImage3Button.setImage(image, for: .normal)
                     self!.petImage3Button.tag = 1
+                    self!.petImage3Button.imageView?.layer.cornerRadius = 13.0
                       
                       imagePickerViewController.dismiss(animated: false, completion: nil)
                       
@@ -336,12 +349,13 @@ class AddPetViewController: UIViewController {
         }
         newPet.gender = genderText == "Male"
         
-        let typeText = "Dog" //Bien text cua gender
+        let typeText = petTypeTextField.text ?? "" //Bien text cua gender
         if (typeText == "") {
             //alert chua chon gioi tinh
             print("10")
             return
         }
+        
         newPet.type = typeText == "Dog" ? 1 : (typeText == "Cat" ? 2 : 3)
         
         let avatarImage = avatarPickerButton.image(for: .normal)
@@ -471,6 +485,86 @@ class AddPetViewController: UIViewController {
         resetAct((Any).self)
     }
     
+    @IBAction func pickTypeAct(_ sender: Any) {
+        bottomPopUpView = BottomPopUpView(wrapperContentHeight: 308)
+        let title = UILabel()
+        let doneButton = MDCButton()
+        let cancelButton = UIButton()
+        
+        title.text = "Pet type"
+        title.font = UIFont(name: "Helvetica Neue Medium", size: 20.0)
+        title.textColor = UIColor(named: "AppTextColor")
+        
+        doneButton.setTitle("DONE", for: .normal)
+        doneButton.setTitleColor(.white, for: .normal)
+        doneButton.setTitleFont(UIFont(name: "Helvetica Neue", size: 17.0), for: .normal)
+        doneButton.layer.cornerRadius = 5.0
+        doneButton.backgroundColor = UIColor(named: "AppRedColor")
+        doneButton.addTarget(self, action: #selector(pickTypeDoneAct(_:)), for: .touchUpInside)
+        
+        cancelButton.setTitle("CANCEL", for: .normal)
+        cancelButton.setTitleColor(UIColor(named: "AppRedColor"), for: .normal)
+        cancelButton.backgroundColor = .white
+        cancelButton.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 17.0)
+        cancelButton.layer.cornerRadius = 5.0
+        cancelButton.layer.borderWidth = 1
+        cancelButton.layer.borderColor = UIColor(named: "AppRedColor")?.cgColor
+        cancelButton.addTarget(self, action: #selector(dismissTypePicker(_:)), for: .touchUpInside)
+        
+        typePickerView.backgroundColor = .white
+        
+        typePickerView.translatesAutoresizingMaskIntoConstraints = false
+        title.translatesAutoresizingMaskIntoConstraints = false
+        doneButton.translatesAutoresizingMaskIntoConstraints  = false
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        bottomPopUpView.shouldDismissOnDrag = true
+        bottomPopUpView.view.addSubview(typePickerView)
+        bottomPopUpView.view.addSubview(title)
+        bottomPopUpView.view.addSubview(doneButton)
+        bottomPopUpView.view.addSubview(cancelButton)
+           
+        let cancelBtnWC = NSLayoutConstraint(item: cancelButton, attribute: .width, relatedBy: .equal,
+                                           toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 160)
+        let cancelBtnHC = NSLayoutConstraint(item: cancelButton, attribute: .height, relatedBy: .equal,
+                                           toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 44)
+        let cancelBtnX = NSLayoutConstraint(item: cancelButton, attribute: .trailing, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .centerX, multiplier: 1, constant: -20)
+        let cancelBtnY = NSLayoutConstraint(item: cancelButton, attribute: .bottom, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .bottom, multiplier: 1, constant: -36)
+        
+        let doneBtnWC = NSLayoutConstraint(item: doneButton, attribute: .width, relatedBy: .equal,
+                                           toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 160)
+        let doneBtnHC = NSLayoutConstraint(item: doneButton, attribute: .height, relatedBy: .equal,
+                                           toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 44)
+        let doneBtnX = NSLayoutConstraint(item: doneButton, attribute: .leading, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .centerX, multiplier: 1, constant: 20)
+        let doneBtnY = NSLayoutConstraint(item: doneButton, attribute: .bottom, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .bottom, multiplier: 1, constant: -36)
+        
+        
+        let datePickerWC = NSLayoutConstraint(item: typePickerView!, attribute: .width, relatedBy: .equal,
+                                                 toItem: bottomPopUpView.view, attribute: .width, multiplier: 1.0, constant: 0)
+
+        let datePickerHC = NSLayoutConstraint(item: typePickerView!, attribute: .height, relatedBy: .equal,
+                                                  toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100)
+
+        let datePickerY = NSLayoutConstraint(item: typePickerView!, attribute: .bottom, relatedBy: .equal, toItem: cancelButton, attribute: .top, multiplier: 1, constant: -14)
+        
+        
+        let titleX = NSLayoutConstraint(item: title, attribute: .centerX, relatedBy: .equal, toItem: bottomPopUpView.view, attribute: .centerX, multiplier: 1, constant: 0)
+        let titleY = NSLayoutConstraint(item: title, attribute: .bottom, relatedBy: .equal, toItem: typePickerView!, attribute: .top, multiplier: 1, constant: -8)
+
+        NSLayoutConstraint.activate([cancelBtnWC, cancelBtnHC, cancelBtnX, cancelBtnY, doneBtnWC, doneBtnHC, doneBtnX, doneBtnY, titleX, titleY, datePickerWC, datePickerHC, datePickerY])
+        
+        self.present(bottomPopUpView, animated: true, completion: nil)
+    }
+    
+    @objc func pickTypeDoneAct(_ sender: Any) {
+        petTypeTextField.text = typePickerViewDelegate.types[typePickerView.selectedRow(inComponent: 0)]
+        bottomPopUpView.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func dismissTypePicker(_ sender: Any) {
+        bottomPopUpView.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func pickGenderAct(_ sender: Any) {
         bottomPopUpView = BottomPopUpView(wrapperContentHeight: 308)
         let title = UILabel()
@@ -562,6 +656,11 @@ class AddPetViewController: UIViewController {
         petImage1Button.setImage(UIImage(named: "ic-md-blue-imgpicker"), for: .normal)
         petImage2Button.setImage(UIImage(named: "ic-md-blue-imgpicker"), for: .normal)
         petImage3Button.setImage(UIImage(named: "ic-md-blue-imgpicker"), for: .normal)
+        
+        avatarPickerButton.imageView?.layer.cornerRadius = 0
+        petImage1Button.imageView?.layer.cornerRadius = 0
+        petImage2Button.imageView?.layer.cornerRadius = 0
+        petImage3Button.imageView?.layer.cornerRadius = 0
         
         avatarPickerButton.tag = 0;
         petImage1Button.tag = 0;
