@@ -17,6 +17,7 @@ target 'AdoptMe' do
   pod 'MessageKit'
   pod 'ALCameraViewController'
   pod 'OTPFieldView'
+  pod "FlagPhoneNumber"
   
   pod 'BottomPopUpView'
   pod 'FBSDKLoginKit'

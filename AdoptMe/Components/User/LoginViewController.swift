@@ -43,6 +43,7 @@ class LoginViewController: UIViewController {
         usernameTextField.label.text = "Username"
         usernameTextField.setNormalLabelColor(UIColor(named: "AppGrayColor")!, for: .normal)
         usernameTextField.setFloatingLabelColor(UIColor(named: "AccentColor")!, for: .editing)
+        usernameTextField.setFloatingLabelColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
         
         passwordTextField.setOutlineColor(UIColor(named: "AccentColor")!, for: .editing)
         passwordTextField.setOutlineColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
@@ -51,6 +52,7 @@ class LoginViewController: UIViewController {
         passwordTextField.label.text = "Password"
         passwordTextField.setNormalLabelColor(UIColor(named: "AppGrayColor")!, for: .normal)
         passwordTextField.setFloatingLabelColor(UIColor(named: "AccentColor")!, for: .editing)
+        passwordTextField.setFloatingLabelColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
     }
     
     func loginManual() {

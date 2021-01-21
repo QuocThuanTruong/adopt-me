@@ -316,6 +316,9 @@ PODS:
   - FirebaseStorage (3.9.1):
     - FirebaseCore (~> 6.10)
     - GTMSessionFetcher/Core (~> 1.1)
+  - FlagPhoneNumber (0.8.0):
+    - FlagPhoneNumber/libPhoneNumberiOS (= 0.8.0)
+  - FlagPhoneNumber/libPhoneNumberiOS (0.8.0)
   - GoogleAppMeasurement (6.9.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
     - GoogleUtilities/MethodSwizzler (~> 6.7)
@@ -1064,6 +1067,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Storage
   - FirebaseFirestoreSwift
+  - FlagPhoneNumber
   - GoogleSignIn
   - ImageSlideshow
   - ImageSlideshow/Alamofire
@@ -1103,6 +1107,7 @@ SPEC REPOS:
     - FirebaseFirestoreSwift
     - FirebaseInstallations
     - FirebaseStorage
+    - FlagPhoneNumber
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleSignIn
@@ -1156,6 +1161,7 @@ SPEC CHECKSUMS:
   FirebaseFirestoreSwift: 2c46dbc1156db97dc4f6dd798d4f5b57b9c7fab6
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   FirebaseStorage: 15e0f15ef3c7fec3d1899d68623e47d4447066b4
+  FlagPhoneNumber: 3712455b95f66cb0f2016fef7d9e34cddf8c7f9a
   GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
   GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
@@ -1185,6 +1191,6 @@ SPEC CHECKSUMS:
   SOTabBar: 27aea95bd6b39d1be3535c867a2cd3b5adc172e6
   UIFloatLabelTextView: 96b7c5a18739fd1af8fd9480f7943d75a7547e4d
 
-PODFILE CHECKSUM: ea1f9ca620d5abae97b68c9575b78476d010aef9
+PODFILE CHECKSUM: 5e37de01d7b0c122832e3b47449e1ef58fef664d
 
 COCOAPODS: 1.10.0

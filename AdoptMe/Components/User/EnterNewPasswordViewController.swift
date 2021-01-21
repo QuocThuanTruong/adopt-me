@@ -6,24 +6,135 @@
 //
 
 import UIKit
+import MaterialComponents
+import Firebase
+import BCrypt
 
 class EnterNewPasswordViewController: UIViewController {
 
+    @IBOutlet weak var passwordTextField: MDCOutlinedTextField!
+    @IBOutlet weak var retypePasswordTextField: MDCOutlinedTextField!
+    
+    @IBOutlet weak var doneButton: MDCButton!
+    @IBOutlet weak var backButton: UIButton!
+    
+    var fullPhoneNumber = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        initView()
+    }
+    
+    func initView() {
+        doneButton.layer.cornerRadius  = 5.0
+        
+        backButton.layer.borderWidth = 1
+        backButton.layer.cornerRadius = 5.0
+        backButton.layer.borderColor = UIColor(named: "AppRedColor")?.cgColor
+        
+        passwordTextField.setOutlineColor(UIColor(named: "AccentColor")!, for: .editing)
+        passwordTextField.setOutlineColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
+        passwordTextField.leadingView = UIImageView(image: UIImage(named: "ic-blue-password"))
+        passwordTextField.leadingViewMode = .always
+        passwordTextField.label.text = "New password"
+        passwordTextField.setNormalLabelColor(UIColor(named: "AppGrayColor")!, for: .normal)
+        passwordTextField.setFloatingLabelColor(UIColor(named: "AccentColor")!, for: .editing)
+        passwordTextField.setFloatingLabelColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
+        
+        retypePasswordTextField.setOutlineColor(UIColor(named: "AccentColor")!, for: .editing)
+        retypePasswordTextField.setOutlineColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
+        retypePasswordTextField.leadingView = UIImageView(image: UIImage(named: "ic-blue-password"))
+        retypePasswordTextField.leadingViewMode = .always
+        retypePasswordTextField.label.text = "Retype new password"
+        retypePasswordTextField.setNormalLabelColor(UIColor(named: "AppGrayColor")!, for: .normal)
+        retypePasswordTextField.setFloatingLabelColor(UIColor(named: "AccentColor")!, for: .editing)
+        retypePasswordTextField.setFloatingLabelColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
+        
     }
     
 
-    /*
-    // MARK: - Navigation
+    
+    @IBAction func doneAct(_ sender: Any) {
+        
+        if isCorrectForm() {
+            var password = passwordTextField.text!
+            
+            do {
+                let salt = try BCrypt.Salt()
+                let hashed = try BCrypt.Hash(password, salt: salt)
+                password = hashed
+                print("Hashed result is: \(hashed)")
+            }
+            catch {
+                print("An error occured: \(error)")
+            }
+            
+            let userCollection = Firestore.firestore().collection("users")
+                        
+            userCollection.whereField("phone", isEqualTo: fullPhoneNumber).limit(to: 1)
+                .getDocuments{ [self](querySnapshot, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    if querySnapshot!.documents.count == 1 {
+                        let data = querySnapshot?.documents[0].data()
+                        print("full phone \(self.fullPhoneNumber)")
+                        userCollection.document(data?["UID"] as! String).updateData(["password": password])
+                        //alert back to login
+                    }
+                }
+            }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
-
+        
+        
+}
+    
+    func isSame(_ password: String, _ retype: String) -> Bool {
+        return password == retype
+    }
+    
+    func isCorrectForm() -> Bool {
+        var result = true
+        var alertMessage = ""
+        
+        
+        if (passwordTextField.text! == "" && result == true) {
+            alertMessage = "Password must be filled"
+            
+            result = false
+        }
+        
+        if (retypePasswordTextField.text! == "" && result == true) {
+            alertMessage = "Retype password must be filled"
+            
+            result = false
+        }
+        
+        if (result == true && !isSame(passwordTextField.text!, retypePasswordTextField.text!)) {
+            alertMessage = "password and retype must be same"
+            
+            result = false
+        }
+        
+        if (result == false) {
+            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        return result
+    }
+    
+    @IBAction func backAct(_ sender: Any) {
+        let vc = self.presentingViewController
+        
+        self.dismiss(animated: false, completion: {
+            let dest = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            
+            dest.modalPresentationStyle = .fullScreen
+            vc?.present(dest, animated: false, completion: nil)
+        })
+    }
 }

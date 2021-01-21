@@ -460,6 +460,7 @@ extension FillInfoViewController : UIImagePickerControllerDelegate & UINavigatio
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
             
             avtPickerButton.setBackgroundImage(image, for: .normal)
+            avtPickerButton.imageView?.layer.cornerRadius = avtPickerButton.frame.width / 2
             
         }
     }

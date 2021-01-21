@@ -7,15 +7,25 @@
 
 import UIKit
 import MaterialComponents
+import FlagPhoneNumber
 
 class ForgotPasswordViewController: UIViewController {
 
     @IBOutlet weak var sendButton: MDCButton!
-    @IBOutlet weak var phoneTextField: MDCOutlinedTextField!
+    @IBOutlet weak var phoneTextField: FPNTextField!
+    @IBOutlet weak var dummyPhoneTextField: UIButton!
+    @IBOutlet weak var backButton: UIButton!
+    
     
     static let path = Bundle.main.path(forResource: "Config", ofType: "plist")
-       static let config = NSDictionary(contentsOfFile: path!)
-       private static let baseURLString = config!["serverURL"] as! String
+    static let config = NSDictionary(contentsOfFile: path!)
+    private static let baseURLString = config!["serverURL"] as! String
+    
+    let listController: FPNCountryListViewController = FPNCountryListViewController(style: .grouped)
+    
+    var countryCode = ""
+    var phoneNumber = ""
+    var isValidPhoneNumber = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,62 +35,79 @@ class ForgotPasswordViewController: UIViewController {
     
     func initView() {
         
+        phoneTextField.layer.borderWidth = 0
+        phoneTextField.layer.borderColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.0).cgColor
+        phoneTextField.layer.cornerRadius = 5.0
+        
+        dummyPhoneTextField.layer.borderWidth = 1
+        dummyPhoneTextField.layer.cornerRadius = 5.0
+        dummyPhoneTextField.layer.borderColor = UIColor(named: "AppSecondaryColor")?.cgColor
+        
+        backButton.layer.borderWidth = 1
+        backButton.layer.cornerRadius = 5.0
+        backButton.layer.borderColor = UIColor(named: "AppRedColor")?.cgColor
+        
+        
+        phoneTextField.setFlag(key: .VN)
+        countryCode = "+84"
+        phoneTextField.delegate = self
+        
+        phoneTextField.displayMode = .list // .picker by default
+
+        listController.setup(repository: phoneTextField.countryRepository)
+        listController.didSelect = { [weak self] country  in
+            self?.phoneTextField.setFlag(countryCode: country.code)
+        }
+    }
+    
+    @IBAction func beginEnterPhoneAct(_ sender: Any) {
+        dummyPhoneTextField.layer.borderColor = UIColor(named: "AccentColor")?.cgColor
     }
     
 
     @IBAction func sendAct(_ sender: Any) {
-       sendVerificationCode("+84", "389294631")
+        VerifyAPI.sendVerificationCode(countryCode, phoneNumber)
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "VerifyAccountViewController") as! VerifyAccountViewController
+        
+        vc.countryCode = countryCode
+        vc.phoneNumber = phoneNumber
+        
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
     
-    func sendVerificationCode(_ countryCode: String, _ phoneNumber: String) {
-            
-            let parameters = [
-                "via": "sms",
-                "country_code": countryCode,
-                "phone_number": phoneNumber
-            ]
-            
-            let path = "start"
-            let method = "POST"
-            
-        let urlPath = "\(ForgotPasswordViewController.baseURLString)/\(path)"
-            var components = URLComponents(string: urlPath)!
+    @IBAction func backAct(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ForgotPasswordViewController: FPNTextFieldDelegate {
+
+   
+   func fpnDisplayCountryList() {
+    let navigationViewController = UINavigationController(rootViewController: listController)
+
+      listController.title = "Countries"
+
+      self.present(navigationViewController, animated: true, completion: nil)
+   }
+
+  
+   func fpnDidSelectCountry(name: String, dialCode: String, code: String) {
+    print(name, dialCode, code) // Output "France", "+33", "FR"
+    countryCode = dialCode
+}
+
+  
+   func fpnDidValidatePhoneNumber(textField: FPNTextField, isValid: Bool) {
+      if isValid {
+        phoneNumber = textField.getRawPhoneNumber()!       // Output "+33600000001"
+        print(phoneNumber)
         
-            
-            var queryItems = [URLQueryItem]()
-            
-            for (key, value) in parameters {
-                let item = URLQueryItem(name: key, value: value)
-                queryItems.append(item)
-            }
-            
-            components.queryItems = queryItems
-            
-            let url = components.url!
-        print(url)
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = method
-            
-            let session: URLSession = {
-                let config = URLSessionConfiguration.default
-                return URLSession(configuration: config)
-            }()
-            
-            let task = session.dataTask(with: request) {
-                (data, response, error) in
-                if let data = data {
-                    do {
-                        let jsonSerialized = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
-                        
-                        print(jsonSerialized!)
-                    }  catch let error as NSError {
-                        print(error.localizedDescription)
-                    }
-                } else if let error = error {
-                    print(error.localizedDescription)
-                }
-            }
-            task.resume()
-        }
+        isValidPhoneNumber = true
+      } else {
+            isValidPhoneNumber = false
+      }
+   }
 }
