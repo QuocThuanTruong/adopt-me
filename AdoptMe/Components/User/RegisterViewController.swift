@@ -19,7 +19,8 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var dummyPhoneTextField: MDCOutlinedTextField!
     
     let listController: FPNCountryListViewController = FPNCountryListViewController(style: .grouped)
-    
+    var phoneNumber = ""
+    var isCorrect = false
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -85,24 +86,28 @@ class RegisterViewController: UIViewController {
     
     @IBAction func registerAct(_ sender: Any) {
         // Do some thing before go to others screen
-        if (isCorrectForm()) {
-            let phone = phoneTextField.getFormattedPhoneNumber(format: .E164)!
-            let username = usernameTextField.text!
-            let password = passwordTextField.text!
-            
-            
-            
-            
-                let dest = self.storyboard?.instantiateViewController(withIdentifier: "FillInfoViewController") as! FillInfoViewController
+        checkCorrectForm()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4)) { [self] in
+            if (self.isCorrect) {
+                let phone = self.phoneTextField.getFormattedPhoneNumber(format: .E164)!
+                let username = self.usernameTextField.text!
+                let password = self.passwordTextField.text!
                 
-                dest.modalPresentationStyle = .fullScreen
+                let registerVC = self.presentingViewController
                 
-                dest.username = username
-                dest.password = password
-                dest.phone = phone
-                
-                self.present(dest, animated: true, completion: nil)
-            
+                self.dismiss(animated: true, completion: {
+                    let dest = self.storyboard?.instantiateViewController(withIdentifier: "FillInfoViewController") as! FillInfoViewController
+                    
+                    dest.modalPresentationStyle = .fullScreen
+                    
+                    dest.username = username
+                    dest.password = password
+                    dest.phone = phone
+                    
+                    registerVC?.present(dest, animated: true, completion: nil)
+                })
+            }
         }
     }
     
@@ -123,53 +128,142 @@ class RegisterViewController: UIViewController {
         return password == retype
     }
     
-    func isCorrectForm() -> Bool {
-        var result = true
+    func isValidPassword(testStr:String?) -> Bool {
+        guard testStr != nil else { return false }
+     
+        // at least one uppercase,
+        // at least one digit
+        // at least one lowercase
+        // 8 characters total
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}")
+        return passwordTest.evaluate(with: testStr)
+    }
+    
+    func checkCorrectForm() {
+        var result = false
         var alertMessage = ""
         
-        if (phoneTextField.text! == "" && result == true) {
+        if (phoneTextField.text! == "") {
             alertMessage = "Phone must be filled"
             
-            result = false
-        }
-        
-        if (usernameTextField.text! == "" && result == true) {
-            alertMessage = "Username must be filled"
-            
-            result = false
-        }
-        
-        if (passwordTextField.text! == "" && result == true) {
-            alertMessage = "Password must be filled"
-            
-            result = false
-        }
-        
-        if (retypePasswordTextField.text! == "" && result == true) {
-            alertMessage = "Retype password must be filled"
-            
-            result = false
-        }
-        
-        if (result == true && !isSame(passwordTextField.text!, retypePasswordTextField.text!)) {
-            alertMessage = "password and retype must be same"
-            
-            result = false
-        }
-        
-        if (result == false) {
             let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
+            
+            return;
         }
         
-        return result
+        if (usernameTextField.text! == "") {
+            alertMessage = "Username must be filled"
+            
+            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+            return;
+        }
+        
+        if (passwordTextField.text! == "") {
+            alertMessage = "Password must be filled"
+            
+            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        
+        if (retypePasswordTextField.text! == "") {
+            alertMessage = "Retype password must be filled"
+            
+            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+            return;
+        }
+    
+        
+        db.collection("users").whereField("username", isEqualTo: self.usernameTextField.text!)
+            .getDocuments{ (querySnapshot, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    if querySnapshot!.documents.count >= 1 {
+                        alertMessage = "username already exists"
+                        
+                        let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                        
+                        result = false;
+                        
+                    } else {
+                        db.collection("users").whereField("phone", isEqualTo: self.phoneNumber)
+                            .getDocuments{ (querySnapshot, error) in
+                                if let error = error {
+                                    print(error)
+
+                                } else {
+                               
+                                    if querySnapshot!.documents.count >= 1 {
+                                        alertMessage = "phone number already exists"
+                                        
+                                        let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+                                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                                        self.present(alert, animated: true, completion: nil)
+                                        
+                                        result = false
+
+                                    } else {
+                                        print("1")
+                                        if (!self.isValidPassword(testStr: self.passwordTextField.text!)) {
+                                            //alert mat khau yeu
+                                            print("2")
+                                            alertMessage = "weak password. password must include at least one uppercase, one lowercase, one digit and 8 characters total "
+                                            
+                                            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+                                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                                            self.present(alert, animated: true, completion: nil)
+                                            
+                                            result = false
+
+                                        } else {
+                                            print("3")
+                                            if (!self.isSame(self.passwordTextField.text!, self.retypePasswordTextField.text!)) {
+                                                print("4")
+                                                alertMessage = "password and retype must be same"
+                                                let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+                                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                                                self.present(alert, animated: true, completion: nil)
+                                                
+                                                result = false
+                       
+                                            } else {
+                                                result = true
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+        }
+    
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4), execute :  {
+            self.isCorrect = result;
+        })
+        
+    
+    }
+    
+    func returnValue(value : Bool) -> Bool {
+        return value
     }
 }
 
 extension RegisterViewController: FPNTextFieldDelegate {
-
-   
    func fpnDisplayCountryList() {
     let navigationViewController = UINavigationController(rootViewController: listController)
 
@@ -188,7 +282,7 @@ extension RegisterViewController: FPNTextFieldDelegate {
    func fpnDidValidatePhoneNumber(textField: FPNTextField, isValid: Bool) {
         
       if isValid {
-        let phoneNumber = textField.getFormattedPhoneNumber(format: .E164)!       // Output "600000001"
+        phoneNumber = textField.getFormattedPhoneNumber(format: .E164)!       // Output "600000001"
         print(phoneNumber)
         
     

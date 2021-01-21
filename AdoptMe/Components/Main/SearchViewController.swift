@@ -25,11 +25,19 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        initView()
-        
-        searchKeyHistory = Core.shared.getKeySearchHistory()
-        
-        historyTableView.reloadData()
+        self.fetchData()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10), execute: {
+            self.initView()
+            
+            self.searchKeyHistory = Core.shared.getKeySearchHistory()
+            
+            self.historyTableView.reloadData()
+            
+            self.recentPetDelegate.pets = self.pets;
+            
+            self.recentPetCollectionView.reloadData()
+        })
     }
     
     func fetchData() {
@@ -55,7 +63,7 @@ class SearchViewController: UIViewController {
         searchTextField.clearButtonMode = .whileEditing
         searchTextField.trailingViewMode = .always
         searchTextField.trailingView = UIImageView(image: UIImage(named: "ic-blue-search"))
-        
+  
         let layout = CollectionViewWaterfallLayout()
         
         layout.columnCount = 3
@@ -69,7 +77,6 @@ class SearchViewController: UIViewController {
         
         recentPetCollectionView.delegate = recentPetDelegate
         recentPetCollectionView.dataSource = recentPetDelegate
-        
     }
     
     @IBAction func searchAct(_ sender: Any) {
