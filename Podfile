@@ -16,6 +16,7 @@ target 'AdoptMe' do
   pod 'UIFloatLabelTextView'
   pod 'MessageKit'
   pod 'ALCameraViewController'
+  pod 'OTPFieldView'
   
   pod 'BottomPopUpView'
   pod 'FBSDKLoginKit'

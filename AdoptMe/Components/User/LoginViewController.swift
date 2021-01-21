@@ -182,7 +182,10 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func forgotPasswordAct(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
         
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func registerAct(_ sender: Any) {

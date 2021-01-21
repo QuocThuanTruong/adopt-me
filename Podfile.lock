@@ -1041,6 +1041,7 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - Nuke (9.2.4)
+  - OTPFieldView (1.0.1)
   - PromisesObjC (1.2.11)
   - RangeSeekSlider (1.8.0)
   - SnapKit (5.0.1)
@@ -1072,6 +1073,7 @@ DEPENDENCIES:
   - MaterialComponents
   - MessageKit
   - Nuke
+  - OTPFieldView
   - RangeSeekSlider
   - SOTabBar
   - UIFloatLabelTextView
@@ -1123,6 +1125,7 @@ SPEC REPOS:
     - MotionInterchange
     - nanopb
     - Nuke
+    - OTPFieldView
     - PromisesObjC
     - RangeSeekSlider
     - SnapKit
@@ -1175,12 +1178,13 @@ SPEC CHECKSUMS:
   MotionInterchange: ead0e3ae1f3a5fb539e289debbc7ae036160a10d
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   Nuke: 44439f7a92e665a4f927ecd73cb51f91d93b0e0c
+  OTPFieldView: 700a752fe62c41d1c4914c78aa500fb30d97c255
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   RangeSeekSlider: 650b11fa1edcb92e1e0ede797669d98622570fb5
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SOTabBar: 27aea95bd6b39d1be3535c867a2cd3b5adc172e6
   UIFloatLabelTextView: 96b7c5a18739fd1af8fd9480f7943d75a7547e4d
 
-PODFILE CHECKSUM: 0a59de1729bbcbf9f6d1004f819f89d47cae2d9c
+PODFILE CHECKSUM: ea1f9ca620d5abae97b68c9575b78476d010aef9
 
 COCOAPODS: 1.10.0
