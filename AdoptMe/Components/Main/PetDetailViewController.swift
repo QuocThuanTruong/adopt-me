@@ -11,6 +11,7 @@ import ImageSlideshow
 import AlamofireImage
 import Alamofire
 import Nuke
+import SCLAlertView
 
 class PetDetailViewController: UIViewController {
 
@@ -125,6 +126,23 @@ class PetDetailViewController: UIViewController {
             let name = (data?["fullname"] as! String)
             var email = (data?["email"] as! String)
             
+            if email == Core.shared.getCurrentUserEmail() {
+                let appearance = SCLAlertView.SCLAppearance(
+                    kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                    showCloseButton: false, showCircularIcon: false
+                )
+                
+                let alertView = SCLAlertView(appearance: appearance)
+               
+                alertView.addButton("OK", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                    alertView.dismiss(animated: true, completion: nil)
+                })
+                
+                    
+                alertView.showWarning("Warning", subTitle: "You can not chat with your self")
+                
+            } else {
+            
             email = ChatDatabaseManager.safeEmail(emailAddress: email)
             
             print(name)
@@ -164,7 +182,7 @@ class PetDetailViewController: UIViewController {
                     }
                 })
             
-                   
+            }
                  
         }
     }
