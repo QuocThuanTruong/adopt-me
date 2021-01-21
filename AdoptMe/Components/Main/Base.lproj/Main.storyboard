@@ -861,39 +861,36 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="175" height="175"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qlO-cJ-kF0">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dbg-Yy-Xct">
                                                             <rect key="frame" x="0.0" y="0.0" width="175" height="175"/>
-                                                            <connections>
-                                                                <action selector="act_clickRecentPet:" destination="CUI-h0-ihu" eventType="touchUpInside" id="NIQ-V0-Mlc"/>
-                                                            </connections>
-                                                        </button>
+                                                        </imageView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="qlO-cJ-kF0" secondAttribute="bottom" id="R1c-0d-9zI"/>
-                                                        <constraint firstAttribute="trailing" secondItem="qlO-cJ-kF0" secondAttribute="trailing" id="e0G-NE-qT6"/>
-                                                        <constraint firstItem="qlO-cJ-kF0" firstAttribute="top" secondItem="DZJ-xP-cVt" secondAttribute="top" id="mOU-S1-ySL"/>
-                                                        <constraint firstItem="qlO-cJ-kF0" firstAttribute="leading" secondItem="DZJ-xP-cVt" secondAttribute="leading" id="qmW-wF-qyD"/>
+                                                        <constraint firstItem="Dbg-Yy-Xct" firstAttribute="leading" secondItem="DZJ-xP-cVt" secondAttribute="leading" id="Rri-Xk-4ss"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Dbg-Yy-Xct" secondAttribute="trailing" id="ZaC-hL-zez"/>
+                                                        <constraint firstItem="Dbg-Yy-Xct" firstAttribute="top" secondItem="DZJ-xP-cVt" secondAttribute="top" id="eYp-Sq-1ZR"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Dbg-Yy-Xct" secondAttribute="bottom" id="lde-GV-cuH"/>
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="R1c-0d-9zI"/>
-                                                            <exclude reference="e0G-NE-qT6"/>
-                                                            <exclude reference="mOU-S1-ySL"/>
-                                                            <exclude reference="qmW-wF-qyD"/>
+                                                            <exclude reference="Rri-Xk-4ss"/>
+                                                            <exclude reference="ZaC-hL-zez"/>
+                                                            <exclude reference="eYp-Sq-1ZR"/>
+                                                            <exclude reference="lde-GV-cuH"/>
                                                         </mask>
                                                     </variation>
                                                     <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
-                                                            <include reference="R1c-0d-9zI"/>
-                                                            <include reference="e0G-NE-qT6"/>
-                                                            <include reference="mOU-S1-ySL"/>
-                                                            <include reference="qmW-wF-qyD"/>
+                                                            <include reference="Rri-Xk-4ss"/>
+                                                            <include reference="ZaC-hL-zez"/>
+                                                            <include reference="eYp-Sq-1ZR"/>
+                                                            <include reference="lde-GV-cuH"/>
                                                         </mask>
                                                     </variation>
                                                 </collectionViewCellContentView>
                                                 <size key="customSize" width="175" height="175"/>
                                                 <connections>
-                                                    <outlet property="recentPetButton" destination="qlO-cJ-kF0" id="7z0-L6-aS5"/>
+                                                    <outlet property="recentPetImageView" destination="Dbg-Yy-Xct" id="LOe-jA-osb"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>

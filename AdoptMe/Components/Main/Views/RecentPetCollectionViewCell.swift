@@ -9,9 +9,6 @@ import UIKit
 
 class RecentPetCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var recentPetButton: UIButton!
+    @IBOutlet weak var recentPetImageView: UIImageView!
     
-    @IBAction func act_clickRecentPet(_ sender: Any) {
-        //print("cc")
-    }
 }

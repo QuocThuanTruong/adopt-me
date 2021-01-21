@@ -63,6 +63,8 @@ class SearchViewController: UIViewController {
         layout.minimumColumnSpacing = 20
         layout.minimumInteritemSpacing = 20
         
+        recentPetDelegate.context = self
+        
         recentPetCollectionView.collectionViewLayout = layout
         
         recentPetCollectionView.delegate = recentPetDelegate

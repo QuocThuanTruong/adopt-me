@@ -12,6 +12,7 @@ import Nuke
 
 class RecentPetDelegate : NSObject, UICollectionViewDataSource, CollectionViewWaterfallLayoutDelegate {
     var pets = [Pet]()
+    var context: UIViewController!
     
     func fetchData() {
         db.collection("pets")
@@ -56,10 +57,9 @@ class RecentPetDelegate : NSObject, UICollectionViewDataSource, CollectionViewWa
         }
         
         let urlReq = URLRequest(url: urlStr)
-        let image = UIImageView()
-        Nuke.loadImage(with: urlReq, into: image)
         
-        cell.recentPetButton.setBackgroundImage(image.image, for: .normal)
+        Nuke.loadImage(with: urlReq, into: cell.recentPetImageView)
+        
         
         return cell
     }
@@ -70,18 +70,19 @@ class RecentPetDelegate : NSObject, UICollectionViewDataSource, CollectionViewWa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let dest = storyboard.instantiateViewController(withIdentifier: "PetDetailViewController") as! PetDetailViewController
         
         let index = indexPath.row
         let pet = pets[index]
+        print("selected recent: \(index)")
         
         dest.modalPresentationStyle = .fullScreen
-        dest.pet = pet*/
+        dest.pet = pet
         
-       // present(dest, animated: true, completion: nil)
-        print("cc")
+        context.present(dest, animated: true, completion: nil)
+        
         
     }
 }
