@@ -1047,6 +1047,7 @@ PODS:
   - OTPFieldView (1.0.1)
   - PromisesObjC (1.2.11)
   - RangeSeekSlider (1.8.0)
+  - SCLAlertView (0.8)
   - SnapKit (5.0.1)
   - SOTabBar (1.1.3)
   - UIFloatLabelTextView (1.0.10)
@@ -1079,6 +1080,7 @@ DEPENDENCIES:
   - Nuke
   - OTPFieldView
   - RangeSeekSlider
+  - SCLAlertView
   - SOTabBar
   - UIFloatLabelTextView
 
@@ -1133,6 +1135,7 @@ SPEC REPOS:
     - OTPFieldView
     - PromisesObjC
     - RangeSeekSlider
+    - SCLAlertView
     - SnapKit
     - SOTabBar
     - UIFloatLabelTextView
@@ -1187,10 +1190,11 @@ SPEC CHECKSUMS:
   OTPFieldView: 700a752fe62c41d1c4914c78aa500fb30d97c255
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   RangeSeekSlider: 650b11fa1edcb92e1e0ede797669d98622570fb5
+  SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SOTabBar: 27aea95bd6b39d1be3535c867a2cd3b5adc172e6
   UIFloatLabelTextView: 96b7c5a18739fd1af8fd9480f7943d75a7547e4d
 
-PODFILE CHECKSUM: 5e37de01d7b0c122832e3b47449e1ef58fef664d
+PODFILE CHECKSUM: 7b35ae1ccf4b67c9f7ead225b5cb9d14518fd122
 
 COCOAPODS: 1.10.0
