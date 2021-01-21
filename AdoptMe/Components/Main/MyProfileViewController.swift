@@ -113,8 +113,8 @@ class MyProfileViewController: UIViewController {
         listPetCollectionView.tag = 0
         
         
-        
     }
+    
     
     @IBAction func editProfileAct(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "UpdateMyProfileViewController") as! UpdateMyProfileViewController
@@ -125,6 +125,15 @@ class MyProfileViewController: UIViewController {
     
     @IBAction func backAct(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func deletePetAct(_ sender: Any) {
+        let deleteButton = sender as? UIButton
+        
+        let pet = pets[deleteButton!.tag]
+        print(deleteButton!.tag)
+        
+        
     }
     
     @objc func addToFavorite(_ sender: Any) {
@@ -169,13 +178,16 @@ extension MyProfileViewController: UICollectionViewDataSource, CollectionViewWat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PetCollectionViewCell", for: indexPath) as! PetCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserPetCollectionCell", for: indexPath) as! UserPetCollectionViewCell
             
         let index = indexPath.row
         let pet = pets[index]
         
         cell.addFavButton.layer.cornerRadius = cell.addFavButton.frame.height / 2
+        cell.deleteButton.layer.cornerRadius = 5.0
         cell.addFavButton.tag = indexPath.row
+        cell.deleteButton.tag = indexPath.row
+        
         
         db.collection("users").document(Core.shared.getCurrentUserID()).getDocument { (document, error) in
             if let document = document, document.exists {
@@ -243,6 +255,7 @@ extension MyProfileViewController: UICollectionViewDataSource, CollectionViewWat
         cell.petAvatarImage.clipsToBounds = true
         
         cell.addFavButton.addTarget(self, action: #selector(addToFavorite(_:)), for: .touchUpInside)
+        cell.deleteButton.addTarget(self, action: #selector(deletePetAct(_:)), for: .touchUpInside)
         
         guard let urlStr = URL(string: pet.avatar) else {
             return cell
