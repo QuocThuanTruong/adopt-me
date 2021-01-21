@@ -94,9 +94,7 @@ class RegisterViewController: UIViewController {
                 let username = self.usernameTextField.text!
                 let password = self.passwordTextField.text!
                 
-                let registerVC = self.presentingViewController
                 
-                self.dismiss(animated: true, completion: {
                     let dest = self.storyboard?.instantiateViewController(withIdentifier: "FillInfoViewController") as! FillInfoViewController
                     
                     dest.modalPresentationStyle = .fullScreen
@@ -105,8 +103,8 @@ class RegisterViewController: UIViewController {
                     dest.password = password
                     dest.phone = phone
                     
-                    registerVC?.present(dest, animated: true, completion: nil)
-                })
+                    self.present(dest, animated: true, completion: nil)
+               
             }
         }
     }
