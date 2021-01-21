@@ -104,7 +104,7 @@ final class StorageManager {
             guard let strongSelf = self else {
                 return
             }
-
+            
             guard error == nil else {
                 // failed
                 print("failed to upload data to firebase for picture")

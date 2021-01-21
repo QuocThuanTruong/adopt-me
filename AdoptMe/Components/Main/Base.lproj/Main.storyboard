@@ -4550,7 +4550,7 @@ with others</string>
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <action selector="datePickerAct:" destination="1yF-Ul-8CV" eventType="touchUpInside" id="jTe-Cr-sq9"/>
+                                            <action selector="datePickerAct:" destination="1yF-Ul-8CV" eventType="touchDown" id="Zz5-QV-YWk"/>
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3L-pb-7Hn" customClass="MDCButton">
@@ -4633,7 +4633,7 @@ with others</string>
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <action selector="genderPickerAct:" destination="1yF-Ul-8CV" eventType="touchUpInside" id="Mfi-uu-Rkz"/>
+                                            <action selector="genderPickerAct:" destination="1yF-Ul-8CV" eventType="touchDown" id="xBY-Q3-Lvu"/>
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QeA-mC-Fpc">
