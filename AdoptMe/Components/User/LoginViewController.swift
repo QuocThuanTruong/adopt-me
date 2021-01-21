@@ -58,6 +58,7 @@ class LoginViewController: UIViewController {
     func loginManual() {
         Core.shared.setIsUserLogin(true)
         
+
         
        // let fillInfoVC = self.presentingViewController
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -180,13 +181,11 @@ class LoginViewController: UIViewController {
                                 let token = UUID().uuidString
                                 Core.shared.setToken(token)
                                 userCollection.document(data?["UID"] as! String).updateData(["token": token])
-                                
-                                Core.shared.setCurrentUserID(data?["UID"] as! String)
-                                
-                                
+
                                 //Core.sharee.setCureentUserAvatarImageView
                             }
                             
+                            Core.shared.setCurrentUserID(data?["UID"] as! String)
                             self.loginManual()
                         }
                     }
