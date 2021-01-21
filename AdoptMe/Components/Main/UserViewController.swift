@@ -106,7 +106,6 @@ class UserViewController: UIViewController {
                         
                         userCollection.document(data?["UID"] as! String).updateData(["token": ""])
                         
-                        
                     }
                 }
             }
