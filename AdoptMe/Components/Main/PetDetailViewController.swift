@@ -121,15 +121,46 @@ class PetDetailViewController: UIViewController {
             
             //Day nha bro
             let name = (data?["fullname"] as! String)
-            let email = (data?["email"] as! String)
+            var email = (data?["email"] as! String)
+            
+            email = ChatDatabaseManager.safeEmail(emailAddress: email)
             
             print(name)
             print(email)
             
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-            vc.createNewConversation(userFullName: name, userEmail: email)
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)
+            ChatDatabaseManager.shared.conversationExists(iwth: email, completion: { [weak self] result in
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    switch result {
+                    case .success(let conversationId):
+                        print("success to load exists")
+
+                        let vc = self?.storyboard?.instantiateViewController(withIdentifier: "ChatDetailViewController") as! ChatDetailViewController
+                        vc.isNewConversation = false
+                        vc.otherUserEmail = email
+                        vc.conversationId = conversationId
+                        vc.titleChat = name
+                        
+                        vc.modalPresentationStyle = .fullScreen
+                        
+                        strongSelf.present(vc, animated: true, completion: nil)
+                    case .failure(_):
+                        print("create new")
+
+                        let vc = self?.storyboard?.instantiateViewController(withIdentifier: "ChatDetailViewController") as! ChatDetailViewController
+                        vc.isNewConversation = true
+                        vc.otherUserEmail = email
+                        vc.conversationId = nil
+                        vc.titleChat = name
+                        
+                        vc.modalPresentationStyle = .fullScreen
+                        
+                        strongSelf.present(vc, animated: true, completion: nil)
+                       
+                        
+                    }
+                })
             
                    
                  
