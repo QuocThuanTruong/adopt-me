@@ -37,6 +37,7 @@ class HomeViewController: UIViewController {
     var db = Firestore.firestore()
     
     var keyName : String = ""
+    var isFav = false;
     
     @IBOutlet weak var allButton: UIButton!
     @IBOutlet weak var dogsButton: UIButton!
@@ -89,6 +90,7 @@ class HomeViewController: UIViewController {
         
         initView()
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         searchTextField.text = Core.shared.getKeyName()
@@ -510,7 +512,24 @@ class HomeViewController: UIViewController {
                         }
                     }
                     
-                    self.listPetCollectionView.reloadData()
+                    if (self.isFav) {
+                        self.db.collection("users").document(Core.shared.getCurrentUserID()).getDocument { (document, error) in
+                            if let document = document, document.exists {
+                                let data = document.data()
+                                let favorites = data?["favorites"] as! [String]
+                                
+                                self.sourcePets = self.sourcePets.filter { pet in
+                                    return favorites.firstIndex(of: pet.pet_id) != nil
+                                }
+
+                                self.listPetCollectionView.reloadData()
+                            } else {
+                                print("Document does not exist")
+                            }
+                        }
+                    } else {
+                        self.listPetCollectionView.reloadData()
+                    }
                 }
             break;
         default:
@@ -557,7 +576,26 @@ class HomeViewController: UIViewController {
                         }
                     }
                     
-                    self.listPetCollectionView.reloadData()
+                    if (self.isFav) {
+                        self.db.collection("users").document(Core.shared.getCurrentUserID()).getDocument { (document, error) in
+                            if let document = document, document.exists {
+                                let data = document.data()
+                                let favorites = data?["favorites"] as! [String]
+                                
+                                self.sourcePets = self.sourcePets.filter { pet in
+                                    return favorites.firstIndex(of: pet.pet_id) != nil
+                                }
+
+                                self.listPetCollectionView.reloadData()
+                            } else {
+                                print("Document does not exist")
+                            }
+                        }
+                    } else {
+                        self.listPetCollectionView.reloadData()
+                    }
+                    
+                    
                 }
         }
     }

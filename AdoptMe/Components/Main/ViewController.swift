@@ -36,6 +36,9 @@ class ViewController : SOTabBarController {
         chatVC.tabBarItem = UITabBarItem(title: "Chat", image: UIImage(named: "ic-blue-chat"), selectedImage: UIImage(named: "ic-white-chat"))
         userVC.tabBarItem = UITabBarItem(title: "User", image: UIImage(named: "ic-blue-user"), selectedImage: UIImage(named: "ic-white-user"))
 
+        homeVC.isFav = false;
+        favVC.isFav = true;
+        
         self.viewControllers = [homeVC, favVC, addVC, chatVC, userVC]
     }
     
