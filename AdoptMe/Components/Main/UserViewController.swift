@@ -107,6 +107,7 @@ class UserViewController: UIViewController {
                         let data = querySnapshot?.documents[0].data()
                         
                         userCollection.document(data?["UID"] as! String).updateData(["token": ""])
+                        Core.shared.setCurrentUserID("")
                         
                         let vc = self.presentingViewController
                         
@@ -116,6 +117,7 @@ class UserViewController: UIViewController {
                             dest.modalPresentationStyle = .fullScreen
                             vc?.present(dest, animated: false, completion: nil)
                         })
+
                     }
                 }
             }
@@ -129,7 +131,6 @@ class UserViewController: UIViewController {
         
         let alertView = SCLAlertView(appearance: appearance)
        
-        
         alertView.addButton("CONFIRM", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, target: self, selector: #selector(confirmLogout))
         
         alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {

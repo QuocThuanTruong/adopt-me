@@ -40,6 +40,7 @@ class FillInfoViewController: UIViewController {
     var profileImageURL = ""
     var UID = ""
     var token = ""
+    var isCorrect = false;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -283,92 +284,172 @@ class FillInfoViewController: UIViewController {
         present(actionSheet, animated: true)
     }
     
-    @IBAction func finishFillInfo(_ sender: Any) {
-        do {
-            let salt = try BCrypt.Salt()
-            let hashed = try BCrypt.Hash(password, salt: salt)
-            password = hashed
-            print("Hashed result is: \(hashed)")
+    func checkForm() {
+        var result = false
+        var alertMessage = ""
+        
+        if (userfullNameTextField.text! == "") {
+            alertMessage = "full name must be filled"
+            
+            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+            return;
         }
-        catch {
-            print("An error occured: \(error)")
+        
+        if (emailTextField.text! == "") {
+            alertMessage = "email must be filled"
+            
+            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+            return;
         }
         
-        
-        let userCollection = Firestore.firestore().collection("users")
-        var newUser = MyUser()
-        
-        if (UID == "") {
-            UID = UUID().uuidString
+        if (!isValidEmail(email: emailTextField.text!)) {
+            alertMessage = "email is incorrect"
+            
+            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+            return;
         }
-        newUser.UID = UID
-        newUser.address = addressTextField.text ?? ""
-        newUser.dateOfBirth = dobTextField.text ?? ""
-        newUser.email = emailTextField.text ?? ""
-        newUser.fullname = userfullNameTextField.text ?? ""
-        newUser.gender = genderTextField.text ?? ""
-        newUser.password = password
-        newUser.phone = phone
-        newUser.username = username
-        newUser.token = token
-        newUser.avatar = ""
-        newUser.favorites = [String]()
-        newUser.following = [String]()
         
-        if (avtPickerButton.tag == 1) {
-            print("cc")
-            let image = avtPickerButton.image(for: .normal)
-    
-            StorageManager.shared.uploadImage(with: image!.pngData()!, fileName: "avatar.png", folder: "User", subFolder: UID, completion: { [weak self] result in
-                guard let strongSelf = self else {
-                    return
+        db.collection("users").whereField("email", isEqualTo: emailTextField.text!)
+            .getDocuments{ (querySnapshot, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    if querySnapshot!.documents.count >= 1 {
+                        alertMessage = "email is already exists"
+                        
+                        let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                        
+                        result = false
+                    } else {
+                        result = true
+                    }
                 }
-
-                switch result {
-                case .success(let urlString):
-                    // Ready to send message
-                    print("Uploaded Message Photo: \(urlString)")
-                    newUser.avatar = urlString
-                    
-                case .failure(let error):
-                    print("message photo upload error: \(error)")
+            }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute :  {
+            self.isCorrect = result;
+        })
+    }
+    
+    func isValidEmail(email: String?) -> Bool {
+        guard email != nil else { return false }
+        
+        let regEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        
+        let pred = NSPredicate(format:"SELF MATCHES %@", regEx)
+        return pred.evaluate(with: email)
+    }
+    
+    @IBAction func finishFillInfo(_ sender: Any) {
+        checkForm()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [self] in
+            if (self.isCorrect) {
+                do {
+                    let salt = try BCrypt.Salt()
+                    let hashed = try BCrypt.Hash(password, salt: salt)
+                    password = hashed
+                    print("Hashed result is: \(hashed)")
+                }
+                catch {
+                    print("An error occured: \(error)")
                 }
                 
-                userCollection.document(newUser.UID).setData([
-                        "UID": newUser.UID,
-                        "address": newUser.address,
-                        "avatar": newUser.avatar,
-                        "dateOfBirth" : newUser.dateOfBirth,
-                        "email" : newUser.email,
-                        "fullname" : newUser.fullname,
-                        "gender" : newUser.gender,
-                        "password" : newUser.password,
-                        "phone": newUser.phone,
-                        "username" : newUser.username,
-                        "token" : newUser.token,
-                        "favorites" : newUser.favorites,
-                        "following" : newUser.following,
-                        "is_active" : 1
-                    ], merge: true)
+                
+                let userCollection = Firestore.firestore().collection("users")
+                var newUser = MyUser()
+                
+                if (UID == "") {
+                    UID = UUID().uuidString
+                }
+                
+                newUser.UID = UID
+                newUser.address = addressTextField.text ?? ""
+                newUser.dateOfBirth = dobTextField.text ?? ""
+                newUser.email = emailTextField.text ?? ""
+                newUser.fullname = userfullNameTextField.text ?? ""
+                newUser.gender = genderTextField.text ?? ""
+                newUser.password = password
+                newUser.phone = phone
+                newUser.username = username
+                newUser.token = token
+                newUser.avatar = ""
+                newUser.favorites = [String]()
+                newUser.following = [String]()
+                newUser.followers = [String]()
+                
+                var image = UIImage();
+                if (avtPickerButton.tag == 1) {
+                    image = avtPickerButton.image(for: .normal)!
+                } else {
+                    image = UIImage(named: "test_avt")!
+                }
+               
+        
+                StorageManager.shared.uploadImage(with: image.pngData()!, fileName: "avatar.png", folder: "User", subFolder: UID, completion: { [weak self] result in
+                    guard let strongSelf = self else {
+                        return
+                    }
+
+                    switch result {
+                    case .success(let urlString):
+                        // Ready to send message
+                        print("Uploaded Message Photo: \(urlString)")
+                        newUser.avatar = urlString
+                        
+                    case .failure(let error):
+                        print("message photo upload error: \(error)")
+                    }
                     
-                    Core.shared.setIsUserLogin(true)
-                    let email = newUser.email
-                    let fullName = newUser.fullname
-                    Core.shared.setCurrentUserEmail(email)
-                    Core.shared.setCurrentUserFullName(fullName)
+                    userCollection.document(newUser.UID).setData([
+                            "UID": newUser.UID,
+                            "address": newUser.address,
+                            "avatar": newUser.avatar,
+                            "dateOfBirth" : newUser.dateOfBirth,
+                            "email" : newUser.email,
+                            "fullname" : newUser.fullname,
+                            "gender" : newUser.gender,
+                            "password" : newUser.password,
+                            "phone": newUser.phone,
+                            "username" : newUser.username,
+                            "token" : newUser.token,
+                            "favorites" : newUser.favorites,
+                            "following" : newUser.following,
+                            "followers" : newUser.followers,
+                            "is_active" : 1
+                        ], merge: true)
+                        
+                        Core.shared.setIsUserLogin(true)
                     
-                    ChatDatabaseManager.shared.insertUser(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
-                    success in
-                        if (success){
-                            print("done insert realtime")
-                        } else {
-                            print("fail insert realtime")
-                        }
-                    })
+                        let email = newUser.email
+                        let fullName = newUser.fullname
                     
-                let fillInfoVC = self?.presentingViewController
-                    
-                self!.dismiss(animated: true, completion: {
+                        Core.shared.setCurrentUserEmail(email)
+                        Core.shared.setCurrentUserFullName(fullName)
+                        
+                        ChatDatabaseManager.shared.insertUser(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
+                        success in
+                            if (success){
+                                print("done insert realtime")
+                            } else {
+                                print("fail insert realtime")
+                            }
+                        })
+                        
+                    let fillInfoVC = self?.presentingViewController
+                        
+                    self!.dismiss(animated: true, completion: {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let dest = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
                         
@@ -379,51 +460,7 @@ class FillInfoViewController: UIViewController {
                         fillInfoVC?.present(dest, animated: true, completion: nil)
                     })
                 })
-        } else {
-            userCollection.document(newUser.UID).setData([
-                "UID": newUser.UID,
-                "address": newUser.address,
-                "avatar": newUser.avatar,
-                "dateOfBirth" : newUser.dateOfBirth,
-                "email" : newUser.email,
-                "fullname" : newUser.fullname,
-                "gender" : newUser.gender,
-                "password" : newUser.password,
-                "phone": newUser.phone,
-                "username" : newUser.username,
-                "favorites" : newUser.favorites,
-                "following" : newUser.following,
-                "token" : newUser.token,
-                "is_active" : 1
-            ], merge: true)
-            
-            Core.shared.setIsUserLogin(true)
-            let email = newUser.email
-            let fullName = newUser.fullname
-            Core.shared.setCurrentUserEmail(email)
-            Core.shared.setCurrentUserFullName(fullName)
-            
-            ChatDatabaseManager.shared.insertUser(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
-            success in
-                if (success){
-                    print("done insert realtime")
-                } else {
-                    print("fail insert realtime")
-                }
-            })
-            
-            let fillInfoVC = self.presentingViewController
-            
-            self.dismiss(animated: true, completion: {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let dest = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-                
-                dest.modalPresentationStyle  = .fullScreen
-                
-                Core.shared.setIsNotFirstLauchApp()
-                
-                fillInfoVC?.present(dest, animated: true, completion: nil)
-            })
+            }
         }
     }
     
