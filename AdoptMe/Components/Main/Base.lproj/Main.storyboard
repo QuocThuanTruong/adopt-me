@@ -3778,7 +3778,7 @@ with others</string>
                                     <action selector="editProfileAct:" destination="0b9-yR-dxg" eventType="touchUpInside" id="h6S-om-qNl"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vM6-U5-zZO">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vM6-U5-zZO">
                                 <rect key="frame" x="35" y="81" width="110" height="110"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="110" id="ldV-1Y-10i"/>
@@ -4331,7 +4331,7 @@ with others</string>
                                     <action selector="editProfileAct:" destination="0b9-yR-dxg" eventType="touchUpInside" id="hTx-KD-fUt"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="X8W-sX-fsX">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="X8W-sX-fsX">
                                 <rect key="frame" x="35" y="111" width="110" height="110"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="110" id="IMD-D1-OAg"/>
@@ -4824,7 +4824,7 @@ your profile</string>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="20a-iZ-rzO">
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="20a-iZ-rzO">
                                 <rect key="frame" x="242" y="148" width="136" height="136"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>

@@ -82,6 +82,7 @@ class UserViewController: UIViewController {
     @IBAction func editProfileAct(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "UpdateMyProfileViewController") as! UpdateMyProfileViewController
         
+        vc.delegate = self
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
@@ -113,4 +114,12 @@ class UserViewController: UIViewController {
         
        
     }
+}
+
+extension UserViewController: UpdateInfoDelegate {
+    func updateChangeInfo() {
+        initView()
+    }
+    
+    
 }
