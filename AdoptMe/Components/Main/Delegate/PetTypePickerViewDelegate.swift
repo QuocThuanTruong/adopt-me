@@ -1,27 +1,26 @@
 //
-//  GenderPickerViewDelegate.swift
+//  PetTypePickerViewDelegate.swift
 //  AdoptMe
 //
-//  Created by Quoc Thuan Truong on 1/2/21.
+//  Created by Quoc Thuan Truong on 1/21/21.
 //
 
-import Foundation
 import UIKit
 
-class GenderPickerViewDelegate: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
-    var genders: [String] = ["All", "Male", "Female"]
+class PetTypePickerViewDelegate: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
+    let types = ["Dog", "Cat", "Other"]
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return genders.count
+        return types.count
     }
     
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return genders[row]
+        return types[row]
     }
-    
-    
+
 }

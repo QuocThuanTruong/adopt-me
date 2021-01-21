@@ -28,6 +28,7 @@
 		CB6104FC25A0AD830017B058 /* SortPickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6104FB25A0AD830017B058 /* SortPickerViewDelegate.swift */; };
 		CB6104FF25A0AD980017B058 /* GenderPickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6104FE25A0AD980017B058 /* GenderPickerViewDelegate.swift */; };
 		CB61053925A0F8BA0017B058 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB61053825A0F8BA0017B058 /* SearchViewController.swift */; };
+		CB62E34F25B93C830096B5CA /* PetTypePickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB62E34E25B93C830096B5CA /* PetTypePickerViewDelegate.swift */; };
 		CB68096625B8320100BA2F88 /* OtherUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68096525B8320100BA2F88 /* OtherUserProfileViewController.swift */; };
 		CB68096925B8338B00BA2F88 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68096825B8338B00BA2F88 /* MyProfileViewController.swift */; };
 		CB68096C25B8339B00BA2F88 /* UpdateMyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68096B25B8339B00BA2F88 /* UpdateMyProfileViewController.swift */; };
@@ -87,6 +88,7 @@
 		CB6104FB25A0AD830017B058 /* SortPickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortPickerViewDelegate.swift; sourceTree = "<group>"; };
 		CB6104FE25A0AD980017B058 /* GenderPickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderPickerViewDelegate.swift; sourceTree = "<group>"; };
 		CB61053825A0F8BA0017B058 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		CB62E34E25B93C830096B5CA /* PetTypePickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTypePickerViewDelegate.swift; sourceTree = "<group>"; };
 		CB68096525B8320100BA2F88 /* OtherUserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileViewController.swift; sourceTree = "<group>"; };
 		CB68096825B8338B00BA2F88 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		CB68096B25B8339B00BA2F88 /* UpdateMyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMyProfileViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				CB6104FB25A0AD830017B058 /* SortPickerViewDelegate.swift */,
 				CB6104FE25A0AD980017B058 /* GenderPickerViewDelegate.swift */,
 				CB5B979025A2841E00C44830 /* RecentPetDelegate.swift */,
+				CB62E34E25B93C830096B5CA /* PetTypePickerViewDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				CBC8999E257B9AAA004D5BBA /* IntroductionDelegate.swift in Sources */,
 				CB68096625B8320100BA2F88 /* OtherUserProfileViewController.swift in Sources */,
 				CB7BA31D25B764CD00C091BC /* PhotoViewerViewController.swift in Sources */,
+				CB62E34F25B93C830096B5CA /* PetTypePickerViewDelegate.swift in Sources */,
 				CB559106257ECB01007E78D8 /* ChatViewController.swift in Sources */,
 				CB5B979125A2841E00C44830 /* RecentPetDelegate.swift in Sources */,
 				CB6104FF25A0AD980017B058 /* GenderPickerViewDelegate.swift in Sources */,

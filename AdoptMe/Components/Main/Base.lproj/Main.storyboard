@@ -5874,7 +5874,7 @@ your password</string>
     </scenes>
     <designables>
         <designable name="03v-56-sJP">
-            <size key="intrinsicContentSize" width="71" height="32"/>
+            <size key="intrinsicContentSize" width="59" height="29"/>
         </designable>
         <designable name="17c-VL-Hgo">
             <size key="intrinsicContentSize" width="30" height="29"/>
@@ -5883,10 +5883,10 @@ your password</string>
             <size key="intrinsicContentSize" width="60" height="29"/>
         </designable>
         <designable name="V3L-pb-7Hn">
-            <size key="intrinsicContentSize" width="55" height="32"/>
+            <size key="intrinsicContentSize" width="46" height="29"/>
         </designable>
         <designable name="dMt-du-rfO">
-            <size key="intrinsicContentSize" width="75" height="32"/>
+            <size key="intrinsicContentSize" width="63" height="29"/>
         </designable>
         <designable name="hhR-FQ-qkK">
             <size key="intrinsicContentSize" width="73" height="29"/>

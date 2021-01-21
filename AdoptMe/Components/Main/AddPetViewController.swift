@@ -46,6 +46,9 @@ class AddPetViewController: UIViewController {
     }
     
     func initView() {
+        
+        genderPickerViewDelegate.genders = ["Male", "Female"]
+        
         let textFields: [MDCOutlinedTextField] = [petNameTextField, petAgeTextField, petGenderTextField, petAddressTextField]
         let leadingIconNames: [String] = ["ic-blue-petname", "ic-blue-age", "ic-blue-gender", "ic-blue-address", ]
         let labelForTFs: [String] = ["Your pet name", "Age", "Gender", "Address"]
