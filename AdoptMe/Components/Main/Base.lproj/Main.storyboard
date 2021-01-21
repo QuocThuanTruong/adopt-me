@@ -6074,19 +6074,19 @@ your password</string>
             <size key="intrinsicContentSize" width="35" height="32"/>
         </designable>
         <designable name="4tb-P4-lRO">
-            <size key="intrinsicContentSize" width="72" height="32"/>
+            <size key="intrinsicContentSize" width="60" height="29"/>
         </designable>
         <designable name="V3L-pb-7Hn">
             <size key="intrinsicContentSize" width="55" height="32"/>
         </designable>
         <designable name="dMt-du-rfO">
-            <size key="intrinsicContentSize" width="75" height="32"/>
+            <size key="intrinsicContentSize" width="63" height="29"/>
         </designable>
         <designable name="hhR-FQ-qkK">
-            <size key="intrinsicContentSize" width="87" height="32"/>
+            <size key="intrinsicContentSize" width="73" height="29"/>
         </designable>
         <designable name="tAP-RB-ba7">
-            <size key="intrinsicContentSize" width="18" height="22"/>
+            <size key="intrinsicContentSize" width="18" height="17"/>
         </designable>
     </designables>
     <resources>
