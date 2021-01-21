@@ -201,14 +201,14 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func registerAct(_ sender: Any) {
-        let loginVC = self.presentingViewController
         
-        self.dismiss(animated: true, completion: {
+        
+       
             let dest = self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
             
             dest.modalPresentationStyle = .fullScreen
-            loginVC?.present(dest, animated: true, completion: nil)
-        })
+            self.present(dest, animated: true, completion: nil)
+       
        
         
     }

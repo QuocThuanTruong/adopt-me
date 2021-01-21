@@ -90,9 +90,9 @@ class RegisterViewController: UIViewController {
             let username = usernameTextField.text!
             let password = passwordTextField.text!
             
-            let registerVC = self.presentingViewController
             
-            self.dismiss(animated: true, completion: {
+            
+            
                 let dest = self.storyboard?.instantiateViewController(withIdentifier: "FillInfoViewController") as! FillInfoViewController
                 
                 dest.modalPresentationStyle = .fullScreen
@@ -101,21 +101,22 @@ class RegisterViewController: UIViewController {
                 dest.password = password
                 dest.phone = phone
                 
-                registerVC?.present(dest, animated: true, completion: nil)
-            })
+                self.present(dest, animated: true, completion: nil)
+            
         }
     }
     
     @IBAction func loginAct(_ sender: Any) {
-        let registerVC = self.presentingViewController
-        
-        self.dismiss(animated: true, completion: {
-            let dest = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-            
-            dest.modalPresentationStyle = .fullScreen
-            registerVC?.present(dest, animated: true, completion: nil)
-        })
+//        let registerVC = self.presentingViewController
+//
+//        self.dismiss(animated: true, completion: {
+//            let dest = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+//
+//            dest.modalPresentationStyle = .fullScreen
+//            registerVC?.present(dest, animated: true, completion: nil)
+//        })
        
+        self.dismiss(animated: true, completion: nil)
     }
     
     func isSame(_ password: String, _ retype: String) -> Bool {
