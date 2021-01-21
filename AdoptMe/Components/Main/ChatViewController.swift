@@ -67,6 +67,49 @@ class ChatViewController: UIViewController {
                 }
             })
         }
+    
+    func createNewConversation(userFullName: String, userEmail: String) {
+            let name = userFullName
+            let email = ChatDatabaseManager.safeEmail(emailAddress: userEmail)
+
+            // check in datbase if conversation with these two users exists
+            // if it does, reuse conversation id
+            // otherwise use existing code
+
+        ChatDatabaseManager.shared.conversationExists(iwth: email, completion: { [weak self] result in
+                guard let strongSelf = self else {
+                    return
+                }
+                switch result {
+                case .success(let conversationId):
+                    print("success to load exists")
+
+                    let vc = self?.storyboard?.instantiateViewController(withIdentifier: "ChatDetailViewController") as! ChatDetailViewController
+                    vc.isNewConversation = false
+                    vc.otherUserEmail = email
+                    vc.conversationId = conversationId
+                    vc.titleChat = name
+                    
+                    vc.modalPresentationStyle = .fullScreen
+                    
+                    strongSelf.present(vc, animated: true, completion: nil)
+                case .failure(_):
+                    print("create new")
+
+                    let vc = self?.storyboard?.instantiateViewController(withIdentifier: "ChatDetailViewController") as! ChatDetailViewController
+                    vc.isNewConversation = true
+                    vc.otherUserEmail = email
+                    vc.conversationId = nil
+                    vc.titleChat = name
+                    
+                    vc.modalPresentationStyle = .fullScreen
+                    
+                    strongSelf.present(vc, animated: true, completion: nil)
+                   
+                    
+                }
+            })
+        }
 }
 
 extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
