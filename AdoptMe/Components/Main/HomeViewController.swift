@@ -366,6 +366,56 @@ class HomeViewController: UIViewController {
     }
     
     @objc func filterDoneAct(_ sender: Any) {
+        reloadPage()
+        
+        bottomPopUpView.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func viewNotificationAct(_ sender: Any) {
+        
+    }
+    
+    @IBAction func searchAct(_ sender: Any) {
+        let dest = self.storyboard?.instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
+        
+        dest.modalPresentationStyle = .fullScreen
+        self.present(dest, animated: true, completion: nil)
+    }
+    
+    @IBAction func viewAllPetAct(_ sender: Any) {
+        setTabSelected(0)
+        
+        listPetCollectionView.tag = 0;
+        
+        reloadPage()
+    }
+    
+    @IBAction func viewDogsAct(_ sender: Any) {
+        setTabSelected(1)
+        
+        listPetCollectionView.tag = 1;
+        print("1")
+        
+        reloadPage()
+    }
+    
+    @IBAction func viewCatsAct(_ sender: Any) {
+        setTabSelected(2)
+        
+        listPetCollectionView.tag = 2;
+        print("2")
+        reloadPage()
+    }
+    
+    @IBAction func viewOthersAct(_ sender: Any) {
+        setTabSelected(3)
+        
+        listPetCollectionView.tag = 3;
+        print("3")
+        reloadPage()
+    }
+    
+    func reloadPage() {
         let keyName = searchTextField.text ?? ""
         
         let sortSelected = sortPickerView.selectedRow(inComponent: 0)
@@ -395,26 +445,17 @@ class HomeViewController: UIViewController {
             break;
         }
         
-        var genderFilter = true;
-        switch genderSelected {
-        case 0:
-            genderFilter = true;
-            break;
-        case 1:
-            genderFilter = false;
-            break;
-        default:
-            break;
-        }
-        
         switch listPetCollectionView.tag {
         case 0:
+            print("cc")
             db.collection("pets")
-                .whereField("gender", isEqualTo: genderFilter)
                 .order(by: sortBy.by, descending: sortBy.descending)
                 .addSnapshotListener { (querySnapshot, error) in
                     guard let documents = querySnapshot?.documents else {
                         print("No documents")
+                        
+                        self.sourcePets = [Pet]()
+                        self.listPetCollectionView.reloadData()
                         return
                     }
                     
@@ -426,37 +467,12 @@ class HomeViewController: UIViewController {
                         return pet.age >= minAgeSelected && pet.age <= maxAgeSelected
                     }
                     
-                    if (keyName != "") {
+                    if (genderSelected != 0) {
+                        let genderFilter = genderSelected == 1
+                        
                         self.sourcePets = self.sourcePets.filter { pet in
-                            return pet.name
-                                .uppercased()
-                                .folding(options: .diacriticInsensitive, locale: Locale.current)
-                                .contains(keyName
-                                            .uppercased()
-                                            .folding(options: .diacriticInsensitive, locale: Locale.current)
-                                )
+                            return pet.gender == genderFilter
                         }
-                    }
-                    
-                    self.listPetCollectionView.reloadData()
-                }
-        default:
-            db.collection("pets")
-                .whereField("type", isEqualTo: listPetCollectionView.tag)
-                .whereField("gender", isEqualTo: genderFilter)
-                .order(by: sortBy.by, descending: sortBy.descending)
-                .addSnapshotListener { (querySnapshot, error) in
-                    guard let documents = querySnapshot?.documents else {
-                        print("No documents")
-                        return
-                    }
-                    
-                    self.sourcePets = documents.compactMap { (QueryDocumentSnapshot) -> Pet? in
-                      return try? QueryDocumentSnapshot.data(as: Pet.self)
-                    }
-                    
-                    self.sourcePets = self.sourcePets.filter { pet in
-                        return pet.age >= minAgeSelected && pet.age <= maxAgeSelected
                         
                     }
                     
@@ -474,87 +490,54 @@ class HomeViewController: UIViewController {
                     
                     self.listPetCollectionView.reloadData()
                 }
-        }
-        
-        bottomPopUpView.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func viewNotificationAct(_ sender: Any) {
-        
-    }
-    
-    @IBAction func searchAct(_ sender: Any) {
-        let dest = self.storyboard?.instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
-        
-        dest.modalPresentationStyle = .fullScreen
-        self.present(dest, animated: true, completion: nil)
-    }
-    
-    @IBAction func viewAllPetAct(_ sender: Any) {
-        setTabSelected(0)
-        
-        listPetCollectionView.tag = 0;
-        
-        reloadPage()
-    }
-    
-    @IBAction func viewDogsAct(_ sender: Any) {
-        setTabSelected(1)
-        
-        listPetCollectionView.tag = 1;
-        
-        reloadPage()
-    }
-    
-    @IBAction func viewCatsAct(_ sender: Any) {
-        setTabSelected(2)
-        
-        listPetCollectionView.tag = 2;
-        
-        reloadPage()
-    }
-    
-    @IBAction func viewOthersAct(_ sender: Any) {
-        setTabSelected(3)
-        
-        listPetCollectionView.tag = 3;
-        
-        reloadPage()
-    }
-    
-    func reloadPage() {
-        let keyName = searchTextField.text ?? ""
-        
-        switch listPetCollectionView.tag {
-        case 0:
-            sourcePets = pets
-            break
-        case 1:
-            sourcePets = dogs
-            break
-        case 2:
-            sourcePets = cats
-            break
-        case 3:
-            sourcePets = others
-            break
-        default:
             break;
-        }
-        
-        if (keyName != "") {
-            sourcePets = sourcePets.filter { pet in
-                return pet.name
-                    .uppercased()
-                    .folding(options: .diacriticInsensitive, locale: Locale.current)
-                    .contains(keyName
+        default:
+            db.collection("pets")
+                .order(by: sortBy.by, descending: sortBy.descending)
+                .addSnapshotListener { (querySnapshot, error) in
+                    guard let documents = querySnapshot?.documents else {
+                        print("No documents")
+                        
+                        self.listPetCollectionView.reloadData()
+                        return
+                    }
+                    
+                    
+                    self.sourcePets = documents.compactMap { (QueryDocumentSnapshot) -> Pet? in
+                      return try? QueryDocumentSnapshot.data(as: Pet.self)
+                    }
+                    
+                    self.sourcePets = self.sourcePets.filter { pet in
+                        return pet.type == self.listPetCollectionView.tag
+                    }
+                    
+                    self.sourcePets = self.sourcePets.filter { pet in
+                        return pet.age >= minAgeSelected && pet.age <= maxAgeSelected
+                    }
+                    
+                    if (genderSelected != 0) {
+                        let genderFilter = genderSelected == 1
+                        
+                        self.sourcePets = self.sourcePets.filter { pet in
+                            return pet.gender == genderFilter
+                        }
+                    }
+                    
+                    if (keyName != "") {
+                        self.sourcePets = self.sourcePets.filter { pet in
+                            return pet.name
                                 .uppercased()
                                 .folding(options: .diacriticInsensitive, locale: Locale.current)
-                    )
-            }
+                                .contains(keyName
+                                            .uppercased()
+                                            .folding(options: .diacriticInsensitive, locale: Locale.current)
+                                )
+                        }
+                    }
+                    
+                    self.listPetCollectionView.reloadData()
+                }
         }
-        
-        listPetCollectionView.reloadData()
     }
     
     @IBAction func logout_act(_ sender: Any) {

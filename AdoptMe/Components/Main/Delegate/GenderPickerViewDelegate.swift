@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class GenderPickerViewDelegate: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
-    let genders: [String] = ["Male", "Female"]
+    let genders: [String] = ["All", "Male", "Female"]
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
