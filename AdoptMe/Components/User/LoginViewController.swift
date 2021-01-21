@@ -14,6 +14,7 @@ import FBSDKCoreKit
 import GoogleSignIn
 import Firebase
 import BCrypt
+import SCLAlertView
 
 class LoginViewController: UIViewController {
     @IBOutlet weak var ggLoginButton: GIDSignInButton!
@@ -187,7 +188,35 @@ class LoginViewController: UIViewController {
                             
                             Core.shared.setCurrentUserID(data?["UID"] as! String)
                             self.loginManual()
+                        } else {
+                            let appearance = SCLAlertView.SCLAppearance(
+                                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                                showCloseButton: false, showCircularIcon: false
+                            )
+                            
+                            let alertView = SCLAlertView(appearance: appearance)
+                            
+                            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                                alertView.dismiss(animated: true, completion: nil)
+                            })
+                            
+                                
+                            alertView.showWarning("Warning", subTitle: "Username or Password is incorrect")
                         }
+                    } else {
+                        let appearance = SCLAlertView.SCLAppearance(
+                            kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                            showCloseButton: false, showCircularIcon: false
+                        )
+                        
+                        let alertView = SCLAlertView(appearance: appearance)
+                        
+                        alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                            alertView.dismiss(animated: true, completion: nil)
+                        })
+                        
+                            
+                        alertView.showWarning("Warning", subTitle: "Username or Password is incorrect")
                     }
                 }
         }

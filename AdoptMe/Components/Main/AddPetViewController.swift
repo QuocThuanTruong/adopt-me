@@ -12,6 +12,7 @@ import BottomPopUpView
 import Photos
 import ALCameraViewController
 import FirebaseStorage
+import SCLAlertView
 
 class AddPetViewController: UIViewController {
 
@@ -315,35 +316,90 @@ class AddPetViewController: UIViewController {
         
         newPet.name = petNameTextField.text ?? ""
         if (newPet.name == "") {
-            //alert khong bo trong
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: "your pet's name must be filled")
             print("1")
             return
         }
 
         newPet.age = Int(petAgeTextField.text ?? "0") ?? 0
         if (newPet.age == 0) {
-            //alert tuoi khong hop le
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: "your pet's age must be filled")
             print("2")
             return
         }
 
         newPet.address = petAddressTextField.text ?? ""
         if (newPet.address == "") {
-            //alert khong bo trong
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: "your pet's address must be filled")
             print("3")
             return
         }
 
         newPet.description = petDescriptionTextView.text ?? ""
         if (newPet.description == "") {
-            //alert khong bo trong
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: "your pet's description must be filled")
             print("4")
             return
         }
         
         let genderText = petGenderTextField.text ?? ""
         if (genderText == "") {
-            //alert chua chon gioi tinh
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: "your pet's gender must be selected")
             print("5")
             return
         }
@@ -351,7 +407,18 @@ class AddPetViewController: UIViewController {
         
         let typeText = petTypeTextField.text ?? "" //Bien text cua gender
         if (typeText == "") {
-            //alert chua chon gioi tinh
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: "Is he/she a dog, a cat or other?")
             print("10")
             return
         }
@@ -360,28 +427,72 @@ class AddPetViewController: UIViewController {
         
         let avatarImage = avatarPickerButton.image(for: .normal)
         if (avatarPickerButton.tag == 0) {
-            //alert khong duoc bo trong
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: "pick an avatar picture for your pet")
             print("6")
             return
         }
         
         let image1 = petImage1Button.image(for: .normal)
         if (petImage1Button.tag == 0) {
-            //alert khong duoc bo trong
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: "pick 3 picture for your pet")
             print("7")
             return
         }
         
         let image2 = petImage2Button.image(for: .normal)
         if (petImage2Button.tag == 0) {
-            //alert khong duoc bo trong
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: "he/she needs 2 more pictures")
             print("8")
             return
         }
         
         let image3 = petImage3Button.image(for: .normal)
         if (petImage2Button.tag == 0) {
-            //alert khong duoc bo trong
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: "he/she needs 1 more picture")
             print("9")
             return
         }
@@ -389,12 +500,8 @@ class AddPetViewController: UIViewController {
         newPet.user_id = Core.shared.getCurrentUserID()
         newPet.pet_id = UUID().uuidString
         
-        //alert cho xu li
-
         //upload Avatar
         StorageManager.shared.uploadImage(with: avatarImage!.pngData()!, fileName: "avatar.png", folder: "Pet", subFolder: newPet.pet_id, completion: {  result in
-               
-
                 switch result {
                 case .success(let urlString):
                     // Ready to send message
@@ -407,8 +514,6 @@ class AddPetViewController: UIViewController {
                 }
             //Image1
             StorageManager.shared.uploadImage(with: image1!.pngData()!, fileName: "1.png", folder: "Pet", subFolder: newPet.pet_id, completion: { result in
-                    
-
                     switch result {
                     case .success(let urlString):
                         // Ready to send message
@@ -419,7 +524,6 @@ class AddPetViewController: UIViewController {
                         
                         return
                     }
-                
                 //Image2
                 StorageManager.shared.uploadImage(with: image2!.pngData()!, fileName: "2.png", folder: "Pet", subFolder: newPet.pet_id, completion: { result in
                     
@@ -435,8 +539,6 @@ class AddPetViewController: UIViewController {
                         }
                     //Image3
                     StorageManager.shared.uploadImage(with: image3!.pngData()!, fileName: "3.png", folder: "Pet", subFolder: newPet.pet_id, completion: { result in
-               
-
                             switch result {
                             case .success(let urlString):
                                 // Ready to send message
@@ -465,6 +567,17 @@ class AddPetViewController: UIViewController {
                         ], merge: true)
                         
                         //Alert thanh cong
+                        let appearance = SCLAlertView.SCLAppearance(
+                            kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                            showCloseButton: false, showCircularIcon: false
+                        )
+                        
+                        let alertView = SCLAlertView(appearance: appearance)
+                        alertView.addButton("OK", action: {
+                            alertView.dismiss(animated: true, completion: nil)
+                        })
+                        alertView.showSuccess("Congratulation", subTitle: "Your pet has been added successfully")
+                        
                         self.resetAct((Any).self)
                         }
                     )
