@@ -860,7 +860,9 @@
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qlO-cJ-kF0">
                                                             <rect key="frame" x="0.0" y="0.0" width="175" height="175"/>
-                                                            <state key="normal" image="test_avt"/>
+                                                            <connections>
+                                                                <action selector="act_clickRecentPet:" destination="CUI-h0-ihu" eventType="touchUpInside" id="NIQ-V0-Mlc"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -957,6 +959,10 @@
                                                                     <include reference="LKg-uB-tES"/>
                                                                 </mask>
                                                             </variation>
+                                                            <connections>
+                                                                <action selector="act_ClearKey:" destination="VNM-Iw-lIh" eventType="touchUpInside" id="kap-U9-TbB"/>
+                                                                <action selector="act_clearKey:" destination="GPs-OB-cm9" eventType="touchUpInside" id="WKu-uS-qeF"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -995,6 +1001,7 @@
                                                     </variation>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="clearKeyButton" destination="cCh-d4-dlt" id="ntH-AF-0WC"/>
                                                     <outlet property="historyLabel" destination="TfI-o5-t4a" id="2QM-8U-R6m"/>
                                                 </connections>
                                             </tableViewCell>
@@ -1020,6 +1027,9 @@
                                         <state key="normal" title="CLEAR ALL">
                                             <color key="titleColor" name="AppSecondaryColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="act_ClearAll:" destination="VNM-Iw-lIh" eventType="touchUpInside" id="3HN-5n-bb0"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -5912,7 +5922,6 @@ your password</string>
         <image name="ic-white-noti" width="16" height="16"/>
         <image name="ic-white-others" width="29" height="26"/>
         <image name="shiba-chat" width="123" height="88"/>
-        <image name="test_avt" width="564" height="564"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
             <color red="0.090000003576278687" green="0.20800000429153442" blue="0.35699999332427979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

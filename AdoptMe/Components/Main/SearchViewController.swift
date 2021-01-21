@@ -8,6 +8,7 @@
 import UIKit
 import MaterialComponents
 import CollectionViewWaterfallLayout
+import Nuke
 
 class SearchViewController: UIViewController {
 
@@ -18,12 +19,33 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var recentPetCollectionView: UICollectionView!
     
     let recentPetDelegate = RecentPetDelegate()
+    var searchKeyHistory = [String]()
+    var pets = [Pet]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         initView()
+        
+        searchKeyHistory = Core.shared.getKeySearchHistory()
+        
         historyTableView.reloadData()
+    }
+    
+    func fetchData() {
+        db.collection("pets")
+            .order(by: "posted_date", descending: true)
+            .limit(to: 3)
+            .addSnapshotListener { (querySnapshot, error) in
+                guard let documents = querySnapshot?.documents else {
+                    print("No documents")
+                    return
+                }
+                
+                self.pets = documents.compactMap { (QueryDocumentSnapshot) -> Pet? in
+                  return try? QueryDocumentSnapshot.data(as: Pet.self)
+                }
+            }
     }
     
     func initView() {
@@ -49,7 +71,14 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func searchAct(_ sender: Any) {
-        Core.shared.setKeyName(searchTextField.text ?? "")
+        let key = searchTextField.text ?? ""
+        
+        Core.shared.setKeyName(key)
+        
+        if (key != "") {
+            Core.shared.addKeySearchToHistory(key: key)
+        }
+        
         self.dismiss(animated: true, completion: nil)
         
         print("searching...")
@@ -60,20 +89,49 @@ class SearchViewController: UIViewController {
         
         self.dismiss(animated: true, completion: nil)
     }
-
+    
+    
+    @IBAction func act_ClearAll(_ sender: Any) {
+        Core.shared.clearSearchHistory()
+        searchKeyHistory = Core.shared.getKeySearchHistory()
+        
+        historyTableView.reloadData()
+    }
+    
+    @IBAction func act_ClearKey(_ sender: Any) {
+        let button = sender as! UIButton
+        
+        Core.shared.clearKey(index: button.tag)
+        
+        searchKeyHistory = Core.shared.getKeySearchHistory()
+        
+        historyTableView.reloadData()
+    }
 }
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return searchKeyHistory.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! HistoryTableViewCell
         
-        cell.historyLabel.text = "abcbcb"
+        let index = indexPath.row
+        
+        cell.historyLabel.text = searchKeyHistory[index]
+        cell.clearKeyButton.tag = index
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let index = indexPath.row
+        
+        searchTextField.text = searchKeyHistory[index]
+        searchAct((Any).self)
     }
     
 }
