@@ -59,18 +59,26 @@ class LoginViewController: UIViewController {
         Core.shared.setIsUserLogin(true)
         
         
-        let fillInfoVC = self.presentingViewController
+       // let fillInfoVC = self.presentingViewController
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let dest = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         
-        self.dismiss(animated: true, completion: {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let dest = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-            
-            dest.modalPresentationStyle  = .fullScreen
-            
-            Core.shared.setIsNotFirstLauchApp()
-            
-            fillInfoVC?.present(dest, animated: true, completion: nil)
-        })
+        dest.modalPresentationStyle  = .fullScreen
+        
+        Core.shared.setIsNotFirstLauchApp()
+        
+        self.present(dest, animated: true, completion: nil)
+        
+//        self.dismiss(animated: true, completion: {
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let dest = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+//
+//            dest.modalPresentationStyle  = .fullScreen
+//
+//            Core.shared.setIsNotFirstLauchApp()
+//
+//            fillInfoVC?.present(dest, animated: true, completion: nil)
+//        })
     }
     
     func loginFirebase()  {

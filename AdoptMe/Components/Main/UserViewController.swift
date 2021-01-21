@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import MaterialComponents
 import Nuke
+import SCLAlertView
 
 class UserViewController: UIViewController {
 
@@ -91,7 +92,7 @@ class UserViewController: UIViewController {
         Core.shared.setIsFirstLauchApp()
     }
     
-    @IBAction func logOutAct(_ sender: Any) {
+    @objc func confirmLogout() {
         let token = Core.shared.getToken()
         Core.shared.setToken("")
         
@@ -107,12 +108,37 @@ class UserViewController: UIViewController {
                         
                         userCollection.document(data?["UID"] as! String).updateData(["token": ""])
                         
+                        let vc = self.presentingViewController
                         
+                        self.dismiss(animated: false, completion: {
+                            let storyboard = UIStoryboard(name: "Auth", bundle: nil)
+                            let dest = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                            dest.modalPresentationStyle = .fullScreen
+                            vc?.present(dest, animated: false, completion: nil)
+                        })
                     }
                 }
             }
+    }
+    
+    @IBAction func logOutAct(_ sender: Any) {
+        let appearance = SCLAlertView.SCLAppearance(
+            kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+            showCloseButton: false, showCircularIcon: false
+        )
         
+        let alertView = SCLAlertView(appearance: appearance)
        
+        
+        alertView.addButton("CONFIRM", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, target: self, selector: #selector(confirmLogout))
+        
+        alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+            alertView.dismiss(animated: true, completion: nil)
+        })
+        
+            
+        alertView.showWarning("Warning", subTitle: "Do you really want to logout?")
+        
     }
 }
 
