@@ -30,7 +30,24 @@ class UserViewController: UIViewController {
         userAvatarImageView.layer.cornerRadius = userAvatarImageView.frame.height/2
         userAvatarImageView.clipsToBounds = true
         
-        userAvatarImageView.image = UIImage(named: "test_avt")
+        db.collection("users").document(Core.shared.getCurrentUserID()).getDocument { [self] (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                
+                userFullNameLabel.text = data?["fullname"] as? String
+                userEmailLabel.text = data?["email"] as? String
+                
+                let urlStr = URL(string: (data?["avatar"] as! String))
+                let urlReq = URLRequest(url: urlStr!,
+                                        cachePolicy: .reloadIgnoringLocalCacheData)
+                
+                Nuke.loadImage(with: urlReq, into: self.userAvatarImageView)
+                
+                } else {
+                    print("Document does not exist")
+                }
+        }
+        
         
         logoutButton.layer.cornerRadius = 5.0
         

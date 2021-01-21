@@ -86,7 +86,7 @@ class PetDetailViewController: UIViewController {
     
     func configImageSlideShow() {
         //test data
-        let afNetworkingSource = [AlamofireSource(urlString: pet.images[0])!, AlamofireSource(urlString: pet.images[1])!, AlamofireSource(urlString: pet.images[2])!]
+        let afNetworkingSource = [AlamofireSource(urlString: pet.avatar)!, AlamofireSource(urlString: pet.images[0])!, AlamofireSource(urlString: pet.images[1])!, AlamofireSource(urlString: pet.images[2])!]
         
         petImageSlideShow.slideshowInterval = 5.0
         petImageSlideShow.pageIndicatorPosition = .init(horizontal: .center, vertical: .under)
@@ -109,6 +109,8 @@ class PetDetailViewController: UIViewController {
     
     @IBAction func viewProfileAct(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "OtherUserProfileViewController") as! OtherUserProfileViewController
+        
+        vc.user_id = pet.user_id
         
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)

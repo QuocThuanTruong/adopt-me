@@ -13,6 +13,7 @@ import FirebaseStorage
 import BCrypt
 import Photos
 import ALCameraViewController
+import Nuke
 
 class UpdateMyProfileViewController: UIViewController {
 
@@ -55,6 +56,7 @@ class UpdateMyProfileViewController: UIViewController {
     
 
     func initView() {
+        Nuke.DataLoader.sharedUrlCache.removeAllCachedResponses()
         
         let textFields: [MDCOutlinedTextField] = [userfullNameTextField, emailTextField, dobTextField, genderTextField, addressTextField]
         let leadingIconNames: [String] = ["ic-blue-username", "ic-blue-email", "ic-blue-dob", "ic-blue-gender", "ic-blue-address"]
@@ -80,10 +82,33 @@ class UpdateMyProfileViewController: UIViewController {
         userfullNameTextField.text = userFullName
         emailTextField.text = userEmail
         
+        db.collection("users").document(Core.shared.getCurrentUserID()).getDocument { [self] (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                
+                let urlStr = URL(string: (data?["avatar"] as! String))
+                let urlReq = URLRequest(url: urlStr!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+                let image = UIImageView()
+                
+                Nuke.loadImage(with: urlReq, into: image)
+                avtPickerButton.setImage(image.image, for: .normal)
+                
+                print("load avatar ne")
+                userfullNameTextField.text = data?["fullname"] as? String
+                emailTextField.text = data?["email"] as? String
+                dobTextField.text = data?["dateOfBirth"] as? String
+                genderTextField.text = data?["gender"] as? String
+                addressTextField.text = data?["address"] as? String
+                
+
+                } else {
+                    print("Document does not exist")
+                }
+        }
+        
     }
     
     @IBAction func datePickerAct(_ sender: Any) {
-
         bottomPopUpView = BottomPopUpView(wrapperContentHeight: 370)
         let title = UILabel()
         let doneButton = MDCButton()
@@ -284,7 +309,104 @@ class UpdateMyProfileViewController: UIViewController {
     }
     
     @IBAction func finishUpdateInfo(_ sender: Any) {
+        let userCollection = db.collection("users")
         
+        var user = MyUser()
+        
+        user.UID = Core.shared.getCurrentUserID()
+        user.address = addressTextField.text ?? ""
+        user.dateOfBirth = dobTextField.text ?? ""
+        user.email = emailTextField.text ?? ""
+        user.fullname = userfullNameTextField.text ?? ""
+        user.gender = genderTextField.text ?? ""
+        user.avatar = ""
+
+        
+        if (avtPickerButton.tag == 1) {
+            let image = avtPickerButton.image(for: .normal)
+    
+            DispatchQueue.global().async {
+                StorageManager.shared.uploadImage(with: image!.pngData()!, fileName: UUID().uuidString + ".png", folder: "User", subFolder: user.UID, completion: { result in
+
+                    switch result {
+                    case .success(let urlString):
+                        // Ready to send message
+                        print("Uploaded Message Photo: \(urlString)")
+                        user.avatar = urlString
+                        
+                    case .failure(let error):
+                        print("message photo upload error: \(error)")
+                    }
+                    
+                    userCollection.document(user.UID).updateData([
+                        "address": user.address,
+                        "avatar": user.avatar,
+                        "dateOfBirth" : user.dateOfBirth,
+                        "email" : user.email,
+                        "fullname" : user.fullname,
+                        "gender" : user.gender,
+                    ])
+                    
+                    let urlStr = URL(string: user.avatar)
+                    let urlReq = URLRequest(url: urlStr!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+                    let image = UIImageView()
+                    
+                    Nuke.loadImage(with: urlReq, into: image)
+                    self.avtPickerButton.setImage(image.image, for: .normal)
+                    
+                    
+                    Core.shared.setIsUserLogin(true)
+                    let email = user.email
+                    let fullName = user.fullname
+                    Core.shared.setCurrentUserEmail(email)
+                    Core.shared.setCurrentUserFullName(fullName)
+                    
+                    ChatDatabaseManager.shared.insertUser(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
+                    success in
+                        if (success){
+                            print("done insert realtime")
+                        } else {
+                            print("fail insert realtime")
+                        }
+                    })
+                
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                })
+            }
+            
+        } else {
+            DispatchQueue.global().async {
+                userCollection.document(user.UID).updateData([
+                        "address": user.address,
+                        "dateOfBirth" : user.dateOfBirth,
+                        "email" : user.email,
+                        "fullname" : user.fullname,
+                        "gender" : user.gender,
+                    ])
+                
+                Core.shared.setIsUserLogin(true)
+                let email = user.email
+                let fullName = user.fullname
+                Core.shared.setCurrentUserEmail(email)
+                Core.shared.setCurrentUserFullName(fullName)
+                
+                ChatDatabaseManager.shared.insertUser(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
+                success in
+                    if (success){
+                        print("done insert realtime")
+                    } else {
+                        print("fail insert realtime")
+                    }
+                })
+                
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+            
+        }
         
     }
     

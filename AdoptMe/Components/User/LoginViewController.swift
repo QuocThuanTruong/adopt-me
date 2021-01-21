@@ -174,6 +174,9 @@ class LoginViewController: UIViewController {
                                 userCollection.document(data?["UID"] as! String).updateData(["token": token])
                                 
                                 Core.shared.setCurrentUserID(data?["UID"] as! String)
+                                
+                                
+                                //Core.sharee.setCureentUserAvatarImageView
                             }
                             
                             self.loginManual()

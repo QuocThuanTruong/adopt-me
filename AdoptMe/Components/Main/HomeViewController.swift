@@ -470,7 +470,6 @@ class HomeViewController: UIViewController {
         
         switch listPetCollectionView.tag {
         case 0:
-            print("cc")
             db.collection("pets")
                 .order(by: sortBy.by, descending: sortBy.descending)
                 .addSnapshotListener { (querySnapshot, error) in

@@ -388,12 +388,12 @@ class AddPetViewController: UIViewController {
         
         newPet.user_id = Core.shared.getCurrentUserID()
         newPet.pet_id = UUID().uuidString
+        
+        //alert cho xu li
 
         //upload Avatar
-        StorageManager.shared.uploadImage(with: avatarImage!.pngData()!, fileName: "avatar.png", folder: "Pet", subFolder: newPet.pet_id, completion: { [weak self] result in
-                guard let strongSelf = self else {
-                    return
-                }
+        StorageManager.shared.uploadImage(with: avatarImage!.pngData()!, fileName: "avatar.png", folder: "Pet", subFolder: newPet.pet_id, completion: {  result in
+               
 
                 switch result {
                 case .success(let urlString):
@@ -406,10 +406,8 @@ class AddPetViewController: UIViewController {
                     return
                 }
             //Image1
-            StorageManager.shared.uploadImage(with: image1!.pngData()!, fileName: "1.png", folder: "Pet", subFolder: newPet.pet_id, completion: { [weak self] result in
-                    guard let strongSelf = self else {
-                        return
-                    }
+            StorageManager.shared.uploadImage(with: image1!.pngData()!, fileName: "1.png", folder: "Pet", subFolder: newPet.pet_id, completion: { result in
+                    
 
                     switch result {
                     case .success(let urlString):
@@ -423,11 +421,8 @@ class AddPetViewController: UIViewController {
                     }
                 
                 //Image2
-                StorageManager.shared.uploadImage(with: image2!.pngData()!, fileName: "2.png", folder: "Pet", subFolder: newPet.pet_id, completion: { [weak self] result in
-                        guard let strongSelf = self else {
-                            return
-                        }
-
+                StorageManager.shared.uploadImage(with: image2!.pngData()!, fileName: "2.png", folder: "Pet", subFolder: newPet.pet_id, completion: { result in
+                    
                         switch result {
                         case .success(let urlString):
                             // Ready to send message
@@ -439,10 +434,8 @@ class AddPetViewController: UIViewController {
                             return
                         }
                     //Image3
-                    StorageManager.shared.uploadImage(with: image3!.pngData()!, fileName: "3.png", folder: "Pet", subFolder: newPet.pet_id, completion: { [weak self] result in
-                            guard let strongSelf = self else {
-                                return
-                            }
+                    StorageManager.shared.uploadImage(with: image3!.pngData()!, fileName: "3.png", folder: "Pet", subFolder: newPet.pet_id, completion: { result in
+               
 
                             switch result {
                             case .success(let urlString):
@@ -472,7 +465,7 @@ class AddPetViewController: UIViewController {
                         ], merge: true)
                         
                         //Alert thanh cong
-                        
+                        self.resetAct((Any).self)
                         }
                     )
                     }
@@ -482,7 +475,7 @@ class AddPetViewController: UIViewController {
             }
         )
         
-        resetAct((Any).self)
+       
     }
     
     @IBAction func pickTypeAct(_ sender: Any) {
@@ -651,6 +644,7 @@ class AddPetViewController: UIViewController {
         petGenderTextField.text = ""
         petAddressTextField.text = ""
         petDescriptionTextView.text = ""
+        petTypeTextField.text = ""
         
         avatarPickerButton.setImage(UIImage(named: "ic-md-blue-imgpicker"), for: .normal)
         petImage1Button.setImage(UIImage(named: "ic-md-blue-imgpicker"), for: .normal)
