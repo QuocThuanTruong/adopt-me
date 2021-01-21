@@ -55,7 +55,10 @@ class VerifyAccountViewController: UIViewController {
     }
     
     @IBAction func backAct(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
+        vc.modalPresentationStyle = .fullScreen
+        
+        self.present(vc, animated: false, completion: nil)
         
     }
     

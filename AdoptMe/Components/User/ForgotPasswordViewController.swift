@@ -68,13 +68,19 @@ class ForgotPasswordViewController: UIViewController {
     @IBAction func sendAct(_ sender: Any) {
         VerifyAPI.sendVerificationCode(countryCode, phoneNumber)
         
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "VerifyAccountViewController") as! VerifyAccountViewController
+        let current = self.presentingViewController
         
-        vc.countryCode = countryCode
-        vc.phoneNumber = phoneNumber
+        self.dismiss(animated: false, completion: {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "VerifyAccountViewController") as! VerifyAccountViewController
+            
+            vc.countryCode = self.countryCode
+            vc.phoneNumber = self.phoneNumber
+            
+            vc.modalPresentationStyle = .fullScreen
+            current?.present(vc, animated: true, completion: nil)
+        })
         
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        
     }
     
     @IBAction func backAct(_ sender: Any) {
@@ -102,7 +108,7 @@ extension ForgotPasswordViewController: FPNTextFieldDelegate {
   
    func fpnDidValidatePhoneNumber(textField: FPNTextField, isValid: Bool) {
       if isValid {
-        phoneNumber = textField.getRawPhoneNumber()!       // Output "+33600000001"
+        phoneNumber = textField.getRawPhoneNumber()!       // Output "600000001"
         print(phoneNumber)
         
         isValidPhoneNumber = true

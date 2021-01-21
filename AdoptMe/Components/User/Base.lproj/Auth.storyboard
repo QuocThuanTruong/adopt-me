@@ -720,8 +720,43 @@ Welcome back!</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SeD-tB-MVo" customClass="HalfRoundedUIView" customModule="AdoptMe" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="216" width="414" height="680"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yAc-qc-YyV" customClass="MDCOutlinedTextField">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="YZj-lb-uFL" customClass="MDCOutlinedTextField">
                                         <rect key="frame" x="40" y="45" width="334" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="Pdz-Ik-e2J"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Pdz-Ik-e2J"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="Pdz-Ik-e2J"/>
+                                            </mask>
+                                        </variation>
+                                    </textField>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mHP-fC-x5g">
+                                        <rect key="frame" x="44" y="49" width="326" height="36"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="pBa-6E-n9w"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="pBa-6E-n9w"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="pBa-6E-n9w"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yAc-qc-YyV" customClass="FPNTextField" customModule="FlagPhoneNumber">
+                                        <rect key="frame" x="44" y="49" width="326" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="Nez-UZ-o9L"/>
                                             <constraint firstAttribute="width" constant="360" id="Uvb-gk-otK">
@@ -749,6 +784,10 @@ Welcome back!</string>
                                                 <include reference="Nez-UZ-o9L"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="dummyPhoneBeginEdit:" destination="8vn-oC-ise" eventType="editingDidBegin" id="rkB-bq-48Y"/>
+                                            <action selector="dummyPhoneEditEnd:" destination="8vn-oC-ise" eventType="editingDidEnd" id="yQK-oa-Alm"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5vt-Jh-mi5" customClass="MDCOutlinedTextField">
                                         <rect key="frame" x="40" y="119" width="334" height="44"/>
@@ -874,6 +913,7 @@ Welcome back!</string>
                                     <constraint firstItem="yAc-qc-YyV" firstAttribute="leading" secondItem="SeD-tB-MVo" secondAttribute="leading" constant="80" id="1x0-aD-Ttn"/>
                                     <constraint firstItem="FJ9-Sh-zb3" firstAttribute="height" secondItem="Fi9-yq-wIs" secondAttribute="height" id="3Hy-R6-UDK"/>
                                     <constraint firstItem="Fi9-yq-wIs" firstAttribute="leading" secondItem="SeD-tB-MVo" secondAttribute="leading" constant="40" id="3vT-H4-eGK"/>
+                                    <constraint firstItem="YZj-lb-uFL" firstAttribute="top" secondItem="yAc-qc-YyV" secondAttribute="top" id="4EG-Jq-dSb"/>
                                     <constraint firstItem="5vt-Jh-mi5" firstAttribute="top" secondItem="yAc-qc-YyV" secondAttribute="bottom" constant="30" id="5Sr-ns-QV9"/>
                                     <constraint firstItem="q2j-3W-cK2" firstAttribute="centerX" secondItem="mvT-Gf-AvG" secondAttribute="centerX" id="664-Rw-EpA"/>
                                     <constraint firstAttribute="trailing" secondItem="Fi9-yq-wIs" secondAttribute="trailing" constant="80" id="6Of-sK-Uh5"/>
@@ -881,8 +921,10 @@ Welcome back!</string>
                                     <constraint firstItem="yAc-qc-YyV" firstAttribute="top" secondItem="SeD-tB-MVo" secondAttribute="top" constant="45" id="8I5-ID-dnh"/>
                                     <constraint firstItem="FJ9-Sh-zb3" firstAttribute="top" secondItem="5vt-Jh-mi5" secondAttribute="top" id="9nY-0V-XCX"/>
                                     <constraint firstItem="Fi9-yq-wIs" firstAttribute="height" secondItem="yAc-qc-YyV" secondAttribute="height" id="A46-q8-Hdg"/>
+                                    <constraint firstAttribute="trailing" secondItem="yAc-qc-YyV" secondAttribute="trailing" constant="44" id="Aqa-r1-6gN"/>
                                     <constraint firstAttribute="trailing" secondItem="5vt-Jh-mi5" secondAttribute="trailing" constant="40" id="B9h-An-40X"/>
                                     <constraint firstItem="mvT-Gf-AvG" firstAttribute="centerX" secondItem="SeD-tB-MVo" secondAttribute="centerX" id="BGB-vm-huN"/>
+                                    <constraint firstItem="YZj-lb-uFL" firstAttribute="top" secondItem="SeD-tB-MVo" secondAttribute="top" constant="45" id="Dzh-Ly-UeE"/>
                                     <constraint firstItem="yAc-qc-YyV" firstAttribute="leading" secondItem="SeD-tB-MVo" secondAttribute="leading" constant="40" id="EcV-ly-YAM"/>
                                     <constraint firstItem="mvT-Gf-AvG" firstAttribute="top" secondItem="FJ9-Sh-zb3" secondAttribute="bottom" constant="36" id="Ed7-7T-mnl"/>
                                     <constraint firstAttribute="height" constant="200" id="I75-sO-1AA">
@@ -897,12 +939,22 @@ Welcome back!</string>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="680" id="RhE-zp-z4k"/>
                                     <constraint firstItem="5vt-Jh-mi5" firstAttribute="top" secondItem="yAc-qc-YyV" secondAttribute="bottom" constant="30" id="S7u-fj-Tkk"/>
                                     <constraint firstItem="5vt-Jh-mi5" firstAttribute="height" secondItem="yAc-qc-YyV" secondAttribute="height" id="SHa-JB-bhm"/>
+                                    <constraint firstItem="YZj-lb-uFL" firstAttribute="trailing" secondItem="yAc-qc-YyV" secondAttribute="trailing" id="SZ0-jH-pYZ"/>
+                                    <constraint firstItem="mHP-fC-x5g" firstAttribute="trailing" secondItem="YZj-lb-uFL" secondAttribute="trailing" constant="-4" id="Se2-9N-sCP"/>
                                     <constraint firstItem="q2j-3W-cK2" firstAttribute="centerX" secondItem="SeD-tB-MVo" secondAttribute="centerX" id="TEm-E3-5e8"/>
                                     <constraint firstItem="FJ9-Sh-zb3" firstAttribute="width" secondItem="Fi9-yq-wIs" secondAttribute="width" id="VFj-wC-mnf"/>
+                                    <constraint firstItem="YZj-lb-uFL" firstAttribute="leading" secondItem="yAc-qc-YyV" secondAttribute="leading" id="ajY-Dh-ccO"/>
+                                    <constraint firstAttribute="trailing" secondItem="YZj-lb-uFL" secondAttribute="trailing" constant="40" id="bOX-E3-HEf"/>
                                     <constraint firstAttribute="trailing" secondItem="FJ9-Sh-zb3" secondAttribute="trailing" constant="40" id="cQ7-8M-8RZ"/>
+                                    <constraint firstItem="mHP-fC-x5g" firstAttribute="centerY" secondItem="YZj-lb-uFL" secondAttribute="centerY" id="cRG-7L-THc"/>
+                                    <constraint firstItem="YZj-lb-uFL" firstAttribute="leading" secondItem="SeD-tB-MVo" secondAttribute="leading" constant="40" id="ek5-is-nMP"/>
+                                    <constraint firstItem="yAc-qc-YyV" firstAttribute="centerY" secondItem="YZj-lb-uFL" secondAttribute="centerY" constant="4" id="fLS-2K-u0v"/>
                                     <constraint firstItem="5vt-Jh-mi5" firstAttribute="trailing" secondItem="yAc-qc-YyV" secondAttribute="trailing" id="hy7-GY-cs8"/>
                                     <constraint firstItem="yAc-qc-YyV" firstAttribute="top" secondItem="SeD-tB-MVo" secondAttribute="top" constant="40" id="iEv-Al-qbZ"/>
+                                    <constraint firstItem="5vt-Jh-mi5" firstAttribute="top" secondItem="YZj-lb-uFL" secondAttribute="bottom" constant="30" id="iQK-P3-wwU"/>
                                     <constraint firstItem="mvT-Gf-AvG" firstAttribute="centerX" secondItem="5vt-Jh-mi5" secondAttribute="centerX" id="mfk-DR-meN"/>
+                                    <constraint firstItem="mHP-fC-x5g" firstAttribute="leading" secondItem="YZj-lb-uFL" secondAttribute="leading" constant="4" id="ohM-eU-lDI"/>
+                                    <constraint firstItem="yAc-qc-YyV" firstAttribute="leading" secondItem="SeD-tB-MVo" secondAttribute="leading" constant="44" id="p3m-Gs-uz4"/>
                                     <constraint firstItem="mvT-Gf-AvG" firstAttribute="centerX" secondItem="SeD-tB-MVo" secondAttribute="centerX" id="p9Y-Qs-6gg"/>
                                     <constraint firstItem="mvT-Gf-AvG" firstAttribute="top" secondItem="FJ9-Sh-zb3" secondAttribute="bottom" constant="26" id="qcT-Id-0lx"/>
                                     <constraint firstItem="5vt-Jh-mi5" firstAttribute="leading" secondItem="SeD-tB-MVo" secondAttribute="leading" constant="40" id="sac-1c-CMj"/>
@@ -917,17 +969,30 @@ Welcome back!</string>
                                         <exclude reference="I75-sO-1AA"/>
                                         <exclude reference="OgU-2f-3Zu"/>
                                         <exclude reference="RhE-zp-z4k"/>
+                                        <exclude reference="4EG-Jq-dSb"/>
+                                        <exclude reference="Dzh-Ly-UeE"/>
+                                        <exclude reference="SZ0-jH-pYZ"/>
+                                        <exclude reference="ajY-Dh-ccO"/>
+                                        <exclude reference="bOX-E3-HEf"/>
+                                        <exclude reference="ek5-is-nMP"/>
+                                        <exclude reference="Se2-9N-sCP"/>
+                                        <exclude reference="cRG-7L-THc"/>
+                                        <exclude reference="ohM-eU-lDI"/>
                                         <exclude reference="1x0-aD-Ttn"/>
                                         <exclude reference="7Wr-So-HKQ"/>
                                         <exclude reference="8I5-ID-dnh"/>
+                                        <exclude reference="Aqa-r1-6gN"/>
                                         <exclude reference="EcV-ly-YAM"/>
+                                        <exclude reference="fLS-2K-u0v"/>
                                         <exclude reference="iEv-Al-qbZ"/>
+                                        <exclude reference="p3m-Gs-uz4"/>
                                         <exclude reference="x5I-30-gvO"/>
                                         <exclude reference="5Sr-ns-QV9"/>
                                         <exclude reference="B9h-An-40X"/>
                                         <exclude reference="S7u-fj-Tkk"/>
                                         <exclude reference="SHa-JB-bhm"/>
                                         <exclude reference="hy7-GY-cs8"/>
+                                        <exclude reference="iQK-P3-wwU"/>
                                         <exclude reference="sac-1c-CMj"/>
                                         <exclude reference="sak-97-3qA"/>
                                         <exclude reference="3vT-H4-eGK"/>
@@ -984,11 +1049,24 @@ Welcome back!</string>
                                     <mask key="constraints">
                                         <include reference="OgU-2f-3Zu"/>
                                         <include reference="RhE-zp-z4k"/>
-                                        <include reference="8I5-ID-dnh"/>
-                                        <include reference="EcV-ly-YAM"/>
-                                        <include reference="x5I-30-gvO"/>
-                                        <include reference="5Sr-ns-QV9"/>
+                                        <exclude reference="4EG-Jq-dSb"/>
+                                        <include reference="Dzh-Ly-UeE"/>
+                                        <exclude reference="SZ0-jH-pYZ"/>
+                                        <exclude reference="ajY-Dh-ccO"/>
+                                        <include reference="bOX-E3-HEf"/>
+                                        <include reference="ek5-is-nMP"/>
+                                        <include reference="Se2-9N-sCP"/>
+                                        <include reference="cRG-7L-THc"/>
+                                        <include reference="ohM-eU-lDI"/>
+                                        <exclude reference="8I5-ID-dnh"/>
+                                        <include reference="Aqa-r1-6gN"/>
+                                        <exclude reference="EcV-ly-YAM"/>
+                                        <include reference="fLS-2K-u0v"/>
+                                        <include reference="p3m-Gs-uz4"/>
+                                        <exclude reference="x5I-30-gvO"/>
+                                        <exclude reference="5Sr-ns-QV9"/>
                                         <include reference="B9h-An-40X"/>
+                                        <include reference="iQK-P3-wwU"/>
                                         <include reference="sac-1c-CMj"/>
                                         <include reference="3vT-H4-eGK"/>
                                         <include reference="NsQ-Ld-5aw"/>
@@ -1098,8 +1176,9 @@ Fill in to register!</string>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="dummyPhoneTextField" destination="YZj-lb-uFL" id="7Za-FD-C4G"/>
                         <outlet property="passwordTextField" destination="Fi9-yq-wIs" id="58f-6J-8ap"/>
-                        <outlet property="phoneTextField" destination="yAc-qc-YyV" id="oOP-cN-dv0"/>
+                        <outlet property="phoneTextField" destination="yAc-qc-YyV" id="PBS-Fq-fsb"/>
                         <outlet property="registerButton" destination="mvT-Gf-AvG" id="V9C-Ve-zIx"/>
                         <outlet property="retypePasswordTextField" destination="FJ9-Sh-zb3" id="fg6-sS-NpG"/>
                         <outlet property="usernameTextField" destination="5vt-Jh-mi5" id="ef9-wN-dsd"/>
@@ -1284,11 +1363,22 @@ Fill in to register!</string>
                                             <action selector="genderPickerAct:" destination="2dM-AW-mD7" eventType="touchDown" id="vyo-61-jcy"/>
                                         </connections>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ijH-a3-hrp">
+                                        <rect key="frame" x="62" y="479" width="290" height="44"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <state key="normal" title="BACK">
+                                            <color key="titleColor" name="AppRedColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backAct:" destination="2dM-AW-mD7" eventType="touchUpInside" id="J2v-ML-1SY"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="WZx-gy-ufA" firstAttribute="top" secondItem="Ujl-kI-6JT" secondAttribute="top" id="1RX-Mm-aZg"/>
                                     <constraint firstItem="X1T-c5-Bnv" firstAttribute="leading" secondItem="WZx-gy-ufA" secondAttribute="leading" id="2ML-hm-HgS"/>
+                                    <constraint firstItem="ijH-a3-hrp" firstAttribute="height" secondItem="pMk-wQ-6Iq" secondAttribute="height" id="6d2-HI-ziL"/>
                                     <constraint firstItem="WZx-gy-ufA" firstAttribute="leading" secondItem="ZI5-a7-z4K" secondAttribute="leading" constant="40" id="8TR-UI-XJV"/>
                                     <constraint firstItem="WZx-gy-ufA" firstAttribute="top" secondItem="X1T-c5-Bnv" secondAttribute="bottom" constant="30" id="ACD-Yq-Duw"/>
                                     <constraint firstItem="WZx-gy-ufA" firstAttribute="leading" secondItem="X1T-c5-Bnv" secondAttribute="leading" id="Agk-35-fRm"/>
@@ -1297,6 +1387,8 @@ Fill in to register!</string>
                                     <constraint firstAttribute="trailing" secondItem="un4-Fj-zjq" secondAttribute="trailing" constant="40" id="Fan-dp-bTd"/>
                                     <constraint firstItem="Ujl-kI-6JT" firstAttribute="leading" secondItem="ZI5-a7-z4K" secondAttribute="leading" constant="40" id="JYQ-3T-JiO"/>
                                     <constraint firstItem="CMs-MO-qZQ" firstAttribute="centerY" secondItem="X1T-c5-Bnv" secondAttribute="centerY" id="K5w-I4-8Lp"/>
+                                    <constraint firstItem="ijH-a3-hrp" firstAttribute="trailing" secondItem="pMk-wQ-6Iq" secondAttribute="trailing" id="KhC-hy-crK"/>
+                                    <constraint firstItem="ijH-a3-hrp" firstAttribute="leading" secondItem="pMk-wQ-6Iq" secondAttribute="leading" id="Mfk-Sv-RT5"/>
                                     <constraint firstAttribute="trailing" secondItem="WZx-gy-ufA" secondAttribute="trailing" constant="80" id="MpP-4l-1PZ"/>
                                     <constraint firstItem="WZx-gy-ufA" firstAttribute="width" secondItem="X1T-c5-Bnv" secondAttribute="width" id="MxZ-oR-lEp"/>
                                     <constraint firstItem="pMk-wQ-6Iq" firstAttribute="top" secondItem="WZx-gy-ufA" secondAttribute="bottom" constant="26" id="OoF-N1-pmZ"/>
@@ -1321,6 +1413,7 @@ Fill in to register!</string>
                                     <constraint firstAttribute="trailing" secondItem="X1T-c5-Bnv" secondAttribute="trailing" constant="40" id="lWG-0b-3pb"/>
                                     <constraint firstItem="WZx-gy-ufA" firstAttribute="width" secondItem="Ujl-kI-6JT" secondAttribute="width" id="lp1-4h-bZy"/>
                                     <constraint firstAttribute="trailing" secondItem="WZx-gy-ufA" secondAttribute="trailing" constant="40" id="pPZ-aS-PWv"/>
+                                    <constraint firstItem="ijH-a3-hrp" firstAttribute="top" secondItem="pMk-wQ-6Iq" secondAttribute="bottom" constant="20" id="rag-at-XIF"/>
                                     <constraint firstItem="Ujl-kI-6JT" firstAttribute="top" secondItem="un4-Fj-zjq" secondAttribute="bottom" constant="30" id="rjp-Zg-BnB"/>
                                     <constraint firstItem="Ujl-kI-6JT" firstAttribute="trailing" secondItem="un4-Fj-zjq" secondAttribute="trailing" id="rkd-dP-h2w"/>
                                     <constraint firstItem="pMk-wQ-6Iq" firstAttribute="top" secondItem="WZx-gy-ufA" secondAttribute="bottom" constant="36" id="tun-bl-8fH"/>
@@ -1380,6 +1473,10 @@ Fill in to register!</string>
                                         <exclude reference="Vbg-Og-zCz"/>
                                         <exclude reference="Yb3-6d-cUm"/>
                                         <exclude reference="tun-bl-8fH"/>
+                                        <exclude reference="6d2-HI-ziL"/>
+                                        <exclude reference="KhC-hy-crK"/>
+                                        <exclude reference="Mfk-Sv-RT5"/>
+                                        <exclude reference="rag-at-XIF"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=regular">
@@ -1432,6 +1529,10 @@ Fill in to register!</string>
                                         <include reference="zRx-qI-u9x"/>
                                         <include reference="Yb3-6d-cUm"/>
                                         <include reference="tun-bl-8fH"/>
+                                        <include reference="6d2-HI-ziL"/>
+                                        <include reference="KhC-hy-crK"/>
+                                        <include reference="Mfk-Sv-RT5"/>
+                                        <include reference="rag-at-XIF"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -1549,6 +1650,7 @@ about your self!</string>
                     <connections>
                         <outlet property="addressTextField" destination="WZx-gy-ufA" id="6Iy-q6-7MC"/>
                         <outlet property="avtPickerButton" destination="6e3-H5-R86" id="SfX-4U-td7"/>
+                        <outlet property="backButton" destination="ijH-a3-hrp" id="dHd-lB-x04"/>
                         <outlet property="dobTextField" destination="X1T-c5-Bnv" id="qM9-Ba-mbu"/>
                         <outlet property="emailTextField" destination="Ujl-kI-6JT" id="jeo-8W-fAJ"/>
                         <outlet property="finishButton" destination="pMk-wQ-6Iq" id="zqj-cd-zjc"/>

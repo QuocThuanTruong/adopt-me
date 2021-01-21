@@ -23,6 +23,7 @@ class FillInfoViewController: UIViewController {
     @IBOutlet weak var genderTextField: MDCOutlinedTextField!
     @IBOutlet weak var addressTextField: MDCOutlinedTextField!
     @IBOutlet weak var finishButton: MDCButton!
+    @IBOutlet weak var backButton: UIButton!
     
     let dateFormatter = DateFormatter()
     let genders: [String] = ["Male", "Female"]
@@ -62,6 +63,10 @@ class FillInfoViewController: UIViewController {
         
         finishButton.layer.cornerRadius = 5.0
         avtPickerButton.layer.cornerRadius = 68.0
+        
+        backButton.layer.borderWidth = 1
+        backButton.layer.cornerRadius = 5.0
+        backButton.layer.borderColor = UIColor(named: "AppRedColor")?.cgColor
         
         for i in 0..<textFields.count {
             textFields[i].setOutlineColor(UIColor(named: "AccentColor")!, for: .editing)
@@ -435,6 +440,11 @@ class FillInfoViewController: UIViewController {
     @objc func pickGenderDoneAct(_ sender: Any) {
         genderTextField.text = genders[genderPickerView.selectedRow(inComponent: 0)]
         bottomPopUpView.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func backAct(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
