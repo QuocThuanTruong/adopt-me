@@ -8,6 +8,7 @@
 import UIKit
 import MaterialComponents
 import FlagPhoneNumber
+import SCLAlertView
 
 class RegisterViewController: UIViewController {
 
@@ -144,9 +145,18 @@ class RegisterViewController: UIViewController {
         if (phoneTextField.text! == "") {
             alertMessage = "Phone must be filled"
             
-            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: alertMessage)
             
             return;
         }
@@ -154,9 +164,18 @@ class RegisterViewController: UIViewController {
         if (usernameTextField.text! == "") {
             alertMessage = "Username must be filled"
             
-            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: alertMessage)
             
             return;
         }
@@ -164,9 +183,18 @@ class RegisterViewController: UIViewController {
         if (passwordTextField.text! == "") {
             alertMessage = "Password must be filled"
             
-            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: alertMessage)
             
             return
         }
@@ -174,9 +202,18 @@ class RegisterViewController: UIViewController {
         if (retypePasswordTextField.text! == "") {
             alertMessage = "Retype password must be filled"
             
-            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: alertMessage)
             
             return;
         }
@@ -190,9 +227,18 @@ class RegisterViewController: UIViewController {
                     if querySnapshot!.documents.count >= 1 {
                         alertMessage = "username already exists"
                         
-                        let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
+                        let appearance = SCLAlertView.SCLAppearance(
+                            kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                            showCloseButton: false, showCircularIcon: false
+                        )
+                        
+                        let alertView = SCLAlertView(appearance: appearance)
+                        
+                        alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                            alertView.dismiss(animated: true, completion: nil)
+                        })
+                        
+                        alertView.showWarning("Warning", subTitle: alertMessage)
                         
                         result = false;
                         
@@ -207,10 +253,18 @@ class RegisterViewController: UIViewController {
                                     if querySnapshot!.documents.count >= 1 {
                                         alertMessage = "phone number already exists"
                                         
-                                        let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
-                                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                                        self.present(alert, animated: true, completion: nil)
+                                        let appearance = SCLAlertView.SCLAppearance(
+                                            kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                                            showCloseButton: false, showCircularIcon: false
+                                        )
                                         
+                                        let alertView = SCLAlertView(appearance: appearance)
+                                        
+                                        alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                                            alertView.dismiss(animated: true, completion: nil)
+                                        })
+                                        
+                                        alertView.showWarning("Warning", subTitle: alertMessage)
                                         result = false
 
                                     } else {
@@ -218,11 +272,20 @@ class RegisterViewController: UIViewController {
                                         if (!self.isValidPassword(testStr: self.passwordTextField.text!)) {
                                             //alert mat khau yeu
                                             print("2")
-                                            alertMessage = "weak password. password must include at least one uppercase, one lowercase, one digit and 8 characters total "
+                                            alertMessage = "Weak password. Password must include at least one uppercase, one lowercase, one digit and 8 characters total "
                                             
-                                            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
-                                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                                            self.present(alert, animated: true, completion: nil)
+                                            let appearance = SCLAlertView.SCLAppearance(
+                                                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                                                showCloseButton: false, showCircularIcon: false
+                                            )
+                                            
+                                            let alertView = SCLAlertView(appearance: appearance)
+                                            
+                                            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                                                alertView.dismiss(animated: true, completion: nil)
+                                            })
+                                            
+                                            alertView.showWarning("Warning", subTitle: alertMessage)
                                             
                                             result = false
 
@@ -231,9 +294,19 @@ class RegisterViewController: UIViewController {
                                             if (!self.isSame(self.passwordTextField.text!, self.retypePasswordTextField.text!)) {
                                                 print("4")
                                                 alertMessage = "password and retype must be same"
-                                                let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
-                                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                                                self.present(alert, animated: true, completion: nil)
+                                                
+                                                let appearance = SCLAlertView.SCLAppearance(
+                                                    kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                                                    showCloseButton: false, showCircularIcon: false
+                                                )
+                                                
+                                                let alertView = SCLAlertView(appearance: appearance)
+                                                
+                                                alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                                                    alertView.dismiss(animated: true, completion: nil)
+                                                })
+                                                
+                                                alertView.showWarning("Warning", subTitle: alertMessage)
                                                 
                                                 result = false
                        

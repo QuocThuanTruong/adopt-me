@@ -13,6 +13,7 @@ import FirebaseStorage
 import BCrypt
 import Photos
 import ALCameraViewController
+import SCLAlertView
 
 class FillInfoViewController: UIViewController {
 
@@ -291,9 +292,18 @@ class FillInfoViewController: UIViewController {
         if (userfullNameTextField.text! == "") {
             alertMessage = "full name must be filled"
             
-            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: alertMessage)
             
             return;
         }
@@ -301,9 +311,18 @@ class FillInfoViewController: UIViewController {
         if (emailTextField.text! == "") {
             alertMessage = "email must be filled"
             
-            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: alertMessage)
             
             return;
         }
@@ -311,9 +330,18 @@ class FillInfoViewController: UIViewController {
         if (!isValidEmail(email: emailTextField.text!)) {
             alertMessage = "email is incorrect"
             
-            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: alertMessage)
             
             return;
         }
@@ -326,9 +354,18 @@ class FillInfoViewController: UIViewController {
                     if querySnapshot!.documents.count >= 1 {
                         alertMessage = "email is already exists"
                         
-                        let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
+                        let appearance = SCLAlertView.SCLAppearance(
+                            kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                            showCloseButton: false, showCircularIcon: false
+                        )
+                        
+                        let alertView = SCLAlertView(appearance: appearance)
+                        
+                        alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                            alertView.dismiss(animated: true, completion: nil)
+                        })
+                        
+                        alertView.showWarning("Warning", subTitle: alertMessage)
                         
                         result = false
                     } else {

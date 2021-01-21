@@ -9,6 +9,7 @@ import UIKit
 import MaterialComponents
 import Firebase
 import BCrypt
+import SCLAlertView
 
 class EnterNewPasswordViewController: UIViewController {
 
@@ -95,6 +96,17 @@ class EnterNewPasswordViewController: UIViewController {
         return password == retype
     }
     
+    func isValidPassword(testStr:String?) -> Bool {
+        guard testStr != nil else { return false }
+     
+        // at least one uppercase,
+        // at least one digit
+        // at least one lowercase
+        // 8 characters total
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}")
+        return passwordTest.evaluate(with: testStr)
+    }
+    
     func isCorrectForm() -> Bool {
         var result = true
         var alertMessage = ""
@@ -112,6 +124,12 @@ class EnterNewPasswordViewController: UIViewController {
             result = false
         }
         
+        if (result == true && !isValidPassword(testStr: passwordTextField.text!)) {
+            alertMessage = "Weak password. Password must include at least one uppercase, one lowercase, one digit and 8 characters total "
+            
+            result = false
+        }
+        
         if (result == true && !isSame(passwordTextField.text!, retypePasswordTextField.text!)) {
             alertMessage = "password and retype must be same"
             
@@ -119,9 +137,18 @@ class EnterNewPasswordViewController: UIViewController {
         }
         
         if (result == false) {
-            let alert = UIAlertController(title: "Register failed", message: alertMessage, preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: alertMessage)
         }
         
         return result
