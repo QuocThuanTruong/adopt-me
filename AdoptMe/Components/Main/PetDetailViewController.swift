@@ -61,29 +61,26 @@ class PetDetailViewController: UIViewController {
         db.collection("users").document(pet.user_id).getDocument { (document, error) in
             let data = document?.data()
             
-            /*result.UID = data?["UID"] as! String
-            result.address = data?["address"] as! String
-            result.dateOfBirth = data?["dateOfBirth"] as! String
-            result.email = data?["email"] as! String
-            result.fullname = data?["fullname"] as! String
-            result.gender = data?["gender"] as! Bool
-            result.password = data?["password"] as! String
-            result.phone = data?["phone"] as! String
-            result.token = data?["token"] as! String
-            result.username = data?["username"] as! String
-            result.avatar = data?["avatar"] as! String*/
-            
             self.userNameLabel.text = (data?["fullname"] as! String)
             self.userEmailLabel.text = (data?["email"] as! String)
             
             let urlStr = URL(string: (data?["avatar"] as! String))
             let urlReq = URLRequest(url: urlStr!)
             
-            
             Nuke.loadImage(with: urlReq, into: self.userAvatarImageView)
 
             self.userAvatarImageView.layer.cornerRadius = 30.0
         
+            let favorites = data!["favorites"] as! [String]
+            
+            let index = favorites.firstIndex(of: self.pet.pet_id)
+            
+            if index != nil {
+                self.favButton.setImage(UIImage(named: "ic-sm-red-fav"), for: .normal)
+            } else {
+                self.favButton.setImage(UIImage(named: "ic-sm-white-fav"), for: .normal)
+            }
+
         }
     }
     
@@ -154,7 +151,32 @@ class PetDetailViewController: UIViewController {
     }
     
     @IBAction func addFavAct(_ sender: Any) {
+        let favButton = sender as? UIButton
         
+        db.collection("users").document(Core.shared.getCurrentUserID()).getDocument { [self] (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                var favorites = data?["favorites"] as! [String]
+                
+                let index = favorites.firstIndex(of: pet.pet_id)
+                
+                if index != nil {
+                    favButton?.setImage(UIImage(named: "ic-sm-white-fav"), for: .normal)
+                    
+                    favorites.remove(at: index!)
+
+                } else {
+                    favButton?.setImage(UIImage(named: "ic-sm-red-fav"), for: .normal)
+                    
+                    favorites.append(pet.pet_id)
+                }
+                
+                db.collection("users").document(Core.shared.getCurrentUserID()).updateData(["favorites" : favorites])
+
+                } else {
+                    print("Document does not exist")
+                }
+        }
     }
     
     @IBAction func backAct(_ sender: Any) {

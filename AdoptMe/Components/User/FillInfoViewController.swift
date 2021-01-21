@@ -307,6 +307,7 @@ class FillInfoViewController: UIViewController {
         newUser.username = username
         newUser.token = token
         newUser.avatar = ""
+        newUser.favorites = [String]()
         
         if (avtPickerButton.tag == 1) {
             print("cc")
@@ -339,6 +340,7 @@ class FillInfoViewController: UIViewController {
                         "phone": newUser.phone,
                         "username" : newUser.username,
                         "token" : newUser.token,
+                        "favorites" : newUser.favorites,
                         "is_active" : 1
                     ], merge: true)
                     
@@ -382,6 +384,7 @@ class FillInfoViewController: UIViewController {
                 "password" : newUser.password,
                 "phone": newUser.phone,
                 "username" : newUser.username,
+                "favorites" : newUser.favorites,
                 "token" : newUser.token,
                 "is_active" : 1
             ], merge: true)

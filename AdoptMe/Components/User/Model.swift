@@ -25,6 +25,7 @@ struct MyUser : Identifiable, Codable {
     var token : String = ""
     var username : String = ""
     var avatar : String = ""
+    var favorites = [String]()
 }
 
 func getUserByEmail(Email : String) -> MyUser {

@@ -223,9 +223,32 @@ class HomeViewController: UIViewController {
     @objc func addToFavorite(_ sender: Any) {
         let favButton = sender as? UIButton
         
-        favButton?.setImage(UIImage(named: "ic-sm-red-fav"), for: .normal)
+        let pet = sourcePets[favButton!.tag]
         
-        print(favButton!.tag)
+        db.collection("users").document(Core.shared.getCurrentUserID()).getDocument { [self] (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                var favorites = data?["favorites"] as! [String]
+                
+                let index = favorites.firstIndex(of: pet.pet_id)
+                
+                if index != nil {
+                    favButton?.setImage(UIImage(named: "ic-sm-white-fav"), for: .normal)
+                    
+                    favorites.remove(at: index!)
+
+                } else {
+                    favButton?.setImage(UIImage(named: "ic-sm-red-fav"), for: .normal)
+                    
+                    favorites.append(pet.pet_id)
+                }
+                
+                db.collection("users").document(Core.shared.getCurrentUserID()).updateData(["favorites" : favorites])
+
+                } else {
+                    print("Document does not exist")
+                }
+        }
     }
     
     @IBAction func filterAct(_ sender: Any) {
@@ -587,12 +610,32 @@ extension HomeViewController: UICollectionViewDataSource, CollectionViewWaterfal
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PetCollectionViewCell", for: indexPath) as! PetCollectionViewCell
             
-        
         let index = indexPath.row
         let pet = sourcePets[index]
         
         cell.addFavButton.layer.cornerRadius = cell.addFavButton.frame.height / 2
         cell.addFavButton.tag = indexPath.row
+        
+        db.collection("users").document(Core.shared.getCurrentUserID()).getDocument { (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                let favorites = data?["favorites"] as! [String]
+                
+                let index = favorites.firstIndex(of: pet.pet_id)
+                
+                if index != nil {
+                    cell.addFavButton.setImage(UIImage(named: "ic-sm-red-fav"), for: .normal)
+
+                } else {
+                    cell.addFavButton.setImage(UIImage(named: "ic-sm-white-fav"), for: .normal)
+    
+                }
+
+                } else {
+                    print("Document does not exist")
+                }
+        }
+        
         cell.petNameLabel.text = pet.name
         
         let today = Date()
@@ -634,9 +677,6 @@ extension HomeViewController: UICollectionViewDataSource, CollectionViewWaterfal
         }
     
         
-        
-        
-        //cell.petAvatarImage.image = UIImage(named: "test_avt")
         
         cell.petAvatarImage.layer.cornerRadius = 16
         cell.petAvatarImage.clipsToBounds = true
