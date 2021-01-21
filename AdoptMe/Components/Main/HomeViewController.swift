@@ -246,6 +246,10 @@ class HomeViewController: UIViewController {
                 }
                 
                 db.collection("users").document(Core.shared.getCurrentUserID()).updateData(["favorites" : favorites])
+                
+                if (self.isFav) {
+                    self.reloadPage()
+                }
 
                 } else {
                     print("Document does not exist")
