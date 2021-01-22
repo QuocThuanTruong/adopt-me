@@ -468,6 +468,7 @@ class FillInfoViewController: UIViewController {
                         ], merge: true)
                         
                         Core.shared.setIsUserLogin(true)
+                    Core.shared.setCurrentUserID(newUser.UID)
                     
                         let email = newUser.email
                         let fullName = newUser.fullname

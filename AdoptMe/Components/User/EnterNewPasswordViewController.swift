@@ -82,7 +82,26 @@ class EnterNewPasswordViewController: UIViewController {
                         let data = querySnapshot?.documents[0].data()
                         print("full phone \(self.fullPhoneNumber)")
                         userCollection.document(data?["UID"] as! String).updateData(["password": password])
-                        //alert back to login
+                        
+                        let appearance = SCLAlertView.SCLAppearance(
+                            kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                            showCloseButton: false, showCircularIcon: false
+                        )
+                        
+                        let alertView = SCLAlertView(appearance: appearance)
+                       
+                        alertView.addButton("Back to Login") {
+                            let vc = self.presentingViewController
+                            
+                            self.dismiss(animated: false, completion: {
+                                let dest = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                                
+                                dest.modalPresentationStyle = .fullScreen
+                                vc?.present(dest, animated: false, completion: nil)
+                            })
+                        }
+                            
+                        alertView.showSuccess("Successful", subTitle: "Change password successfully")
                     }
                 }
             }
@@ -135,6 +154,7 @@ class EnterNewPasswordViewController: UIViewController {
             
             result = false
         }
+        
         
         if (result == false) {
             let appearance = SCLAlertView.SCLAppearance(
