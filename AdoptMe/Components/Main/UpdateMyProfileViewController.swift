@@ -16,6 +16,7 @@ import ALCameraViewController
 import Nuke
 import FlagPhoneNumber
 import SCLAlertView
+import ProgressHUD
 
 protocol UpdateInfoDelegate: class {
     func updateChangeInfo()
@@ -531,7 +532,7 @@ class UpdateMyProfileViewController: UIViewController {
     
     @IBAction func finishUpdateInfo(_ sender: Any) {
         checkForm()
-        
+        ProgressHUD.show()
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [self] in
             if (isCorrect) {
                 let userCollection = db.collection("users")
@@ -600,6 +601,7 @@ class UpdateMyProfileViewController: UIViewController {
                                         self.dismiss(animated: true, completion: nil)
                                     }
                                 })
+                                ProgressHUD.dismiss()
                                 alertView.showSuccess("Congratulation", subTitle: "Update successfully")
                             }
                         })
