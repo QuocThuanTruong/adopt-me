@@ -60,6 +60,10 @@ class OtherUserProfileViewController: UIViewController {
             }
             
             self.pets = self.pets.filter { pet in
+                return pet.is_active == 1
+            }
+            
+            self.pets = self.pets.filter { pet in
                 return pet.user_id == self.user_id
             }
         
@@ -89,6 +93,10 @@ class OtherUserProfileViewController: UIViewController {
                 genderLabel.text = data?["gender"] as? String
                 addressLabel.text = data?["address"] as? String
                 phoneLabel.text = data?["phone"] as? String
+                
+                if (user_id == Core.shared.getCurrentUserID()) {
+                    followButton.isHidden = true;
+                }
                 
                 let following = data?["following"] as! [String]
                 followingLabel.text = "\(following.count) following"

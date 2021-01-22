@@ -15,6 +15,7 @@ import Photos
 import ALCameraViewController
 import Nuke
 import FlagPhoneNumber
+import SCLAlertView
 
 protocol UpdateInfoDelegate: class {
     func updateChangeInfo()
@@ -50,6 +51,7 @@ class UpdateMyProfileViewController: UIViewController {
     var phone = ""
     var profileImageURL = ""
     var UID = ""
+    var isCorrect = false;
     
     var context: UIViewController!
     
@@ -68,6 +70,7 @@ class UpdateMyProfileViewController: UIViewController {
     
 
     func initView() {
+        Nuke.ImageCache.shared.costLimit = 0
         Nuke.DataLoader.sharedUrlCache.removeAllCachedResponses()
         
         let textFields: [MDCOutlinedTextField] = [userfullNameTextField, emailTextField, dobTextField, genderTextField, addressTextField]
@@ -99,7 +102,7 @@ class UpdateMyProfileViewController: UIViewController {
                 let data = document.data()
                 
                 let urlStr = URL(string: (data?["avatar"] as! String))
-                let urlReq = URLRequest(url: urlStr!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+                let urlReq = URLRequest(url: urlStr!)
                 let image = UIImageView()
                 
                 Nuke.loadImage(with: urlReq, into: image)
@@ -112,7 +115,7 @@ class UpdateMyProfileViewController: UIViewController {
                 dobTextField.text = data?["dateOfBirth"] as? String
                 genderTextField.text = data?["gender"] as? String
                 addressTextField.text = data?["address"] as? String
-                
+                phoneTextField.text = (data?["phone"] as? String)?.replacingOccurrences(of: "+84", with: "")
 
                 } else {
                     print("Document does not exist")
@@ -361,108 +364,302 @@ class UpdateMyProfileViewController: UIViewController {
         present(actionSheet, animated: true)
     }
     
-    @IBAction func finishUpdateInfo(_ sender: Any) {
-        let userCollection = db.collection("users")
+    func checkForm() {
+        var result = false;
+        var alertMessage = ""
         
-        var user = MyUser()
-        
-        user.UID = Core.shared.getCurrentUserID()
-        user.address = addressTextField.text ?? ""
-        user.dateOfBirth = dobTextField.text ?? ""
-        user.email = emailTextField.text ?? ""
-        user.fullname = userfullNameTextField.text ?? ""
-        user.gender = genderTextField.text ?? ""
-        user.avatar = ""
-
-        
-        if (avtPickerButton.tag == 1) {
-            let image = avtPickerButton.image(for: .normal)
-    
-            DispatchQueue.global().async {
-                StorageManager.shared.uploadImage(with: image!.pngData()!, fileName: UUID().uuidString + ".png", folder: "User", subFolder: user.UID, completion: { result in
-
-                    switch result {
-                    case .success(let urlString):
-                        // Ready to send message
-                        print("Uploaded Message Photo: \(urlString)")
-                        user.avatar = urlString
-                        
-                    case .failure(let error):
-                        print("message photo upload error: \(error)")
-                    }
-                    
-                    userCollection.document(user.UID).updateData([
-                        "address": user.address,
-                        "avatar": user.avatar,
-                        "dateOfBirth" : user.dateOfBirth,
-                        "email" : user.email,
-                        "fullname" : user.fullname,
-                        "gender" : user.gender,
-                    ])
-                    
-                    let urlStr = URL(string: user.avatar)
-                    let urlReq = URLRequest(url: urlStr!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
-                    let image = UIImageView()
-                    
-                    Nuke.loadImage(with: urlReq, into: image)
-                    self.avtPickerButton.setImage(image.image, for: .normal)
-                    
-                    
-                    Core.shared.setIsUserLogin(true)
-                    let email = user.email
-                    let fullName = user.fullname
-                    Core.shared.setCurrentUserEmail(email)
-                    Core.shared.setCurrentUserFullName(fullName)
-                    
-                    ChatDatabaseManager.shared.updateUserName(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
-                    success in
-                        if (success){
-                            print("done insert realtime")
-                        } else {
-                            print("fail insert realtime")
-                        }
-                    })
-                
-                    DispatchQueue.main.async {
-                        self.delegate?.updateChangeInfo()
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                })
-            }
+        if (userfullNameTextField.text! == "") {
+            alertMessage = "full name must be filled"
             
-        } else {
-            DispatchQueue.global().async {
-                userCollection.document(user.UID).updateData([
-                        "address": user.address,
-                        "dateOfBirth" : user.dateOfBirth,
-                        "email" : user.email,
-                        "fullname" : user.fullname,
-                        "gender" : user.gender,
-                    ])
-                
-                Core.shared.setIsUserLogin(true)
-                let email = user.email
-                let fullName = user.fullname
-                Core.shared.setCurrentUserEmail(email)
-                Core.shared.setCurrentUserFullName(fullName)
-                
-                ChatDatabaseManager.shared.updateUserName(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
-                success in
-                    if (success){
-                        print("done insert realtime")
-                    } else {
-                        print("fail insert realtime")
-                    }
-                })
-                
-                DispatchQueue.main.async {
-                    self.delegate?.updateChangeInfo()
-                    self.dismiss(animated: true, completion: nil)
-                }
-            }
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
             
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: alertMessage)
+            
+            return;
         }
         
+        if (emailTextField.text! == "") {
+            alertMessage = "email must be filled"
+            
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: alertMessage)
+            
+            return;
+        }
+        
+        if (!isValidEmail(email: emailTextField.text!)) {
+            alertMessage = "email is incorrect"
+            
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: alertMessage)
+
+            return;
+        }
+        
+        if (phoneTextField.text! == "") {
+            alertMessage = "Phone must be filled"
+            
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: alertMessage)
+            
+            return;
+        }
+        
+        db.collection("users").whereField("email", isEqualTo: emailTextField.text!)
+            .getDocuments{ (querySnapshot, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    if querySnapshot!.documents.count >= 1 {
+                        let data = querySnapshot!.documents[0].data()
+                        let uid = data["UID"] as! String
+                        
+                        if (uid != Core.shared.getCurrentUserID()) {
+                            alertMessage = "email is already exists"
+                            
+                            let appearance = SCLAlertView.SCLAppearance(
+                                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                                showCloseButton: false, showCircularIcon: false
+                            )
+                            
+                            let alertView = SCLAlertView(appearance: appearance)
+                            
+                            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                                alertView.dismiss(animated: true, completion: nil)
+                            })
+                            
+                            alertView.showWarning("Warning", subTitle: alertMessage)
+                            
+                            result = false
+                        } else {
+                            result = true
+                        }
+                        
+                    } else {
+                        result = true
+                    }
+                }
+            }
+        
+        db.collection("users").whereField("phone", isEqualTo: phone)
+            .getDocuments{ (querySnapshot, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    if querySnapshot!.documents.count >= 1 {
+                        let data = querySnapshot!.documents[0].data()
+                        let uid = data["UID"] as! String
+                        
+                        if (uid != Core.shared.getCurrentUserID()) {
+                            alertMessage = "phone number is already exists"
+                            
+                            let appearance = SCLAlertView.SCLAppearance(
+                                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                                showCloseButton: false, showCircularIcon: false
+                            )
+                            
+                            let alertView = SCLAlertView(appearance: appearance)
+                            
+                            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                                alertView.dismiss(animated: true, completion: nil)
+                            })
+                            
+                            alertView.showWarning("Warning", subTitle: alertMessage)
+                            
+                            result = false
+                        } else {
+                            result = true
+                        }
+                        
+                    } else {
+                        result = true
+                    }
+                }
+            }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            self.isCorrect = result;
+        }
+    }
+    
+    func isValidEmail(email: String?) -> Bool {
+        guard email != nil else { return false }
+        
+        let regEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        
+        let pred = NSPredicate(format:"SELF MATCHES %@", regEx)
+        return pred.evaluate(with: email)
+    }
+    
+    @IBAction func finishUpdateInfo(_ sender: Any) {
+        checkForm()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [self] in
+            if (isCorrect) {
+                let userCollection = db.collection("users")
+                
+                var user = MyUser()
+                
+                user.UID = Core.shared.getCurrentUserID()
+                user.address = addressTextField.text ?? ""
+                user.dateOfBirth = dobTextField.text ?? ""
+                user.email = emailTextField.text ?? ""
+                user.fullname = userfullNameTextField.text ?? ""
+                user.gender = genderTextField.text ?? ""
+                user.avatar = ""
+
+                
+                if (avtPickerButton.tag == 1) {
+                    let image = avtPickerButton.image(for: .normal)
+            
+                    DispatchQueue.global().async {
+                        StorageManager.shared.uploadImage(with: image!.pngData()!, fileName: UUID().uuidString + ".png", folder: "User", subFolder: user.UID, completion: { result in
+
+                            switch result {
+                            case .success(let urlString):
+                                // Ready to send message
+                                print("Uploaded Message Photo: \(urlString)")
+                                user.avatar = urlString
+                                
+                            case .failure(let error):
+                                print("message photo upload error: \(error)")
+                            }
+                            
+                            userCollection.document(user.UID).updateData([
+                                "address": user.address,
+                                "avatar": user.avatar,
+                                "dateOfBirth" : user.dateOfBirth,
+                                "email" : user.email,
+                                "fullname" : user.fullname,
+                                "gender" : user.gender,
+                            ])
+                            
+                            let urlStr = URL(string: user.avatar)
+                            let urlReq = URLRequest(url: urlStr!)
+                            let image = UIImageView()
+                            
+                            Nuke.loadImage(with: urlReq, into: image)
+                            self.avtPickerButton.setImage(image.image, for: .normal)
+                            
+                            
+                            Core.shared.setIsUserLogin(true)
+                            let email = user.email
+                            let fullName = user.fullname
+                            Core.shared.setCurrentUserEmail(email)
+                            Core.shared.setCurrentUserFullName(fullName)
+                            
+                            ChatDatabaseManager.shared.updateUserName(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
+                            success in
+                                if (success){
+                                    print("done insert realtime")
+                                } else {
+                                    print("fail insert realtime")
+                                }
+                            })
+
+                            DispatchQueue.main.async {
+                                let appearance = SCLAlertView.SCLAppearance(
+                                    kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                                    showCloseButton: false, showCircularIcon: false
+                                )
+                                
+                                let alertView = SCLAlertView(appearance: appearance)
+                                alertView.addButton("OK", action: {
+                                    alertView.dismiss(animated: true) {
+                                        self.delegate?.updateChangeInfo()
+                                        self.dismiss(animated: true, completion: nil)
+                                    }
+                                })
+                                alertView.showSuccess("Congratulation", subTitle: "Update successfully")
+                            }
+                        })
+                    }
+                    
+                } else {
+                    DispatchQueue.global().async {
+                        userCollection.document(user.UID).updateData([
+                                "address": user.address,
+                                "dateOfBirth" : user.dateOfBirth,
+                                "email" : user.email,
+                                "fullname" : user.fullname,
+                                "gender" : user.gender,
+                            ])
+                        
+                        Core.shared.setIsUserLogin(true)
+                        let email = user.email
+                        let fullName = user.fullname
+                        Core.shared.setCurrentUserEmail(email)
+                        Core.shared.setCurrentUserFullName(fullName)
+                        
+                        ChatDatabaseManager.shared.updateUserName(with: ChatAppUser(fullName: fullName, emailAddress: email), completion: {
+                        success in
+                            if (success){
+                                print("done insert realtime")
+                            } else {
+                                print("fail insert realtime")
+                            }
+                        })
+                    
+                        
+                        DispatchQueue.main.async {
+                            let appearance = SCLAlertView.SCLAppearance(
+                                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                                showCloseButton: false, showCircularIcon: false
+                            )
+                            
+                            let alertView = SCLAlertView(appearance: appearance)
+                            alertView.addButton("OK", action: {
+                                alertView.dismiss(animated: true) {
+                                    self.delegate?.updateChangeInfo()
+                                    self.dismiss(animated: true, completion: nil)
+                                }
+                            })
+                            alertView.showSuccess("Congratulation", subTitle: "Update successfully")
+                        }
+                    }
+                    
+                }
+            }
+        }
     }
     
     @IBAction func cancelAct(_ sender: Any) {
@@ -541,10 +738,9 @@ extension UpdateMyProfileViewController: FPNTextFieldDelegate {
    func fpnDidValidatePhoneNumber(textField: FPNTextField, isValid: Bool) {
         
       if isValid {
-        let phoneNumber = textField.getFormattedPhoneNumber(format: .E164)!       // Output "+84389294632"
-        print(phoneNumber)
+        phone = textField.getFormattedPhoneNumber(format: .E164)!       // Output "+84389294632"
+        print(phone)
         
-    
       } else {
            
       }

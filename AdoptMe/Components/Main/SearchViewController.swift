@@ -27,7 +27,7 @@ class SearchViewController: UIViewController {
 
         self.fetchData()
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10), execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             self.initView()
             
             self.searchKeyHistory = Core.shared.getKeySearchHistory()
@@ -43,7 +43,6 @@ class SearchViewController: UIViewController {
     func fetchData() {
         db.collection("pets")
             .order(by: "posted_date", descending: true)
-            .limit(to: 3)
             .addSnapshotListener { (querySnapshot, error) in
                 guard let documents = querySnapshot?.documents else {
                     print("No documents")
@@ -53,6 +52,18 @@ class SearchViewController: UIViewController {
                 self.pets = documents.compactMap { (QueryDocumentSnapshot) -> Pet? in
                   return try? QueryDocumentSnapshot.data(as: Pet.self)
                 }
+                
+                self.pets = self.pets.filter { pet in
+                    return pet.is_active == 1
+                }
+                
+                let n =  self.pets.count
+                if (n >= 3) {
+                    self.pets = Array(self.pets[0..<3])
+                } else {
+                    self.pets = Array(self.pets[0..<n])
+                }
+                
             }
     }
     

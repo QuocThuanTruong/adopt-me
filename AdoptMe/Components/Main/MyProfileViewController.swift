@@ -60,6 +60,10 @@ class MyProfileViewController: UIViewController {
             self.pets = self.pets.filter { pet in
                 return pet.user_id == self.user_id
             }
+            
+            self.pets = self.pets.filter { pet in
+                return pet.is_active == 1
+            }
         
             self.listPetCollectionView.reloadData()
         }
@@ -133,7 +137,9 @@ class MyProfileViewController: UIViewController {
         let pet = pets[deleteButton!.tag]
         print(deleteButton!.tag)
         
+        db.collection("pets").document(pet.pet_id).updateData(["is_active": 0])
         
+       fetchData()
     }
     
     @objc func addToFavorite(_ sender: Any) {
@@ -240,7 +246,7 @@ extension MyProfileViewController: UICollectionViewDataSource, CollectionViewWat
             }
         } else {
             if (minutes == 0) {
-                cell.postedDateLabel.text = "now"
+                cell.postedDateLabel.text = "Posted: now"
             }
             else if (minutes == 1) {
                 cell.postedDateLabel.text = "Posted: 1 minute ago"

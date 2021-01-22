@@ -493,6 +493,10 @@ class HomeViewController: UIViewController {
                     self.sourcePets = documents.compactMap { (QueryDocumentSnapshot) -> Pet? in
                       return try? QueryDocumentSnapshot.data(as: Pet.self)
                     }
+                    
+                    self.sourcePets = self.sourcePets.filter { pet in
+                        return pet.is_active == 1
+                    }
 
                     self.sourcePets = self.sourcePets.filter { pet in
                         return pet.age >= minAgeSelected && pet.age <= maxAgeSelected
@@ -553,6 +557,10 @@ class HomeViewController: UIViewController {
                     
                     self.sourcePets = documents.compactMap { (QueryDocumentSnapshot) -> Pet? in
                       return try? QueryDocumentSnapshot.data(as: Pet.self)
+                    }
+                    
+                    self.sourcePets = self.sourcePets.filter { pet in
+                        return pet.is_active == 1
                     }
                     
                     self.sourcePets = self.sourcePets.filter { pet in
@@ -711,7 +719,7 @@ extension HomeViewController: UICollectionViewDataSource, CollectionViewWaterfal
             }
         } else {
             if (minutes == 0) {
-                cell.postedDateLabel.text = "now"
+                cell.postedDateLabel.text = "Posted: now"
             }
             else if (minutes == 1) {
                 cell.postedDateLabel.text = "Posted: 1 minute ago"
