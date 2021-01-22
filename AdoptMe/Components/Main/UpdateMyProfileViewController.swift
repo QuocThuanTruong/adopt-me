@@ -520,7 +520,7 @@ class UpdateMyProfileViewController: UIViewController {
                 }
             }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
             self.isCorrect = result;
         }
     }
@@ -537,7 +537,7 @@ class UpdateMyProfileViewController: UIViewController {
     @IBAction func finishUpdateInfo(_ sender: Any) {
         checkForm()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) { [self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [self] in
             if (isCorrect) {
                 let userCollection = db.collection("users")
                 
