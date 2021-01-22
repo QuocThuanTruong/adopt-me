@@ -4951,6 +4951,9 @@ with others</string>
                                     </mask>
                                 </variation>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c5u-hZ-dzq">
+                                <rect key="frame" x="242" y="148" width="136" height="136"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BBR-Y4-TYf">
                                 <rect key="frame" x="40" y="64" width="130.5" height="60"/>
                                 <attributedString key="attributedText">
@@ -4966,16 +4969,14 @@ your profile</string>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="20a-iZ-rzO">
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="20a-iZ-rzO">
                                 <rect key="frame" x="242" y="148" width="136" height="136"/>
-                                <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="136" id="BII-la-Rv5"/>
                                     <constraint firstAttribute="height" constant="136" id="NXJ-vZ-FAX"/>
                                     <constraint firstAttribute="width" constant="136" id="cWW-xV-iVb"/>
                                     <constraint firstAttribute="width" constant="136" id="gpd-gJ-KoX"/>
                                 </constraints>
-                                <state key="normal" image="ic-md-blue-imgpicker"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="BII-la-Rv5"/>
@@ -5012,6 +5013,10 @@ your profile</string>
                             <constraint firstItem="20a-iZ-rzO" firstAttribute="top" secondItem="v0W-EO-mar" secondAttribute="top" id="K73-we-0k9">
                                 <variation key="heightClass=regular-widthClass=compact" constant="-68"/>
                             </constraint>
+                            <constraint firstItem="c5u-hZ-dzq" firstAttribute="top" secondItem="20a-iZ-rzO" secondAttribute="top" id="TpK-SA-TXq"/>
+                            <constraint firstItem="c5u-hZ-dzq" firstAttribute="leading" secondItem="20a-iZ-rzO" secondAttribute="leading" id="ZQR-Bx-e4h"/>
+                            <constraint firstItem="c5u-hZ-dzq" firstAttribute="width" secondItem="20a-iZ-rzO" secondAttribute="width" id="hwy-iT-BzN"/>
+                            <constraint firstItem="c5u-hZ-dzq" firstAttribute="bottom" secondItem="20a-iZ-rzO" secondAttribute="bottom" id="mTG-PD-X0J"/>
                             <constraint firstItem="v0W-EO-mar" firstAttribute="leading" secondItem="oRL-gn-BAO" secondAttribute="leading" id="nNK-2W-iNP"/>
                         </constraints>
                         <variation key="default">
@@ -5039,6 +5044,7 @@ your profile</string>
                     </view>
                     <connections>
                         <outlet property="addressTextField" destination="dTG-VR-P6p" id="lad-a3-Zal"/>
+                        <outlet property="avtImageView" destination="c5u-hZ-dzq" id="umn-xJ-W2N"/>
                         <outlet property="avtPickerButton" destination="20a-iZ-rzO" id="Avp-Fh-GxG"/>
                         <outlet property="cancelButton" destination="QeA-mC-Fpc" id="y1P-me-4vn"/>
                         <outlet property="dobTextField" destination="9OK-be-zOW" id="q3P-Hk-nBb"/>
@@ -5052,7 +5058,7 @@ your profile</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="arU-8n-lh5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4457" y="90"/>
+            <point key="canvasLocation" x="4456.521739130435" y="89.732142857142847"/>
         </scene>
         <!--Setting View Controller-->
         <scene sceneID="bqq-5o-msq">
@@ -6085,10 +6091,10 @@ your password</string>
             <size key="intrinsicContentSize" width="63" height="29"/>
         </designable>
         <designable name="hhR-FQ-qkK">
-            <size key="intrinsicContentSize" width="87" height="32"/>
+            <size key="intrinsicContentSize" width="73" height="29"/>
         </designable>
         <designable name="tAP-RB-ba7">
-            <size key="intrinsicContentSize" width="18" height="22"/>
+            <size key="intrinsicContentSize" width="18" height="17"/>
         </designable>
     </designables>
     <resources>

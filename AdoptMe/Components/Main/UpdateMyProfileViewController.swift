@@ -55,6 +55,7 @@ class UpdateMyProfileViewController: UIViewController {
     
     var context: UIViewController!
     
+    @IBOutlet weak var avtImageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,12 +72,11 @@ class UpdateMyProfileViewController: UIViewController {
                 let urlStr = URL(string: (data?["avatar"] as! String))
                 let urlReq = URLRequest(url: urlStr!)
 
-                let imageView = UIImageView();
                 
-                Nuke.loadImage(with: urlReq, into: imageView)
+                Nuke.loadImage(with: urlReq, into: self.avtImageView)
                 
-                self.avtPickerButton.setImage(imageView.image, for: .normal)
-                //avtPickerButton.imageView?.layer.cornerRadius = avtPickerButton.frame.width / 2
+                
+                self.avtImageView.layer.cornerRadius = self.avtPickerButton.frame.width / 2
                 
                 print("load avatar ne")
                 self.userfullNameTextField.text = data?["fullname"] as? String
