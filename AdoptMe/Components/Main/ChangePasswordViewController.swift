@@ -8,6 +8,8 @@
 import UIKit
 import MaterialComponents
 import BCrypt
+import ProgressHUD
+import SCLAlertView
 
 class ChangePasswordViewController: UIViewController {
 
@@ -54,19 +56,52 @@ class ChangePasswordViewController: UIViewController {
         let retypeNew = retypeNewPasswordTextField.text ?? ""
         
         if (password == "") {
-            //alert khong dc de trong
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: "password must be filled")
             print("1")
             return
         }
         
         if (newPassword == "") {
-            //alert khong dc bo trong
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: "new password must be filled")
             print("1")
             return
         }
         
         if (retypeNew == "") {
-            //alert khong dc bo trong
+            let appearance = SCLAlertView.SCLAppearance(
+                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                showCloseButton: false, showCircularIcon: false
+            )
+            
+            let alertView = SCLAlertView(appearance: appearance)
+            
+            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                alertView.dismiss(animated: true, completion: nil)
+            })
+            
+            alertView.showWarning("Warning", subTitle: "retype new password must be filled")
             print("1")
             return
         }
@@ -79,12 +114,34 @@ class ChangePasswordViewController: UIViewController {
                 
                 if (BCrypt.Check(password, hashed: correctPassword)) {
                     if (!self.isValidPassword(testStr: newPassword)) {
-                        //alert mat khau yeu
+                        let appearance = SCLAlertView.SCLAppearance(
+                            kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                            showCloseButton: false, showCircularIcon: false
+                        )
+
+                        let alertView = SCLAlertView(appearance: appearance)
+                        
+                        alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                            alertView.dismiss(animated: true, completion: nil)
+                        })
+                        
+                        alertView.showWarning("Warning", subTitle: "Weak password. Password must include at least one uppercase, one lowercase, one digit and 8 characters total ")
                         print("yeu")
                         return
                     } else {
                         if (newPassword != retypeNew) {
-                            //alert nhap lai mat khau khong chinh xac
+                            let appearance = SCLAlertView.SCLAppearance(
+                                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                                showCloseButton: false, showCircularIcon: false
+                            )
+
+                            let alertView = SCLAlertView(appearance: appearance)
+                            
+                            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                                alertView.dismiss(animated: true, completion: nil)
+                            })
+                            
+                            alertView.showWarning("Warning", subTitle: "New password and retype must be same")
                             return
                         } else {
                             do {
@@ -94,14 +151,23 @@ class ChangePasswordViewController: UIViewController {
                                 print("Hashed result is: \(hashed)")
                                 
                                 db.collection("users").document(Core.shared.getCurrentUserID()).updateData(["password" : newPassword])
-                                //alert thay doi thanh cong
-                                print("ok")
-                                //mini reset
-                                self.oldPasswordTextField.text = ""
-                                self.newPasswordTextField.text = ""
-                                self.retypeNewPasswordTextField.text = ""
                                 
-                                self.dismiss(animated: true, completion: nil)
+                                let appearance = SCLAlertView.SCLAppearance(
+                                    kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                                    showCloseButton: false, showCircularIcon: false
+                                )
+
+                                let alertView = SCLAlertView(appearance: appearance)
+                                alertView.addButton("Back to setting") {
+                                    //mini reset
+                                    self.oldPasswordTextField.text = ""
+                                    self.newPasswordTextField.text = ""
+                                    self.retypeNewPasswordTextField.text = ""
+                                    
+                                    self.dismiss(animated: true, completion: nil)
+                                }
+                                
+                                alertView.showSuccess("Successful", subTitle: "Change password successfully")
                             }
                             catch {
                                 print("An error occured: \(error)")
@@ -110,7 +176,18 @@ class ChangePasswordViewController: UIViewController {
                     }
 
                 } else {
-                    //alert sai mat khau
+                    let appearance = SCLAlertView.SCLAppearance(
+                        kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                        showCloseButton: false, showCircularIcon: false
+                    )
+
+                    let alertView = SCLAlertView(appearance: appearance)
+                    
+                    alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                        alertView.dismiss(animated: true, completion: nil)
+                    })
+                    
+                    alertView.showWarning("Warning", subTitle: "Incorrect password")
                     return
                 }
                 
