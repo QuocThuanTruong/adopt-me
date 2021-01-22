@@ -31,7 +31,7 @@ class OtherUserProfileViewController: UIViewController {
     lazy var cellSizes: [CGSize] = {
         var cellSizes = [CGSize]()
            
-        for _ in 0...pets.count {
+        for _ in 0...(pets.count + 100) {
             let random = Int(arc4random_uniform((UInt32(100))))
                
             cellSizes.append(CGSize(width: 157, height: 157 + random))

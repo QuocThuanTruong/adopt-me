@@ -71,7 +71,11 @@ class PetDetailViewController: UIViewController {
             Nuke.loadImage(with: urlReq, into: self.userAvatarImageView)
 
             self.userAvatarImageView.layer.cornerRadius = 30.0
+        }
         
+        db.collection("users").document(Core.shared.getCurrentUserID()).getDocument { (document, error) in
+            let data = document?.data()
+            
             let favorites = data!["favorites"] as! [String]
             
             let index = favorites.firstIndex(of: self.pet.pet_id)
