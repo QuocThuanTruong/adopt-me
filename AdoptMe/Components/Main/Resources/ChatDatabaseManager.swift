@@ -747,9 +747,7 @@ extension ChatDatabaseManager {
     }
 
     public func deleteConversation(conversationId: String, completion: @escaping (Bool) -> Void) {
-        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
-            return
-        }
+        let email = Core.shared.getCurrentUserEmail()
         let safeEmail = ChatDatabaseManager.safeEmail(emailAddress: email)
 
         print("Deleting conversation with id: \(conversationId)")

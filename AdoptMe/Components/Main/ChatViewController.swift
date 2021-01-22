@@ -117,6 +117,19 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         return conversations.count
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let model = conversations[indexPath.row]
+            
+            ChatDatabaseManager.shared.deleteConversation(conversationId: model.id, completion: {  result in
+                if result {
+                    print("delelted")
+                    self.chatTableView?.reloadData()
+                }
+                })
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = conversations[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatTableViewCell
