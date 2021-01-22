@@ -6,16 +6,22 @@
 //
 
 import UIKit
+import MaterialComponents
 
 class AppInfoViewController: UIViewController {
 
+    @IBOutlet weak var okButton: MDCButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        okButton.layer.cornerRadius = 5.0
     }
     
 
+    @IBAction func okAct(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 
