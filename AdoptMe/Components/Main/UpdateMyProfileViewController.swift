@@ -653,6 +653,7 @@ class UpdateMyProfileViewController: UIViewController {
                                     self.dismiss(animated: true, completion: nil)
                                 }
                             })
+                            ProgressHUD.dismiss()
                             alertView.showSuccess("Congratulation", subTitle: "Update successfully")
                         }
                     }
