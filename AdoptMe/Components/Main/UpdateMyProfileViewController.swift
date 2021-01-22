@@ -84,7 +84,9 @@ class UpdateMyProfileViewController: UIViewController {
                 self.dobTextField.text = data?["dateOfBirth"] as? String
                 self.genderTextField.text = data?["gender"] as? String
                 self.addressTextField.text = data?["address"] as? String
+                self.phone = data?["phone"] as! String
                 self.phoneTextField.text = (data?["phone"] as? String)?.replacingOccurrences(of: "+84", with: "")
+              
 
                 } else {
                     print("Document does not exist")
@@ -481,9 +483,12 @@ class UpdateMyProfileViewController: UIViewController {
         
         db.collection("users").whereField("phone", isEqualTo: phone)
             .getDocuments{ (querySnapshot, error) in
+                
                 if let error = error {
                     print(error)
                 } else {
+                    print(self.phone)
+                    
                     if querySnapshot!.documents.count >= 1 {
                         let data = querySnapshot!.documents[0].data()
                         let uid = data["UID"] as! String
@@ -515,7 +520,7 @@ class UpdateMyProfileViewController: UIViewController {
                 }
             }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4)) {
             self.isCorrect = result;
         }
     }
@@ -532,7 +537,7 @@ class UpdateMyProfileViewController: UIViewController {
     @IBAction func finishUpdateInfo(_ sender: Any) {
         checkForm()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) { [self] in
             if (isCorrect) {
                 let userCollection = db.collection("users")
                 
