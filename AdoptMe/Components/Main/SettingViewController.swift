@@ -18,20 +18,6 @@ class SettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        db.collection("users").document(Core.shared.getCurrentUserID()).getDocument {(document, error) in
-            if let document = document, document.exists {
-                let data = document.data()
-                
-                let username = data?["username"] as! String
-                
-                if (username == "") {
-                    self.changePasswordCardView.isHidden = true;
-                    self.changePasswordButton.isHidden = true;
-                }
-                
-            }
-        }
-        
         initView()
     }
 
@@ -46,10 +32,34 @@ class SettingViewController: UIViewController {
     }
     
     @IBAction func changePasswordAct(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
-         
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        db.collection("users").document(Core.shared.getCurrentUserID()).getDocument {(document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                
+                let username = data?["username"] as! String
+                
+                if (username == "") {
+                    let appearance = SCLAlertView.SCLAppearance(
+                        kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                        showCloseButton: false, showCircularIcon: false
+                    )
+                    
+                    let alertView = SCLAlertView(appearance: appearance)
+                    
+                    alertView.addButton("OK", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                        alertView.dismiss(animated: true, completion: nil)
+                    })
+                    
+                    alertView.showWarning("Warning", subTitle: "can not change password because you are logging by third-party")
+                } else {
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
+                     
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                
+            }
+        }
     }
     
     @IBAction func changeLauchIntroduction(_ sender: Any) {

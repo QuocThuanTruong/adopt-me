@@ -14,6 +14,7 @@ import BCrypt
 import Photos
 import ALCameraViewController
 import SCLAlertView
+import ProgressHUD
 
 class FillInfoViewController: UIViewController {
 
@@ -393,6 +394,7 @@ class FillInfoViewController: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [self] in
             if (self.isCorrect) {
+                ProgressHUD.show()
                 do {
                     let salt = try BCrypt.Salt()
                     let hashed = try BCrypt.Hash(password, salt: salt)
@@ -468,7 +470,7 @@ class FillInfoViewController: UIViewController {
                         ], merge: true)
                         
                         Core.shared.setIsUserLogin(true)
-                    Core.shared.setCurrentUserID(newUser.UID)
+                        Core.shared.setCurrentUserID(newUser.UID)
                     
                         let email = newUser.email
                         let fullName = newUser.fullname
@@ -488,6 +490,7 @@ class FillInfoViewController: UIViewController {
                     let fillInfoVC = self?.presentingViewController
                         
                     self!.dismiss(animated: true, completion: {
+                        ProgressHUD.dismiss()
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let dest = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
                         
