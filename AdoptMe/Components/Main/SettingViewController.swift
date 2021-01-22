@@ -6,29 +6,18 @@
 //
 
 import UIKit
+import SCLAlertView
 
 class SettingViewController: UIViewController {
 
     @IBOutlet weak var lauchIntroductionSwitch: UISwitch!
     @IBOutlet weak var notificationSwitch: UISwitch!
+    @IBOutlet weak var changePasswordCardView: CardView!
+    @IBOutlet weak var changePasswordButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        initView()
-    }
-    
-    func initView() {
-        if Core.shared.isFirstLauchApp() {
-            lauchIntroductionSwitch.setOn(true, animated: false)
-        } else {
-            lauchIntroductionSwitch.setOn(false, animated: false)
-        }
-    }
-    
-    @IBAction func changePasswordAct(_ sender: Any) {
-        var manual = true;
-        
         db.collection("users").document(Core.shared.getCurrentUserID()).getDocument {(document, error) in
             if let document = document, document.exists {
                 let data = document.data()
@@ -36,21 +25,31 @@ class SettingViewController: UIViewController {
                 let username = data?["username"] as! String
                 
                 if (username == "") {
-                    manual = false;
+                    self.changePasswordCardView.isHidden = true;
+                    self.changePasswordButton.isHidden = true;
                 }
                 
             }
         }
         
-        if manual {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
-            
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)
-        } else {
-            //Alert vi ban dang dang nhap ben thu 3 hahaha
-        }
+        initView()
+    }
 
+    func initView() {
+        
+        if Core.shared.isFirstLauchApp() {
+            lauchIntroductionSwitch.setOn(true, animated: false)
+        } else {
+            lauchIntroductionSwitch.setOn(false, animated: false)
+        }
+        
+    }
+    
+    @IBAction func changePasswordAct(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
+         
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func changeLauchIntroduction(_ sender: Any) {

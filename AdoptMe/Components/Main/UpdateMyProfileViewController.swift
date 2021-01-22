@@ -64,14 +64,39 @@ class UpdateMyProfileViewController: UIViewController {
         genderPickerView.dataSource = self
         genderPickerView.delegate = self
         
+        db.collection("users").document(Core.shared.getCurrentUserID()).getDocument {(document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                
+                let urlStr = URL(string: (data?["avatar"] as! String))
+                let urlReq = URLRequest(url: urlStr!)
+
+                let imageView = UIImageView();
+                
+                Nuke.loadImage(with: urlReq, into: imageView)
+                
+                self.avtPickerButton.setImage(imageView.image, for: .normal)
+                //avtPickerButton.imageView?.layer.cornerRadius = avtPickerButton.frame.width / 2
+                
+                print("load avatar ne")
+                self.userfullNameTextField.text = data?["fullname"] as? String
+                self.emailTextField.text = data?["email"] as? String
+                self.dobTextField.text = data?["dateOfBirth"] as? String
+                self.genderTextField.text = data?["gender"] as? String
+                self.addressTextField.text = data?["address"] as? String
+                self.phoneTextField.text = (data?["phone"] as? String)?.replacingOccurrences(of: "+84", with: "")
+
+                } else {
+                    print("Document does not exist")
+                }
+        }
+        
         initView()
         
     }
     
 
     func initView() {
-        Nuke.ImageCache.shared.costLimit = 0
-        Nuke.DataLoader.sharedUrlCache.removeAllCachedResponses()
         
         let textFields: [MDCOutlinedTextField] = [userfullNameTextField, emailTextField, dobTextField, genderTextField, addressTextField]
         let leadingIconNames: [String] = ["ic-blue-username", "ic-blue-email", "ic-blue-dob", "ic-blue-gender", "ic-blue-address"]
@@ -96,33 +121,7 @@ class UpdateMyProfileViewController: UIViewController {
 
         userfullNameTextField.text = userFullName
         emailTextField.text = userEmail
-        
-        db.collection("users").document(Core.shared.getCurrentUserID()).getDocument { [self] (document, error) in
-            if let document = document, document.exists {
-                let data = document.data()
-                
-                let urlStr = URL(string: (data?["avatar"] as! String))
-                let urlReq = URLRequest(url: urlStr!)
-                let image = UIImageView()
-                
-                Nuke.loadImage(with: urlReq, into: image)
-                avtPickerButton.setImage(image.image, for: .normal)
-                avtPickerButton.imageView?.layer.cornerRadius = avtPickerButton.frame.width / 2
-                
-                print("load avatar ne")
-                userfullNameTextField.text = data?["fullname"] as? String
-                emailTextField.text = data?["email"] as? String
-                dobTextField.text = data?["dateOfBirth"] as? String
-                genderTextField.text = data?["gender"] as? String
-                addressTextField.text = data?["address"] as? String
-                phoneTextField.text = (data?["phone"] as? String)?.replacingOccurrences(of: "+84", with: "")
 
-                } else {
-                    print("Document does not exist")
-                }
-        }
-        
-        
         dummyPhoneTextField.setOutlineColor(UIColor(named: "AccentColor")!, for: .editing)
         dummyPhoneTextField.setOutlineColor(UIColor(named: "AppSecondaryColor")!, for: .normal)
         dummyPhoneTextField.label.text = "Phone"
@@ -572,14 +571,6 @@ class UpdateMyProfileViewController: UIViewController {
                                 "fullname" : user.fullname,
                                 "gender" : user.gender,
                             ])
-                            
-                            let urlStr = URL(string: user.avatar)
-                            let urlReq = URLRequest(url: urlStr!)
-                            let image = UIImageView()
-                            
-                            Nuke.loadImage(with: urlReq, into: image)
-                            self.avtPickerButton.setImage(image.image, for: .normal)
-                            
                             
                             Core.shared.setIsUserLogin(true)
                             let email = user.email

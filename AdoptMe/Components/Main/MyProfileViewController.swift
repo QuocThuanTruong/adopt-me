@@ -81,9 +81,13 @@ class MyProfileViewController: UIViewController {
                 let data = document.data()
                 
                 let urlStr = URL(string: (data?["avatar"] as! String))
-                let urlReq = URLRequest(url: urlStr!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
-
-                Nuke.loadImage(with: urlReq, into: userAvatarImageView)
+                let urlReq = URLRequest(url: urlStr!)
+                
+                let options = ImageLoadingOptions(
+                  placeholder: UIImage(systemName: "arrow.triangle.2.circlepath"),
+                  transition: .fadeIn(duration: 0.5)
+                )
+                Nuke.loadImage(with: urlReq, options: options, into: userAvatarImageView)
 
                 userFullName.text = data?["fullname"] as? String
                 emailLabel.text = data?["email"] as? String

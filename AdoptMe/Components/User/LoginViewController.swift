@@ -113,6 +113,19 @@ class LoginViewController: UIViewController {
                             
                             dest.userFullName = currentUser?.displayName ?? ""
                             dest.phone = currentUser?.phoneNumber ?? ""
+                            
+                            print(currentUser)
+                            
+                            if (dest.phone.count > 0) {
+                                if (dest.phone[dest.phone.startIndex] == "0") {
+                                    dest.phone.removeFirst()
+                                    dest.phone = "+84" + dest.phone
+                                }
+                            }
+                           
+                            
+                            print(dest.phone)
+                            
                             dest.userEmail = currentUser?.email ?? ""
                             dest.UID = currentUser!.uid
                             dest.token = UUID().uuidString

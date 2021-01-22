@@ -39,10 +39,15 @@ class UserViewController: UIViewController {
                 userEmailLabel.text = data?["email"] as? String
                 
                 let urlStr = URL(string: (data?["avatar"] as! String))
-                let urlReq = URLRequest(url: urlStr!,
-                                        cachePolicy: .reloadIgnoringLocalCacheData)
+                let urlReq = URLRequest(url: urlStr!)
                 
-                Nuke.loadImage(with: urlReq, into: self.userAvatarImageView)
+                let options = ImageLoadingOptions(
+                  placeholder: UIImage(systemName: "arrow.triangle.2.circlepath"),
+                  transition: .fadeIn(duration: 0.5)
+                )
+
+                
+                Nuke.loadImage(with: urlReq, options: options, into: self.userAvatarImageView)
                 
                 } else {
                     print("Document does not exist")

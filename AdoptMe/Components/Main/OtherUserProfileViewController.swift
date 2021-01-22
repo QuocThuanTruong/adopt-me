@@ -84,8 +84,14 @@ class OtherUserProfileViewController: UIViewController {
                 
                 let urlStr = URL(string: (data?["avatar"] as! String))
                 let urlReq = URLRequest(url: urlStr!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+                
+                let options = ImageLoadingOptions(
+                  placeholder: UIImage(named: "dark-moon"),
+                  transition: .fadeIn(duration: 0.5)
+                )
 
-                Nuke.loadImage(with: urlReq, into: userAvatarImageView)
+
+                Nuke.loadImage(with: urlReq, options: options, into: userAvatarImageView)
 
                 userFullName.text = data?["fullname"] as? String
                 emailLabel.text = data?["email"] as? String

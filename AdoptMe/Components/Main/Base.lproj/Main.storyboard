@@ -4742,8 +4742,8 @@ with others</string>
                                         <textInputTraits key="textInputTraits"/>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="RW4-8W-flu"/>
                                                 <exclude reference="GRl-41-efU"/>
+                                                <exclude reference="RW4-8W-flu"/>
                                                 <exclude reference="lHu-Vz-bf4"/>
                                             </mask>
                                         </variation>
@@ -5540,6 +5540,8 @@ your profile</string>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="changePasswordButton" destination="zUX-qt-JbI" id="Lgj-Dc-oqn"/>
+                        <outlet property="changePasswordCardView" destination="KwH-4i-4eT" id="Vsp-n4-n6n"/>
                         <outlet property="lauchIntroductionSwitch" destination="txa-1U-l6H" id="Pkl-6a-JwM"/>
                         <outlet property="notificationSwitch" destination="5De-CL-QoJ" id="mvm-px-BlR"/>
                     </connections>
@@ -6071,7 +6073,7 @@ your password</string>
             <size key="intrinsicContentSize" width="71" height="32"/>
         </designable>
         <designable name="17c-VL-Hgo">
-            <size key="intrinsicContentSize" width="35" height="32"/>
+            <size key="intrinsicContentSize" width="30" height="29"/>
         </designable>
         <designable name="4tb-P4-lRO">
             <size key="intrinsicContentSize" width="72" height="32"/>
@@ -6080,7 +6082,7 @@ your password</string>
             <size key="intrinsicContentSize" width="55" height="32"/>
         </designable>
         <designable name="dMt-du-rfO">
-            <size key="intrinsicContentSize" width="75" height="32"/>
+            <size key="intrinsicContentSize" width="63" height="29"/>
         </designable>
         <designable name="hhR-FQ-qkK">
             <size key="intrinsicContentSize" width="87" height="32"/>
