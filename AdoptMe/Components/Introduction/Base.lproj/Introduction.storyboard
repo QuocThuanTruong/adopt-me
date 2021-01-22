@@ -110,7 +110,7 @@
                                 <color key="textColor" name="AppTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIY-cI-tNN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are a pet lover? and you want to find a pet for your house and take care it." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIY-cI-tNN">
                                 <rect key="frame" x="57" y="567" width="300" height="35.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="udH-v7-Xz4"/>
@@ -279,8 +279,8 @@
                                 <color key="textColor" name="AppTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5J-an-P3M">
-                                <rect key="frame" x="57" y="571" width="300" height="35.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can't afford to continue taking care your pet and your pet will need a better home an new enviroment right now." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5J-an-P3M">
+                                <rect key="frame" x="57" y="571" width="300" height="53.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="7LI-Cx-sN5"/>
                                 </constraints>
@@ -439,8 +439,8 @@
                                 <color key="textColor" name="AppTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMe-N6-vlz">
-                                <rect key="frame" x="57" y="562" width="300" height="35.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adopt me is a community wil hellp you solve all previous problem. We will support you as far as we can." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMe-N6-vlz">
+                                <rect key="frame" x="57" y="562" width="300" height="53.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="esT-MO-VB1"/>
                                 </constraints>
@@ -488,7 +488,7 @@
                                 </variation>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qjZ-PF-Phj" customClass="MDCButton">
-                                <rect key="frame" x="62" y="657.5" width="290" height="44"/>
+                                <rect key="frame" x="62" y="675.5" width="290" height="44"/>
                                 <color key="backgroundColor" name="AppRedColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="290" id="0Dy-Mk-Z01"/>
@@ -525,7 +525,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhM-Xl-O8Z">
-                                <rect key="frame" x="144.5" y="727.5" width="125" height="31"/>
+                                <rect key="frame" x="144.5" y="745.5" width="125" height="31"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                 <state key="normal" title="Login to continue">
                                     <color key="titleColor" name="AppSecondaryColor"/>

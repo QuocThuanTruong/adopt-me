@@ -81,7 +81,7 @@ class PetDetailViewController: UIViewController {
             let index = favorites.firstIndex(of: self.pet.pet_id)
             
             if index != nil {
-                self.favButton.setImage(UIImage(named: "ic-sm-red-fav"), for: .normal)
+                self.favButton.setImage(UIImage(named: "ic-md-red-fav"), for: .normal)
             } else {
                 self.favButton.setImage(UIImage(named: "ic-md-white-fav"), for: .normal)
             }
@@ -216,12 +216,12 @@ class PetDetailViewController: UIViewController {
                 let index = favorites.firstIndex(of: pet.pet_id)
                 
                 if index != nil {
-                    favButton?.setImage(UIImage(named: "ic-sm-white-fav"), for: .normal)
+                    favButton?.setImage(UIImage(named: "ic-md-white-fav"), for: .normal)
                     
                     favorites.remove(at: index!)
 
                 } else {
-                    favButton?.setImage(UIImage(named: "ic-sm-red-fav"), for: .normal)
+                    favButton?.setImage(UIImage(named: "ic-md-red-fav"), for: .normal)
                     
                     favorites.append(pet.pet_id)
                 }

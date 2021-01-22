@@ -99,7 +99,7 @@ final class LocationPickerViewController: UIViewController {
         } else {
             let backButton = UIButton()
             
-            backButton.setImage(UIImage(named: "back-white-arrow"), for: .normal)
+            backButton.setImage(UIImage(named: "back-black-arrow"), for: .normal)
             backButton.translatesAutoresizingMaskIntoConstraints = false
             backButton.addTarget(self, action: #selector(dissmissAct(_:)), for: .touchUpInside)
             self.view.addSubview(backButton)
