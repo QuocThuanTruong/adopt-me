@@ -73,9 +73,12 @@ class UpdateMyProfileViewController: UIViewController {
                 let urlStr = URL(string: (data?["avatar"] as! String))
                 let urlReq = URLRequest(url: urlStr!)
 
+                let options = ImageLoadingOptions(
+                  placeholder: UIImage(named: "user_avatar"),
+                  transition: .fadeIn(duration: 0.5)
+                )
                 
-                Nuke.loadImage(with: urlReq, into: self.avtImageView)
-                
+                Nuke.loadImage(with: urlReq, options: options, into: self.avtImageView)
                 
                 self.avtImageView.layer.cornerRadius = self.avtPickerButton.frame.width / 2
                 
@@ -446,6 +449,7 @@ class UpdateMyProfileViewController: UIViewController {
             return;
         }
         
+        ProgressHUD.show()
         db.collection("users").whereField("email", isEqualTo: emailTextField.text!)
             .getDocuments{ (querySnapshot, error) in
                 if let error = error {
@@ -473,55 +477,93 @@ class UpdateMyProfileViewController: UIViewController {
                             
                             result = false
                         } else {
-                            result = true
+                            db.collection("users").whereField("phone", isEqualTo: self.phone)
+                                .getDocuments{ (querySnapshot, error) in
+                                    
+                                    if let error = error {
+                                        print(error)
+                                    } else {
+                                        print(self.phone)
+                                        
+                                        if querySnapshot!.documents.count >= 1 {
+                                            let data = querySnapshot!.documents[0].data()
+                                            let uid = data["UID"] as! String
+                                            
+                                            if (uid != Core.shared.getCurrentUserID()) {
+                                                alertMessage = "phone number is already exists"
+                                                
+                                                let appearance = SCLAlertView.SCLAppearance(
+                                                    kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                                                    showCloseButton: false, showCircularIcon: false
+                                                )
+                                                
+                                                let alertView = SCLAlertView(appearance: appearance)
+                                                
+                                                alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                                                    alertView.dismiss(animated: true, completion: nil)
+                                                })
+                                                
+                                                alertView.showWarning("Warning", subTitle: alertMessage)
+                                                
+                                                result = false
+                                            } else {
+                                                result = true
+                                            }
+                                            
+                                        } else {
+                                            result = true
+                                        }
+                                    }
+                                }
                         }
                         
                     } else {
-                        result = true
+                        db.collection("users").whereField("phone", isEqualTo: self.phone)
+                            .getDocuments{ (querySnapshot, error) in
+                                
+                                if let error = error {
+                                    print(error)
+                                } else {
+                                    print(self.phone)
+                                    
+                                    if querySnapshot!.documents.count >= 1 {
+                                        let data = querySnapshot!.documents[0].data()
+                                        let uid = data["UID"] as! String
+                                        
+                                        if (uid != Core.shared.getCurrentUserID()) {
+                                            alertMessage = "phone number is already exists"
+                                            
+                                            let appearance = SCLAlertView.SCLAppearance(
+                                                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
+                                                showCloseButton: false, showCircularIcon: false
+                                            )
+                                            
+                                            let alertView = SCLAlertView(appearance: appearance)
+                                            
+                                            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
+                                                alertView.dismiss(animated: true, completion: nil)
+                                            })
+                                            
+                                            alertView.showWarning("Warning", subTitle: alertMessage)
+                                            
+                                            result = false
+                                        } else {
+                                            result = true
+                                        }
+                                        
+                                    } else {
+                                        result = true
+                                    }
+                                }
+                            }
                     }
                 }
             }
         
-        db.collection("users").whereField("phone", isEqualTo: phone)
-            .getDocuments{ (querySnapshot, error) in
-                
-                if let error = error {
-                    print(error)
-                } else {
-                    print(self.phone)
-                    
-                    if querySnapshot!.documents.count >= 1 {
-                        let data = querySnapshot!.documents[0].data()
-                        let uid = data["UID"] as! String
-                        
-                        if (uid != Core.shared.getCurrentUserID()) {
-                            alertMessage = "phone number is already exists"
-                            
-                            let appearance = SCLAlertView.SCLAppearance(
-                                kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
-                                showCloseButton: false, showCircularIcon: false
-                            )
-                            
-                            let alertView = SCLAlertView(appearance: appearance)
-                            
-                            alertView.addButton("CANCEL", backgroundColor: UIColor(named: "AppRedColor"), textColor: .white, showTimeout: .none, action: {
-                                alertView.dismiss(animated: true, completion: nil)
-                            })
-                            
-                            alertView.showWarning("Warning", subTitle: alertMessage)
-                            
-                            result = false
-                        } else {
-                            result = true
-                        }
-                        
-                    } else {
-                        result = true
-                    }
-                }
-            }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            ProgressHUD.dismiss()
             self.isCorrect = result;
         }
     }
@@ -538,10 +580,9 @@ class UpdateMyProfileViewController: UIViewController {
     @IBAction func finishUpdateInfo(_ sender: Any) {
         checkForm()
 
-        ProgressHUD.show()
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [self] in
-
             if (isCorrect) {
+               
                 let userCollection = db.collection("users")
                 
                 var user = MyUser()
@@ -559,6 +600,7 @@ class UpdateMyProfileViewController: UIViewController {
                     let image = avtPickerButton.image(for: .normal)
             
                     DispatchQueue.global().async {
+                        ProgressHUD.show()
                         StorageManager.shared.uploadImage(with: image!.pngData()!, fileName: UUID().uuidString + ".png", folder: "User", subFolder: user.UID, completion: { result in
 
                             switch result {
@@ -578,6 +620,7 @@ class UpdateMyProfileViewController: UIViewController {
                                 "email" : user.email,
                                 "fullname" : user.fullname,
                                 "gender" : user.gender,
+                                "phone" : self.phone,
                             ])
                             
                             Core.shared.setIsUserLogin(true)
@@ -622,6 +665,7 @@ class UpdateMyProfileViewController: UIViewController {
                                 "email" : user.email,
                                 "fullname" : user.fullname,
                                 "gender" : user.gender,
+                                "phone" : self.phone,
                             ])
                         
                         Core.shared.setIsUserLogin(true)
@@ -659,6 +703,8 @@ class UpdateMyProfileViewController: UIViewController {
                     }
                     
                 }
+            } else {
+                ProgressHUD.dismiss()
             }
         }
     }

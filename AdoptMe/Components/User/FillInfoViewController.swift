@@ -432,7 +432,7 @@ class FillInfoViewController: UIViewController {
                 if (avtPickerButton.tag == 1) {
                     image = avtPickerButton.image(for: .normal)!
                 } else {
-                    image = UIImage(named: "test_avt")!
+                    image = UIImage(named: "user_avatar")!
                 }
                
         

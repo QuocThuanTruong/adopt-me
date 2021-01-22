@@ -86,7 +86,7 @@ class OtherUserProfileViewController: UIViewController {
                 let urlReq = URLRequest(url: urlStr!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
                 
                 let options = ImageLoadingOptions(
-                  placeholder: UIImage(named: "dark-moon"),
+                  placeholder: UIImage(named: "user_avatar"),
                   transition: .fadeIn(duration: 0.5)
                 )
 
@@ -107,7 +107,7 @@ class OtherUserProfileViewController: UIViewController {
                 let following = data?["following"] as! [String]
                 followingLabel.text = "\(following.count) following"
                 
-                let followers = data?["following"] as! [String]
+                let followers = data?["followers"] as! [String]
                 followersLabel.text = "\(followers.count) followers"
                 
                 } else {

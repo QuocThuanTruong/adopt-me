@@ -68,7 +68,12 @@ class PetDetailViewController: UIViewController {
             let urlStr = URL(string: (data?["avatar"] as! String))
             let urlReq = URLRequest(url: urlStr!)
             
-            Nuke.loadImage(with: urlReq, into: self.userAvatarImageView)
+            let options = ImageLoadingOptions(
+              placeholder: UIImage(named: "user_avatar"),
+              transition: .fadeIn(duration: 0.5)
+            )
+            
+            Nuke.loadImage(with: urlReq, options: options, into: self.userAvatarImageView)
 
             self.userAvatarImageView.layer.cornerRadius = 30.0
         }
