@@ -9,6 +9,7 @@ import UIKit
 import MaterialComponents
 import FlagPhoneNumber
 import SCLAlertView
+import ProgressHUD
 
 class RegisterViewController: UIViewController {
 
@@ -218,7 +219,7 @@ class RegisterViewController: UIViewController {
             return;
         }
     
-        
+        ProgressHUD.show()
         db.collection("users").whereField("username", isEqualTo: self.usernameTextField.text!)
             .getDocuments{ (querySnapshot, error) in
                 if let error = error {
@@ -323,6 +324,7 @@ class RegisterViewController: UIViewController {
         }
     
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4), execute :  {
+            ProgressHUD.dismiss()
             self.isCorrect = result;
         })
         

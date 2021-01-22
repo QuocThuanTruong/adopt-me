@@ -13,6 +13,7 @@ import Photos
 import ALCameraViewController
 import FirebaseStorage
 import SCLAlertView
+import ProgressHUD
 
 class AddPetViewController: UIViewController {
 
@@ -500,6 +501,7 @@ class AddPetViewController: UIViewController {
         newPet.user_id = Core.shared.getCurrentUserID()
         newPet.pet_id = UUID().uuidString
         
+        ProgressHUD.show()
         //upload Avatar
         StorageManager.shared.uploadImage(with: avatarImage!.pngData()!, fileName: "avatar.png", folder: "Pet", subFolder: newPet.pet_id, completion: {  result in
                 switch result {
@@ -567,6 +569,7 @@ class AddPetViewController: UIViewController {
                         ], merge: true)
                         
                         //Alert thanh cong
+                        ProgressHUD.dismiss()
                         let appearance = SCLAlertView.SCLAppearance(
                             kButtonFont: UIFont(name: "HelveticaNeue", size: 17)!,
                             showCloseButton: false, showCircularIcon: false
