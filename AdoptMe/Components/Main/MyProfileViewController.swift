@@ -84,7 +84,7 @@ class MyProfileViewController: UIViewController {
                 let urlReq = URLRequest(url: urlStr!)
                 
                 let options = ImageLoadingOptions(
-                  placeholder: UIImage(systemName: "arrow.triangle.2.circlepath"),
+                  placeholder: UIImage(named: "user_avatar"),
                   transition: .fadeIn(duration: 0.5)
                 )
                 Nuke.loadImage(with: urlReq, options: options, into: userAvatarImageView)
