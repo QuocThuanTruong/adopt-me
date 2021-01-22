@@ -271,6 +271,7 @@ class FillInfoViewController: UIViewController {
                    
                     self!.avtPickerButton.setImage(image, for: .normal)
                     self!.avtPickerButton.tag = 1;
+                    self!.avtPickerButton.imageView?.layer.cornerRadius = self!.avtPickerButton.frame.width / 2
                     
                       imagePickerViewController.dismiss(animated: false, completion: nil)
                       

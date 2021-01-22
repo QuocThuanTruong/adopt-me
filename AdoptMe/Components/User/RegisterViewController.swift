@@ -115,13 +115,13 @@ class RegisterViewController: UIViewController {
 //        let registerVC = self.presentingViewController
 //
 //        self.dismiss(animated: true, completion: {
-//            let dest = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-//
-//            dest.modalPresentationStyle = .fullScreen
-//            registerVC?.present(dest, animated: true, completion: nil)
-//        })
+            let dest = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+
+            dest.modalPresentationStyle = .fullScreen
+            self.present(dest, animated: true, completion: nil)
+
        
-        self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
     }
     
     func isSame(_ password: String, _ retype: String) -> Bool {
