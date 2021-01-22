@@ -150,9 +150,9 @@ class ChatDetailViewController: MessagesViewController {
            actionSheet.addAction(UIAlertAction(title: "Photo", style: .default, handler: { [weak self] _ in
                self?.presentPhotoInputActionsheet()
            }))
-           actionSheet.addAction(UIAlertAction(title: "Video", style: .default, handler: { [weak self]  _ in
-               self?.presentVideoInputActionsheet()
-           }))
+//           actionSheet.addAction(UIAlertAction(title: "Video", style: .default, handler: { [weak self]  _ in
+//               self?.presentVideoInputActionsheet()
+//           }))
 
            actionSheet.addAction(UIAlertAction(title: "Location", style: .default, handler: { [weak self]  _ in
                self?.presentLocationPicker()

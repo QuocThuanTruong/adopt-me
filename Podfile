@@ -19,6 +19,7 @@ target 'AdoptMe' do
   pod 'OTPFieldView'
   pod "FlagPhoneNumber"
   pod 'SCLAlertView'
+  pod 'ProgressHUD'
   
   pod 'BottomPopUpView'
   pod 'FBSDKLoginKit'

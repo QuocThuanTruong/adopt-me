@@ -16,6 +16,7 @@ import ALCameraViewController
 import Nuke
 import FlagPhoneNumber
 import SCLAlertView
+import ProgressHUD
 
 protocol UpdateInfoDelegate: class {
     func updateChangeInfo()
@@ -55,6 +56,7 @@ class UpdateMyProfileViewController: UIViewController {
     
     var context: UIViewController!
     
+    @IBOutlet weak var avtImageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,12 +73,11 @@ class UpdateMyProfileViewController: UIViewController {
                 let urlStr = URL(string: (data?["avatar"] as! String))
                 let urlReq = URLRequest(url: urlStr!)
 
-                let imageView = UIImageView();
                 
-                Nuke.loadImage(with: urlReq, into: imageView)
+                Nuke.loadImage(with: urlReq, into: self.avtImageView)
                 
-                self.avtPickerButton.setImage(imageView.image, for: .normal)
-                //avtPickerButton.imageView?.layer.cornerRadius = avtPickerButton.frame.width / 2
+                
+                self.avtImageView.layer.cornerRadius = self.avtPickerButton.frame.width / 2
                 
                 print("load avatar ne")
                 self.userfullNameTextField.text = data?["fullname"] as? String
@@ -536,8 +537,10 @@ class UpdateMyProfileViewController: UIViewController {
     
     @IBAction func finishUpdateInfo(_ sender: Any) {
         checkForm()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [self] in
+
+        ProgressHUD.show()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [self] in
+
             if (isCorrect) {
                 let userCollection = db.collection("users")
                 
@@ -605,6 +608,7 @@ class UpdateMyProfileViewController: UIViewController {
                                         self.dismiss(animated: true, completion: nil)
                                     }
                                 })
+                                ProgressHUD.dismiss()
                                 alertView.showSuccess("Congratulation", subTitle: "Update successfully")
                             }
                         })
