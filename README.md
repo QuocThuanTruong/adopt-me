@@ -6,7 +6,7 @@
 
 <p align="left">
 <img src="https://img.shields.io/badge/version-1.1.0-blue">
-<img src="https://img.shields.io/badge/platforms-iOS-green.svg">
+<img src="https://img.shields.io/badge/platforms-iOS-orange.svg">
 </p>
 
 Adopt Me help people adopt or post pets for adoption.
