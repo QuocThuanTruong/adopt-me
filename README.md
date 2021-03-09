@@ -1,13 +1,12 @@
 <br/>
 
-<p align="left"><img src="https://cloud.githubusercontent.com/assets/1567433/13918338/f8670eea-ef7f-11e5-814d-f15bdfd6b2c0.png" height="180"/></p>
+<p align="left"><img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/cover.png"/></p>
 
 # An iOS application for pet adoption
 
 <p align="left">
-<img src="https://img.shields.io/cocoapods/v/Nuke.svg?label=version">
-<img src="https://img.shields.io/badge/platforms-iOS%2C%20macOS%2C%20watchOS%2C%20tvOS-lightgrey.svg">
-<img src="https://github.com/kean/Nuke/workflows/Nuke%20CI/badge.svg">
+<img src="https://img.shields.io/badge/version-1.1.0-blue">
+<img src="https://img.shields.io/badge/platforms-iOS-green.svg">
 </p>
 
 Adopt Me help people adopt or post pets for adoption.
@@ -33,9 +32,9 @@ For a pet owner, you can create a post for adoption with photos and information 
 Introducing app when first lauching
 You can login or register if newer here.
 
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Intro_1.png" width="360"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Intro_2.png" width="360"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Intro_3.png" width="360"/>
 
 
 <br/>
@@ -45,7 +44,7 @@ You can login or register if newer here.
 User can register or login with exist account here.
 In addition, user can login with Facebook or Google account instead.
 
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
+<img align="left" src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
 <img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
 <img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
 
