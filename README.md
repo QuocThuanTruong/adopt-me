@@ -27,15 +27,19 @@ For a pet owner, you can create a post for adoption with photos and information 
 
 *   **Twillo**
 
+# Demo
+***https://youtu.be/W1DuCXef1Oo***
+
 # App introduction
 
 Introducing app when first lauching
 You can login or register if newer here.
 
-<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Intro_1.png" width="360"/>
-<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Intro_2.png" width="360"/>
-<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Intro_3.png" width="360"/>
-
+<div>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Intro_1.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Intro_2.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Intro_3.png" width="310"/>
+</div>
 
 <br/>
 
@@ -44,9 +48,11 @@ You can login or register if newer here.
 User can register or login with exist account here.
 In addition, user can login with Facebook or Google account instead.
 
-<img align="left" src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
+<div>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Auth_1.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Auth_2.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Auth_3.png" width="310"/>
+</div>
 
 <br/>
 
@@ -54,9 +60,11 @@ In addition, user can login with Facebook or Google account instead.
 
 If user forgot his/her password, he/she can recover it by phone number.
 
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
+<div>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Ver_1.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Ver_2.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Ver_3.png" width="310"/>
+</div>
 
 <br/>
 
@@ -64,9 +72,11 @@ If user forgot his/her password, he/she can recover it by phone number.
 
 Showing all pet for adoption with 3 main type: dogs, cats and other pet (such as turtle, hamster, pig,..).
 
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
+<div>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Home_1.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Home_2.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Home_3.png" width="310"/>
+</div>
 
 <br/>
 
@@ -75,9 +85,10 @@ Showing all pet for adoption with 3 main type: dogs, cats and other pet (such as
 User can search pet by its name and filter by age, posted date and gender.
 Beside, search screen also shows user's seaching history and suggests latest pet for user.
 
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
+<div>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Home_4.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Home_5.png" width="310"/>
+</div>
 
 <br/>
 
@@ -85,9 +96,11 @@ Beside, search screen also shows user's seaching history and suggests latest pet
 
 Detail information of the pet that needs adoption, including name, age, gender, address, description and photos.
 
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
+<div>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Detail_1.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Detail_2.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Pro_1.png" width="310"/>
+</div>
 
 <br/>
 
@@ -95,9 +108,11 @@ Detail information of the pet that needs adoption, including name, age, gender, 
 
 User create a post for adoption with photos and information relevant to the pet.
 
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
+<div>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Add_1.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Add_2.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Add_3.png" width="310"/>
+</div>
 
 <br/>
 
@@ -105,9 +120,11 @@ User create a post for adoption with photos and information relevant to the pet.
 
 User can get more information and  negotiate the transfer of the pet by chatting with others when tap button "ADOPT ME" in pet detail.
 
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
+<div>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Chat_1.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Chat_2.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Chat_3.png" width="310"/>
+</div>
 
 <br/>
 
@@ -115,8 +132,11 @@ User can get more information and  negotiate the transfer of the pet by chatting
 
 Manage user profile and other setting in app.
 
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
-<img src="https://user-images.githubusercontent.com/1567433/59150381-d34beb80-8a22-11e9-8d9a-6b1527ffc9e1.png" width="360"/>
+<div>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Pro_2.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Pro_3.png" width="310"/>
+<img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Set_1.png" width="310"/>
+ <img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/Set_2.png" width="310"/>
+</div>
 
 <br/>
