@@ -94,6 +94,7 @@ class AddPetViewController: UIViewController {
             buttons[i].layer.cornerRadius = 13.0
             buttons[i].layer.borderWidth = 1.0
             buttons[i].layer.borderColor = UIColor(named: "AccentColor")?.cgColor
+            buttons[i].imageView?.contentMode = .scaleAspectFill
         }
         
         genderPickerView = UIPickerView()

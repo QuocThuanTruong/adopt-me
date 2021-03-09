@@ -77,6 +77,7 @@ class OtherUserProfileViewController: UIViewController {
         userAvatarImageView.layer.masksToBounds = false
         userAvatarImageView.layer.cornerRadius = userAvatarImageView.frame.height/2
         userAvatarImageView.clipsToBounds = true
+        userAvatarImageView.contentMode = .scaleAspectFill
         
         db.collection("users").document(user_id).getDocument { [self] (document, error) in
             if let document = document, document.exists {
