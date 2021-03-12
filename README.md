@@ -2,7 +2,7 @@
 
 <p align="left"><img src="https://github.com/QuocThuanTruong/AdoptMe/blob/main/Img/cover.png"/></p>
 
-# An iOS application for pet adoption
+# ADOPT ME
 
 <p align="left">
 <img src="https://img.shields.io/badge/version-1.1.0-blue">
@@ -26,6 +26,13 @@ For a pet owner, you can create a post for adoption with photos and information 
     - Cloud Firestore
 
 *   **Twillo**
+
+# Team information
+
+|         Name         |   ID   |
+|----------------------|:--------:|
+| Quốc Thuận Trương    | 18120583 |
+| Lê Nhật Tuấn         | 18120632 |
 
 # Demo
 ***https://youtu.be/W1DuCXef1Oo***
