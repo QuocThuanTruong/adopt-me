@@ -29,10 +29,10 @@ For a pet owner, you can create a post for adoption with photos and information 
 
 # Team information
 
-|         Name         |   ID   |
-|----------------------|:--------:|
-| Quốc Thuận Trương    | 18120583 |
-| Lê Nhật Tuấn         | 18120632 |
+|         Name         |   ID     |      Role    |
+|----------------------|:--------:|:------------:|
+| Quốc Thuận Trương    | 18120583 |     Leader   |
+| Lê Nhật Tuấn         | 18120632 |     Member   |
 
 # Demo
 > ***https://youtu.be/W1DuCXef1Oo***
