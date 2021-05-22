@@ -13,7 +13,7 @@ Adopt Me help people adopt or post pets for adoption.
 For a pet lover, you can find and contact to pet owner to get more information and  negotiate the transfer of the pet.
 For a pet owner, you can create a post for adoption with photos and information relevant to your pet or a pet that you have rescured.
 
->  **Swift** · **Storyboard** · **Firebase services** · **Realtime chat** · **Twillo verification**
+>  **Swift** · **Storyboard** · **Firebase services** · **Realtime chat** · **Twillio verification**
 
 <br/>
 
@@ -25,7 +25,7 @@ For a pet owner, you can create a post for adoption with photos and information 
     - Storage
     - Cloud Firestore
 
-*   **Twillo**
+*   **Twillio**
 
 # Team information
 
