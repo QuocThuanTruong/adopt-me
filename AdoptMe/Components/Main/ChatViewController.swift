@@ -35,9 +35,8 @@ class ChatViewController: UIViewController {
     
     
     private func startListeningForCOnversations() {
-        print("usser id: \(Core.shared.getCurrentUserID())")
         let email = Core.shared.getCurrentUserEmail()
-        
+
 
             print("starting conversation fetch... \(email)")
 

@@ -72,9 +72,7 @@ class ChatDetailViewController: MessagesViewController {
         
         initView()
         
-        print("title chat \(titleChat)")
         messagesCollectionView.backgroundColor = .white
-       
         self.view.backgroundColor = UIColor(named: "AppPrimaryColor")
         chatTitle.text = titleChat
     }
@@ -88,19 +86,15 @@ class ChatDetailViewController: MessagesViewController {
     }
     
     func initView() {
-        print("init chat detail")
-       
-       let topC = NSLayoutConstraint(item: messagesCollectionView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 150)
-
+        let topC = NSLayoutConstraint(item: messagesCollectionView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 150)
+        
         let leftC = NSLayoutConstraint(item: messagesCollectionView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0)
-
+        
         let bottomC = NSLayoutConstraint(item: messagesCollectionView, attribute: .bottom, relatedBy: .equal, toItem: self.view , attribute: .bottom, multiplier: 1, constant: 0)
-
+        
         let rightC = NSLayoutConstraint(item: messagesCollectionView, attribute: .trailing, relatedBy: .equal, toItem: self.view , attribute: .trailing, multiplier: 1, constant: 0)
-
+        
         NSLayoutConstraint.activate([topC, leftC, bottomC, rightC])
-       
-        print("active chat detail constraint")
     }
     
     private func listenForMessages(id: String, shouldScrollToBottom: Bool) {
