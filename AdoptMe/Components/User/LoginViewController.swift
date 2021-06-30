@@ -200,8 +200,6 @@ class LoginViewController: UIViewController {
                             }
                             
                             Core.shared.setCurrentUserID(data?["UID"] as! String)
-                            print(data?["email"] as! String)
-                            Core.shared.setCurrentUserEmail(data?["email"] as! String)
                             self.loginManual()
                         } else {
                             let appearance = SCLAlertView.SCLAppearance(

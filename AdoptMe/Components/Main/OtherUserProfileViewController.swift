@@ -126,7 +126,7 @@ class OtherUserProfileViewController: UIViewController {
                 if index != nil {
                     followButton.setTitle("UNFOLLOW", for: .normal)
                 } else {
-                    followButton.setTitle("FOLLOW", for: .normal)
+                    followButton.setTitle("FOLLOWING", for: .normal)
                 }
                 
             }
@@ -161,7 +161,7 @@ class OtherUserProfileViewController: UIViewController {
                 if index != nil {
                     following.remove(at: index!)
                     
-                    followButton.setTitle("FOLLOW", for: .normal)
+                    followButton.setTitle("FOLLOWING", for: .normal)
                     
                     db.collection("users").document(user_id).getDocument { [self] (document, error) in
                         if let document = document, document.exists {
