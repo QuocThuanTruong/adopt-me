@@ -14,7 +14,7 @@ target 'AdoptMe' do
   pod 'ImageSlideshow'
   pod "ImageSlideshow/Alamofire"
   pod 'UIFloatLabelTextView'
-  pod 'MessageKit'
+  pod 'MessageKit', '~> 3.3.0'
   pod 'ALCameraViewController'
   pod 'OTPFieldView'
   pod "FlagPhoneNumber"
