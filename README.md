@@ -17,7 +17,7 @@ For a pet owner, you can create a post for adoption with photos and information 
 
 <br/>
 
-# Technical stack
+# Tech stack
 
 *   **Firebase services**
     - Authenication
